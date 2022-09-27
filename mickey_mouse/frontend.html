@@ -1,0 +1,31 @@
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+    axios.get("../backend/backend.php")
+                .then(response => {
+                  if (response.status == 200) {
+                    console.log(response.data)
+                    // this.savingSuccessful = true
+                    // this.date = ''
+                    // this.itemName = ''
+                    // this.price = ''
+                    // document.getElementById("location").value = ''
+                    // document.getElementById("location").placeholder = ''
+                    // this.category = ''
+                    // document.getElementById("classify-failure").innerHTML = ''
+                    // document.getElementById("lat").value = '1.2973784'
+                    // document.getElementById("lng").value = '103.8495219'
+                    
+                    // if (document.getElementById("addr") != null){
+                    //       document.getElementById("addr").value = ''
+                    // }
+                    // else {
+                    //       document.getElementById("searchType").value = ''
+                    //       document.getElementById("places").innerHTML = ''
+                    // }
+                    // this.progressUpdate();
+                  }
+                })
+                .catch(error => {
+                  console.log(error.message);
+                });
+</script>
