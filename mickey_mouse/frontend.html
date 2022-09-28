@@ -1,6 +1,6 @@
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script>
-    axios.get("../backend/backend.php")
+    axios.get("backend/backend.php")
                 .then(response => {
                   if (response.status == 200) {
                     console.log(response.data)
