@@ -24,9 +24,9 @@ foreach ($database as $role) {
     $roles[] = $roleToArray;
 }
 
-$labels = ["Role ID", "Role Name", "Role Description"];
+// $labels = ["Role ID", "Role Name", "Role Description"];
 
-$output = ["labels" => $labels, "records" => $roles];
+$output = ["records" => $roles];
 
 // create json string and send back to client
 $jsonObj = json_encode($output);

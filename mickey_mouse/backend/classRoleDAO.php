@@ -1,6 +1,6 @@
 <?php
 
-require_once "classItem.php";
+require_once "classRole.php";
 require_once "classConnectionManager.php";
 class classRoleDAO {
     
