@@ -4,7 +4,7 @@
 *,
 *::before,
 *::after {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 /* Remove default margin */
@@ -18,7 +18,7 @@ figure,
 blockquote,
 dl,
 dd {
-  margin: 0;
+    margin: 0;
 }
 
 /* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
@@ -29,50 +29,50 @@ ol[role='list'] {
 
 /* Set core root defaults */
 html:focus-within {
-  scroll-behavior: smooth;
+    scroll-behavior: smooth;
 }
 
 /* Set core body defaults */
 body {
-  min-height: 100vh;
-  text-rendering: optimizeSpeed;
-  line-height: 1.5;
+    min-height: 100vh;
+    text-rendering: optimizeSpeed;
+    line-height: 1.5;
 }
 
 /* A elements that don't have a class get default styles */
 a:not([class]) {
-  text-decoration-skip-ink: auto;
+    text-decoration-skip-ink: auto;
 }
 
 /* Make images easier to work with */
 img,
 picture {
-  max-width: 100%;
-  display: block;
-}
+    max-width: 100%;
+    display: block;
+    }
 
 /* Inherit fonts for inputs and buttons */
 input,
 button,
 textarea,
 select {
-  font: inherit;
+    font: inherit;
 }
 
 /* Remove all animations, transitions and smooth scroll for people that prefer not to see them */
 @media (prefers-reduced-motion: reduce) {
-  html:focus-within {
-   scroll-behavior: auto;
-  }
-  
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
+    html:focus-within {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
 }
 
 
@@ -92,7 +92,8 @@ select {
 body {
     background-color: var(--main-background-color);
 }
-.main-content {
+
+.Main__Content {
     display: flex;
     padding: 10px 20px;
     margin-left: auto;
@@ -101,3 +102,94 @@ body {
 }
 
 /*** 3.0 - Navbar ***/
+
+.Navbar__Wrapper {
+    background-color: #FFF;
+    box-shadow: var(--box-shadow);
+}
+
+.Navbar {
+    background-color: #FFF;
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    padding: 16px;
+    font-family: sans-serif;
+    color: white;
+    gap: 20px;
+    align-items: center;
+}
+
+.Navbar__Link {
+    color: black;
+    text-transform: uppercase;
+    padding-right: 8px;
+    cursor: pointer;
+}
+
+.Navbar__Link a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.Navbar__Link:hover {
+    color: var(--primary-word-color);
+}
+
+.Navbar__Link-brand {
+    font-size: 1.2rem;
+}
+
+.Navbar__Link-brand:hover {
+    color: black;
+}
+
+.Navbar__Items {
+    display: flex;
+    gap: 20px;
+}
+
+.Navbar__Items--right {
+    margin-left:auto;
+}
+
+.Navbar__Link-toggle {
+    display: none;
+}
+
+@media only screen and (max-width: 768px) {
+    .Navbar__Items,
+    .Navbar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .Navbar__Items {
+        display:none;
+    }
+        
+    .Navbar__Items--right {
+        margin-left:0;
+    }
+        
+    .Navbar__ToggleShow {
+        display: flex;
+        width: 100%;
+    }
+
+    .Navbar__Link {
+        width: 100%;
+    }
+
+    .Navbar__Link.Navbar__Link-toggle {
+        width: fit-content;
+    }
+        
+    .Navbar__Link-toggle {
+        align-self: flex-end;
+        display: initial;
+        position: absolute;
+        cursor: pointer;
+    } 
+}
