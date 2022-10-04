@@ -90,6 +90,7 @@ select {
 
 /*** 2.0 - General ***/
 body {
+    font-family: var(--font-family);
     background-color: var(--main-background-color);
 }
 
@@ -99,6 +100,26 @@ body {
     margin-left: auto;
     margin-right: auto;
     max-width: 1000px;
+}
+
+.btn,
+.textbox {
+    border-radius: 6px;
+    height: 40px;
+}
+
+.btn { 
+    background-color: var(--primary-color);
+    border-radius: 6px;
+    border: 0;
+    height: 40px;
+    color: white;
+    cursor: pointer;
+}
+
+.btn:hover,
+.textbox:hover {
+    box-shadow: var(--box-shadow);
 }
 
 /*** 3.0 - Navbar ***/
@@ -193,3 +214,58 @@ body {
         cursor: pointer;
     } 
 }
+
+/* login page */
+.login-page {
+    display: flex;
+    align-items: center;
+    height: 100vh;
+}
+
+.login-page_left,
+.login-page_right {
+    flex: 1;
+}
+
+.login-page_left {
+    background-image: url("../img/pexels-mentatdgt-1319854.jpg");
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+@media only screen and (max-width: 768px) {
+    .login-page_left {
+        display: none;
+    }
+}
+
+
+.login-page_form {
+    padding: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.login-page_logo {
+    width: 100px;
+    height: 100px;
+    background: grey;
+    border: 1px solid black;
+    border-radius: 50%;
+    margin-bottom: 50px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.login-page_login {
+    text-transform: uppercase;
+}
+
+.login-page_username,
+.login-page_password {
+    margin-bottom: 20px;
+}
+
