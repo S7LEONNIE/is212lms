@@ -3,6 +3,7 @@ const app = {
         return {
             jobCircle: 10,
             jobPreview: 10,
+            jobCovered: 10,
         }
     }
 }
