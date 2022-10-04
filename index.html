@@ -1,28 +1,164 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <meta charset = "utf-8">
+        <meta name = "viewport" content = "width=device-width, initial-scale = 1">
+
         <title>LJMS - Home</title>
         
         <!-- CSS Import -->
         <link rel="stylesheet" href="css/main.css">
 
+        <!-- import vue -->
         <script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.js"></script>
+
+        <!-- import jquery -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 
         <!-- Font-awesome Import -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
 
     </head>
 
-    <body>
-        <div id="app">
+    <body id="app">
+        <div class="Navbar__Wrapper">
+            <!-- nav bar -->
+            <div class="Navbar">
+                <div class="Navbar__Link Navbar__Link-brand">
+                    LJMS
+                </div>
+                <div onclick="classToggle()" class="Navbar__Link Navbar__Link-toggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+    
+                <nav class="Navbar__Items">
+                    <div class="Navbar__Link">
+                        <a href="index.php">Home</a>
+                    </div>
+                    <div class="Navbar__Link">
+                    <a href="job.php">Job</a>
+                    </div>
+                    <div class="Navbar__Link">
+                    <a href="skillcourse.php">Skills/Courses</a>
+                    </div>
+                </nav>
+    
+                <nav class="Navbar__Items Navbar__Items--right">
+                    <div class="Navbar__Link">
+                        <a href="myjourney.php">My Journey</a>
+                    </div>
+                    <div class="Navbar__Link">
+                        <a href="profile.php">Hi, xxxx</a>
+                    </div>
+                </nav>
+            </div>
         </div>
+
+        <!-- main content -->
+        <div class="Main__Content">
+
+            <!-- search bar -->
+            <div class="search_bar">
+                <input class="textbox">
+                <button class="btn">Search</button>
+            </div>
+
+            <!-- carousel -->
+            <div class="carousel">
+                <ul>
+                    <li class="carousel-shown"><img src="https://cdn.pixabay.com/photo/2016/11/21/14/12/books-1845614_960_720.jpg"></li>
+                    <li><img src="https://cdn.pixabay.com/photo/2017/07/17/00/58/coffee-2511065_960_720.jpg"></li>
+                    <li><img src="https://cdn.pixabay.com/photo/2016/11/18/16/49/books-1835753_960_720.jpg"></li>
+                </ul>
+              
+            </div>
+
+            <div class="quick_cat">
+                <div class="header">
+                    <div class="title">Jobs</div>
+                    <button class="btn">View More</button>
+                </div>
+                <div class="circles-container">
+                    <div v-for="index in jobCircle" class="circles">Job description</div>
+                </div>
+            </div>
+
+            <div class="cards">
+                <div class="header">
+                    <div class="title">Jobs</div>
+                    <button class="btn view-more">View More</button>
+                </div>
+
+                <div class="course-card-container-overflow">
+                    <div v-for="index in jobPreview" class="course-card">
+                        <div class="course-img">
+                            <img src="https://cdn.pixabay.com/photo/2016/11/22/21/26/notebook-1850613_960_720.jpg">
+                        </div>
+    
+                        <div class="course-title">Course Title Here</div>
+                        <div class="course-type">External</div>
+                        <div class="course-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation...</div>
+                        <div class="course-tags-container">
+                            <div class="course-tags">Test tag</div>
+                            <div class="course-tags">Test tag</div>
+                            <div class="course-tags">Test tag</div>
+                            <div class="course-tags">Test tag</div>
+                            <div class="course-tags">Test tag</div>
+                        </div>
+                        <button class="btn">View</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="quick_cat">
+                <div class="header">
+                    <div class="title">Jobs</div>
+                    <button class="btn">View More</button>
+                </div>
+                <div class="circles-container">
+                    <div v-for="index in jobCircle" class="circles">Job description</div>
+                </div>
+            </div>
+
+            <div class="quick_banner">
+                <div class="header">
+                    <div class="title">Jobs</div>
+                    <button class="btn">View More</button>
+                </div>
+                <div class="banner_container">
+                    <div class="banner">
+                        <img src="https://cdn.pixabay.com/photo/2016/11/22/21/26/notebook-1850613_960_720.jpg">
+                        <div class="quick_banner-text">Skills</div>
+                    </div>
+                    
+                    <div class="banner">
+                        <img src="https://cdn.pixabay.com/photo/2016/11/22/21/26/notebook-1850613_960_720.jpg">
+                        <div class="quick_banner-text">Courses</div>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+
+        <footer>
+            Created By: SPM Group 3
+        </footer>
         
-        <script type="module">
-            import app from './app.js'
-            const {createApp} = Vue;
-            createApp(app).mount('#app');
+        <script>
+            const app = {
+                data() {
+                    return {
+                        jobCircle: 10,
+                        jobPreview: 10,
+                    }
+                }
+            }
+
+            Vue.createApp(app).mount('#app');
         </script>
         
+        <script type="text/javascript" src="JS/javascript.js"></script>
     </body>
-    <script type="text/javascript" src="JS/javascript.js"></script>
 </html>
