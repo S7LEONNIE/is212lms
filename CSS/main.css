@@ -86,6 +86,9 @@ select {
 
     --box-shadow: 2px 2px 8px grey;
     --box-shadow-hover: 4px 4px 16px grey;
+
+    --completed-background-color: #519ACF;
+    --inprogress-background-color: #FFEA2C;
 }
 
 
@@ -472,7 +475,7 @@ body {
     position: relative;
     text-align: center;
     color: white;
-    font-size: 4rem;
+    font-size: 2.5rem;
     font-weight: 600;
     box-shadow: var(--box-shadow);
     border-radius: 6px;
@@ -484,6 +487,7 @@ body {
     left: 50%;
     transform: translate(-50%, -50%);
 }
+
 
 /* cards */
 
@@ -524,7 +528,7 @@ body {
     text-align: center;
     flex: 0 0 calc(25% - 20px);
     color: white;
-    font-size: 1.5rem;
+    font-size: 1rem;
     font-weight: 600;
 }
 
@@ -538,6 +542,29 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+
+.status-label {
+    padding: 2px 6px;
+    position: absolute;
+    top: 8px;
+    right: 16px;
+    font-size: 0.8rem;
+    font-weight: 300;
+    border-radius: 6px;
+}
+
+.status-label_complete,
+.status-label_inprogress {
+    color: white;
+}
+
+.status-label_complete {
+    background-color: var(--completed-background-color);
+}
+
+.status-label_inprogress {
+    background-color: var(--inprogress-background-color);
 }
 
 @media only screen and (max-width: 768px) {
@@ -555,14 +582,6 @@ body {
         flex-direction: column;
     }
 }
-
-
-
-
-
-
-
-
 
 footer {
     margin-top: 120px;

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset = "utf-8">
+        <meta name = "viewport" content = "width=device-width, initial-scale = 1">
+
+        <title>LJMS - Home</title>
+        
+        <!-- CSS Import -->
+        <link rel="stylesheet" href="css/main.css">
+
+        <!-- import vue -->
+        <script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.js"></script>
+
+        <!-- import jquery -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
+        <!-- Font-awesome Import -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
+
+    </head>
+
+    <body id="app">
+        <div class="Navbar__Wrapper">
+            <!-- nav bar -->
+            <div class="Navbar">
+                <div class="Navbar__Link Navbar__Link-brand">
+                    LJMS
+                </div>
+                <div onclick="classToggle()" class="Navbar__Link Navbar__Link-toggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+    
+                <nav class="Navbar__Items">
+                    <div class="Navbar__Link">
+                        <a href="index.php">Home</a>
+                    </div>
+                    <div class="Navbar__Link">
+                    <a href="job.php">Job</a>
+                    </div>
+                    <div class="Navbar__Link">
+                    <a href="skillcourse.php">Skills/Courses</a>
+                    </div>
+                </nav>
+    
+                <nav class="Navbar__Items Navbar__Items--right">
+                    <div class="Navbar__Link">
+                        <a href="myjourney.php">My Journey</a>
+                    </div>
+                    <div class="Navbar__Link">
+                        <a href="profile.php">Hi, xxxx</a>
+                    </div>
+                </nav>
+            </div>
+        </div>
+
+        <!-- main content -->
+        <div class="Main__Content">
+
+            <!-- search bar -->
+            <div class="search_bar">
+                <input class="textbox">
+                <button class="btn">Search</button>
+            </div>
+
+            <div class="banner">
+                <img src="https://cdn.pixabay.com/photo/2016/11/22/21/26/notebook-1850613_960_720.jpg">
+                <div class="quick_banner-text">Job Title Name Here</div>
+            </div>
+
+            <div class="details_content">
+                <div class="header">
+                    <div class="title">Job Description</div>
+                </div>
+                <div class="description">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation...</p>
+                </div>
+            </div>
+
+            <div class="overall-cards_container">
+                <div class="header">
+                    <div class="title">Skills Required</div>
+                </div>
+                <div class="overall-cards_wrapper">
+                    <div v-for="index in jobCovered" class="overall-cards">
+                        <img src="https://cdn.pixabay.com/photo/2016/11/22/21/26/notebook-1850613_960_720.jpg">
+                        <div class="banner-text">Skills Name</div>
+
+                        <!-- add class status-label_inprogress if inprogress -->
+                        <div class="status-label status-label_complete">Completed</div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <footer>
+            Created By: SPM Group 3
+        </footer>
+        
+        <!-- vue -->
+        <script type="text/javascript" src="app.js"></script>
+
+        <!-- custom js -->
+        <script type="text/javascript" src="JS/javascript.js"></script>
+
+    </body>
+</html>
