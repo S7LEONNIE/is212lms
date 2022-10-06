@@ -12,6 +12,9 @@
         <!-- import vue -->
         <script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.js"></script>
 
+        <!-- import axios -->
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
         <!-- import jquery -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 
@@ -79,7 +82,7 @@
                     <button class="btn">View More</button>
                 </div>
                 <div class="circles-container">
-                    <div v-for="index in jobCircle" class="circles">Job description</div>
+                    <div v-for="role in roles" class="circles">{{ role.role_name }}</div>
                 </div>
             </div>
 
@@ -90,20 +93,20 @@
                 </div>
 
                 <div class="course-card-container-overflow">
-                    <div v-for="index in jobPreview" class="course-card">
+                    <div v-for="course in courses" class="course-card">
                         <div class="course-img">
                             <img src="https://cdn.pixabay.com/photo/2016/11/22/21/26/notebook-1850613_960_720.jpg">
                         </div>
     
-                        <div class="course-title">Course Title Here</div>
-                        <div class="course-type">External</div>
-                        <div class="course-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation...</div>
+                        <div class="course-title">{{ course.course_name }}</div>
+                        <div class="course-type">{{ course.course_type }}</div>
+                        <div class="course-description">{{ course.course_desc }}</div>
                         <div class="course-tags-container">
-                            <div class="course-tags">Test tag</div>
-                            <div class="course-tags">Test tag</div>
-                            <div class="course-tags">Test tag</div>
-                            <div class="course-tags">Test tag</div>
-                            <div class="course-tags">Test tag</div>
+                            <div class="course-tags">tag here</div>
+                            <div class="course-tags">tag here</div>
+                            <div class="course-tags">tag here</div>
+                            <div class="course-tags">tag here</div>
+                            <div class="course-tags">tag here</div>
                         </div>
                         <button class="btn">View</button>
                     </div>
@@ -116,7 +119,7 @@
                     <button class="btn">View More</button>
                 </div>
                 <div class="circles-container">
-                    <div v-for="index in jobCircle" class="circles">Job description</div>
+                    <div v-for="skill in skills" class="circles">{{ skill.skill_name }}</div>
                 </div>
             </div>
 
@@ -146,11 +149,11 @@
             Created By: SPM Group 3
         </footer>
         
-        <!-- vue -->
-        <script type="text/javascript" src="app.js"></script>
-
         <!-- custom js -->
         <script type="text/javascript" src="JS/javascript.js"></script>
+
+        <!-- custom vue.js -->
+        <script src="JS/app.js"></script>
 
     </body>
 </html>
