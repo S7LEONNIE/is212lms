@@ -1,27 +1,39 @@
 <html>
 <head>
-    Get All Roles
+    Get All Courses
 </head>
 
 <body>
-    <div id="getRolesVue">
-        <button type="button" v-on:click="getRoles">Get Roles Button</button>
+    <div id="getCoursesVue">
+        <button type="button" v-on:click="getCourses">Get Courses Button</button>
 
         <table border="black">
             <tr>
-                <th> Role ID </th>
-                <th> Role Name </th>
-                <th> Role Description</th>
+                <th> Course ID </th>
+                <th> Course Name </th>
+                <th> Course Description</th>
+                <th> Course Status </th>
+                <th> Course Type </th>
+                <th> Course Category </th>
             </tr>
-            <tr v-for="role in roles">
+            <tr v-for="course in courses">
                 <td>
-                    {{ role.role_id }}
+                    {{ course.course_id }}
                 </td>
                 <td>
-                    {{ role.role_name }}
+                    {{ course.course_name }}
                 </td>
                 <td>
-                    {{ role.role_desc }}
+                    {{ course.course_desc }}
+                </td>
+                <td>
+                    {{ course.course_status }}
+                </td>
+                <td>
+                    {{ course.course_type }}
+                </td>
+                <td>
+                    {{ course.course_category }}
                 </td>
             </tr>
         </table>
@@ -30,24 +42,23 @@
 
 </html>
 
-
-<script src="vue.js"></script>
+<script src="JS/vue.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
 <script>
-    const getRolesVue = Vue.createApp({
+    const getCoursesVue = Vue.createApp({
         data() {
             return {
-                roles: [],
+                courses: [],
             }
         },
         methods: {
-            getRoles() {
-                axios.get("backend/backend.php")
+            getCourses() {
+                axios.get("PHP/functionGetAllCourses.php")
                     .then(response => {
                     if (response.status == 200) {
                         console.log(response.data)
-                        this.roles = response.data.records
+                        this.courses = response.data.records
                         // this.date = ''
                         // this.itemName = ''
                         // this.price = ''
@@ -76,9 +87,6 @@
         // beforeMount(){},
 })
 
-const vm = getRolesVue.mount("#getRolesVue")
+const vm = getCoursesVue.mount("#getCoursesVue")
 </script>
 
-
-<script>
-</script>
