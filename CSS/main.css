@@ -135,6 +135,15 @@ body {
     justify-content: space-between
 }
 
+.main-header,
+.tag-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 20px;
+    align-items: center;
+}
+
 .title {
     font-weight: 800;
     font-size: 1.5rem;
@@ -559,6 +568,13 @@ body {
     color: white;
 }
 
+.main-header-label {
+    padding: 2px 6px;
+    font-size: 0.8rem;
+    font-weight: 300;
+    border-radius: 6px;
+}
+
 .status-label_complete {
     background-color: var(--completed-background-color);
 }
@@ -581,6 +597,34 @@ body {
     .overall-cards_wrapper {
         flex-direction: column;
     }
+}
+
+.action-container {
+    display: flex;
+    gap: 10px;
+    justify-content: end;
+}
+
+.action_button {
+    border-radius: 6px;
+    border: none;
+    padding: 8px 20px;
+    font-size: 0.8rem;
+    cursor: pointer;
+}
+
+.action_button:hover {
+    box-shadow: var(--box-shadow-hover);
+}
+
+.action_back {
+    border: 1px solid var(--primary-color);
+    color: var(--primary-color);
+}
+
+.action_positive {
+    background-color: var(--primary-color);
+    color: white;
 }
 
 footer {

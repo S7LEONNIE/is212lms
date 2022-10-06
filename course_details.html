@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset = "utf-8">
+        <meta name = "viewport" content = "width=device-width, initial-scale = 1">
+
+        <title>LJMS - Home</title>
+        
+        <!-- CSS Import -->
+        <link rel="stylesheet" href="css/main.css">
+
+        <!-- import vue -->
+        <script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.js"></script>
+
+        <!-- import jquery -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
+        <!-- Font-awesome Import -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
+
+    </head>
+
+    <body id="app">
+        <div class="Navbar__Wrapper">
+            <!-- nav bar -->
+            <div class="Navbar">
+                <div class="Navbar__Link Navbar__Link-brand">
+                    LJMS
+                </div>
+                <div onclick="classToggle()" class="Navbar__Link Navbar__Link-toggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+    
+                <nav class="Navbar__Items">
+                    <div class="Navbar__Link">
+                        <a href="index.php">Home</a>
+                    </div>
+                    <div class="Navbar__Link">
+                    <a href="job.php">Job</a>
+                    </div>
+                    <div class="Navbar__Link">
+                    <a href="skillcourse.php">Skills/Courses</a>
+                    </div>
+                </nav>
+    
+                <nav class="Navbar__Items Navbar__Items--right">
+                    <div class="Navbar__Link">
+                        <a href="myjourney.php">My Journey</a>
+                    </div>
+                    <div class="Navbar__Link">
+                        <a href="profile.php">Hi, xxxx</a>
+                    </div>
+                </nav>
+            </div>
+        </div>
+
+        <!-- main content -->
+        <div class="Main__Content">
+
+            <div class="details_content">
+                <div class="main-header">
+                    <div class="title">Job Title Here</div>
+                    <div class="main-header-label status-label_complete">Completed</div>
+                </div>
+            </div>
+
+            <div class="banner">
+                <img src="https://cdn.pixabay.com/photo/2016/11/22/21/26/notebook-1850613_960_720.jpg">
+            </div>
+
+            <div class="details_content">
+                <div class="header">
+                    <div class="title">Description</div>
+                </div>
+                <div class="description">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation...</p>
+                </div>
+            </div>
+
+            <div class="details_content">
+                <div class="header">
+                    <div class="title">Learning Objectives</div>
+                </div>
+                <div class="description">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation...</p>
+                </div>
+            </div>
+
+            <div class="details_content">
+                <div class="header">
+                    <div class="title">Skills Covered</div>
+                </div>
+                <div class="course-tags-container">
+                    <div class="course-tags">Test tag</div>
+                    <div class="course-tags">Test tag</div>
+                    <div class="course-tags">Test tag</div>
+                    <div class="course-tags">Test tag</div>
+                    <div class="course-tags">Test tag</div>
+                </div>
+            </div>
+
+            <div class="details_content">
+                <div class="header">
+                    <div class="title">Job Roles Covered</div>
+                </div>
+                <div class="course-tags-container">
+                    <div class="course-tags">Test tag</div>
+                    <div class="course-tags">Test tag</div>
+                    <div class="course-tags">Test tag</div>
+                    <div class="course-tags">Test tag</div>
+                    <div class="course-tags">Test tag</div>
+                </div>
+            </div>
+
+            <div class="details_content">
+                <div class="header">
+                    <div class="title">Date Time / Location</div>
+                </div>
+                <div class="description">
+                    <p><b>Date: </b>32 Febuary 2023</p>
+                    <p><b>Time: </b>32 Febuary 2023</p>
+                    <p><b>Location: </b>Inhouse, Office Unit #03-31</p>
+                </div>
+            </div>
+
+            <div class="action-container">
+                <button class="action_button action_back">Back</button>
+                <button class="action_button action_positive">Add/Remove to Journey</button>
+            </div>
+        </div>
+
+
+        <footer>
+            Created By: SPM Group 3
+        </footer>
+        
+        <!-- vue -->
+        <script type="text/javascript" src="app.js"></script>
+
+        <!-- custom js -->
+        <script type="text/javascript" src="JS/javascript.js"></script>
+
+    </body>
+</html>
