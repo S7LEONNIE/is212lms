@@ -354,16 +354,20 @@ body {
 }
 
 .circles-container .circles {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     min-width: 150px;
     width: 150px;
     min-height: 150px;
     height: 150px;
-    line-height: 150px;
     border-radius: 50%;
     color: white;
     text-align: center;
     background: black;
     cursor: pointer;
+    overflow-wrap: break-word;
+    white-space: break-spaces;
 }
 
 .circles-container .circles:hover {
