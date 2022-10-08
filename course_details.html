@@ -12,6 +12,9 @@
         <!-- import vue -->
         <script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.js"></script>
 
+        <!-- import axios -->
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
         <!-- import jquery -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 
@@ -125,17 +128,47 @@
 
             <div class="action-container">
                 <button class="action_button action_back">Back</button>
-                <button class="action_button action_positive">Add/Remove to Journey</button>
+                <button id="journey-model" class="action_button action_positive">Add/Remove to Journey</button>
             </div>
         </div>
 
+        <div class="journey-model">
+            <div class="journey-model_content">
+                <div class="journey-model_header">
+                    <div class="title">Add to</div>
+                    <i id="journey-model_close" class="fa fa-times"></i>
+                </div>
+
+                <div class="journey-model_list">
+                    <div v-for="x in 20">
+                        <input type="checkbox" id="checkbox1" name="checkbox1" value="checkbox1">
+                        <label for="checkbox1">Checkbox1</label>
+                    </div>
+                </div>
+
+                <div class="action-container" v-if="!journeyCreate">
+                    <button @click="journeyCreate=true" class="action_button action_positive">New Journey</button>
+                    <button class="action_button action_positive">Save</button>
+                </div>
+                <div class="action-container" v-else>
+                    <select class="action_select">
+                        <option value="journeyname">journeyname</option>
+                        <option value="journeyname">journeyname</option>
+                        <option value="journeyname">journeyname</option>
+                    </select>
+                    <button @click="journeyCreate=false" class="action_button action_positive">Create</button>
+                    <button @click="journeyCreate=false" class="action_button action_back">Cancel</button>
+                </div>
+
+            </div>
+        </div>
 
         <footer>
             Created By: SPM Group 3
         </footer>
         
         <!-- vue -->
-        <script type="text/javascript" src="app.js"></script>
+        <script src="JS/app.js"></script>
 
         <!-- custom js -->
         <script type="text/javascript" src="JS/javascript.js"></script>

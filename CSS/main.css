@@ -618,8 +618,17 @@ body {
     cursor: pointer;
 }
 
-.action_button:hover {
+.action_button:hover,
+.action_select:hover {
     box-shadow: var(--box-shadow-hover);
+}
+
+.action_select {
+    border-radius: 6px;
+    padding: 8px 20px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    border: 1px solid var(--primary-color);
 }
 
 .action_back {
@@ -640,6 +649,55 @@ body {
     .action_back {
         order: 1;
     }
+}
+
+/* Model */
+.journey-model {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+}
+
+.journey-model_content {
+    display: flex;
+    flex-direction: column;
+    height: 500px;
+    background-color: white;
+    margin: 15% auto;
+    padding: 20px;
+    box-shadow: var(--box-shadow);
+    width: 300px;
+    border-radius: 6px;
+    gap: 10px;
+}
+
+.journey-model_header {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.journey-model_list {
+    border-radius: 6px;
+    border: 1px solid var(--primary-color);
+    padding: 10px;
+    height: 400px;
+    overflow: auto;
+}
+
+.journey-model_content .action-container {
+    flex-direction: column;
+    margin-top: 0;
 }
 
 footer {

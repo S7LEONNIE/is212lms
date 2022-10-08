@@ -1,6 +1,8 @@
 const app = Vue.createApp({
     data() {
+        let journeyCreate = false;
         return {
+            journeyCreate,
             roles: [],
             skills: [],
             courses: [],
