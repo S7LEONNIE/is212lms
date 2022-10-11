@@ -33,57 +33,39 @@ class classRoleDAO {
         return $list_role;
     }
 
-    // // The rest of this is code from my old WAD2 project. To be modified as necessary.
-
-    // public function addItem($userid, $purchase_time, $item_name, $category, $price, $location, $latitude, $longitude) {
+    public function addRole($role_name, $role_desc) {
         
-    //     // STEP 1: establish a connection
+        // STEP 1: establish a connection
 
-    //     $connMgr = new classConnectionManager();
-    //     $conn = $connMgr->connect();
+        $connMgr = new classConnectionManager();
+        $conn = $connMgr->connect();
 
-    //     // STEP 2: SQL commands
+        // STEP 2: SQL commands
 
-    //     $sql = "INSERT INTO item
-    //                     (
-    //                         userid, 
-    //                         purchase_time, 
-    //                         item_name,
-    //                         category,
-    //                         price,
-    //                         location,
-    //                         latitude,
-    //                         longitude
-    //                     )
-    //                 VALUES
-    //                     (
-    //                         :userid,
-    //                         :purchase_time,
-    //                         :item_name,
-    //                         :category,
-    //                         :price,
-    //                         :location,
-    //                         :latitude,
-    //                         :longitude
-    //                     )";
+        $sql = "INSERT INTO role
+                        (
+                            role_name, 
+                            role_desc
+                        )
+                    VALUES
+                        (
+                            :role_name,
+                            :role_desc
+                        )";
 
-    //     $stmt = $conn->prepare($sql);
-    //     $stmt->bindParam(':userid', $userid, PDO::PARAM_STR);
-    //     $stmt->bindParam(':purchase_time', $purchase_time, PDO::PARAM_STR);
-    //     $stmt->bindParam(':item_name', $item_name, PDO::PARAM_STR);
-    //     $stmt->bindParam(':category', $category, PDO::PARAM_STR);
-    //     $stmt->bindParam(':price', $price, PDO::PARAM_STR);
-    //     $stmt->bindParam(':location', $location, PDO::PARAM_STR);
-    //     $stmt->bindParam(':latitude', $latitude, PDO::PARAM_STR);
-    //     $stmt->bindParam(':longitude', $longitude, PDO::PARAM_STR);
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':role_name', $role_name, PDO::PARAM_STR);
+        $stmt->bindParam(':role_desc', $role_desc, PDO::PARAM_STR);
 
-    //     // STEP 3: Run SQL
-    //     $status = $stmt->execute();
+        // STEP 3: Run SQL
+        $status = $stmt->execute();
 
-    //     $stmt = null;
-    //     $conn = null;
-    //     return $status;
-    // }
+        $stmt = null;
+        $conn = null;
+        return $status;
+    }
+
+    // // The rest of this is code from my old WAD2 project. To be modified as necessary.
     
     // public function deleteItem($purchaseid) {
     //     $connMgr = new classConnectionManager();

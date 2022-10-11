@@ -39,6 +39,46 @@ class classCourseDAO {
         return $list_course;
     }
 
+    public function loadCoursesBySkillId($skill_id) {
+        $connMgr = new classConnectionManager();
+        $conn = $connMgr->connect();
+
+        // STEP 2: SQL commands
+        $sql = "SELECT 
+            -- role.role_id AS role_id,
+            -- role.role_name AS role_name,
+            -- role.role_desc AS role_desc,
+            course.course_id AS course_id,
+            course.course_name AS course_name,
+            course.course_desc AS course_desc,
+            course.course_status AS course_status,
+            course.course_type AS course_type,
+            course.course_category AS course_category
+            FROM course 
+            INNER JOIN course_skill ON course.course_id = course_skill.course_id
+            WHERE course_skill.skill_id = :skill_id;";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':skill_id', $skill_id, PDO::PARAM_INT);
+
+        // STEP 3: Run SQL
+        $stmt->execute();
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+
+        // STEP 4: Display result
+        $list_course = []; // Indexed Array of Post objects
+        while( $row = $stmt->fetch() ) {
+            $list_course[] =
+                new classCourse(
+                    $row['course_id'],
+                    $row['course_name'],
+                    $row['course_desc'],
+                    $row['course_status'],
+                    $row['course_type'],
+                    $row['course_category']);
+                }
+        return $list_course;
+    }
+
     // // The rest of this is code from my old WAD2 project. To be modified as necessary.
 
     // public function addItem($userid, $purchase_time, $item_name, $category, $price, $location, $latitude, $longitude) {

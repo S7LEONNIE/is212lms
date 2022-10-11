@@ -1,0 +1,100 @@
+<html>
+<head>
+    Get All Roles
+</head>
+
+<body>
+    <div id="createRolesVue">
+
+        <p>{{ message }}</p>
+
+        Role Name: <input type="text" v-model="role_name"> <br />
+        Role Description: <input type="text" v-model="role_desc"> <br />
+
+        <button type="button" v-on:click="createRole">Create New Role Button</button> <br />
+
+        <hr />
+
+        <button type="button" v-on:click="getRoles">Get Roles Button</button> <br />
+        <table border="black">
+            <tr>
+                <th> Role ID </th>
+                <th> Role Name </th>
+                <th> Role Description</th>
+            </tr>
+            <tr v-for="role in roles">
+                <td>
+                    {{ role.role_id }}
+                </td>
+                <td>
+                    {{ role.role_name }}
+                </td>
+                <td>
+                    {{ role.role_desc }}
+                </td>
+            </tr>
+        </table>
+    </div>
+</body>
+
+</html>
+
+
+<script src="JS/vue.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+<script>
+    const createRolesVue = Vue.createApp({
+        data() {
+            return {
+                role_name: '',
+                role_desc: '',
+                message: '',
+                success_message: 'Role successfully created.',
+                failure_message: 'Could not create role.',
+                roles: [],
+            }
+        },
+        methods: {
+            createRole() {
+                axios.post("PHP/functionAddRole.php", {
+                    role_name: this.role_name,
+                    role_desc: this.role_desc,
+                })
+                    .then(response => {
+                    if (response.status == 200) {
+                        console.log(response.data);
+                        this.roles = response.data.records;
+                        this.message = this.success_message;
+                        this.role_name = '';
+                        this.role_desc = '';
+                        this.getRoles();
+                    }
+                    else {
+                        console.log(response.data);
+                        this.message = this.failure_message;
+                    }
+                    })
+                    .catch(error => {
+                    console.log(error.message);
+                    this.message = this.failure_message;
+                    });
+            },
+            getRoles() {
+                axios.get("PHP/functionGetAllRoles.php")
+                    .then(response => {
+                    if (response.status == 200) {
+                        console.log(response.data);
+                        this.roles = response.data.records;
+                    }
+                    })
+                    .catch(error => {
+                    console.log(error.message);
+                    });
+            }
+        }
+        // beforeMount(){},
+})
+
+const vm = createRolesVue.mount("#createRolesVue")
+</script>

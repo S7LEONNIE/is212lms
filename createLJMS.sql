@@ -3,7 +3,7 @@ create database SPM_LJMS_DB;
 use SPM_LJMS_DB;
 
 create table staff (
-    staff_id integer primary key,
+    staff_id integer auto_increment primary key,
     staff_fname varchar(50),
     staff_lname varchar(50),
     email varchar(50)
@@ -24,7 +24,7 @@ insert into staff (staff_id, staff_fname, staff_lname, email) values
     (12, 'Violyn', 'von Volkslied', 'kingfisher.throwaway@gmail.com');
 
 create table department (
-    dept_id integer primary key,
+    dept_id integer auto_increment primary key,
     dept_name varchar(50)
 );
 
@@ -60,7 +60,7 @@ insert into department_staff (department_id, staff_id, is_manager) values
     (6, 12, 1);
 
 create table role (
-    role_id integer primary key,
+    role_id integer auto_increment primary key,
     role_name varchar(50),
     role_desc varchar(255)
 );
@@ -72,7 +72,7 @@ insert into role (role_id, role_name, role_desc) values
     (4, "Death, Destroyer of Worlds", "This role is good at petting kittens.");
 
 create table learning_journey (
-    lj_id integer primary key,
+    lj_id integer auto_increment primary key,
     lj_name varchar(50),
     staff_id integer,
     role_id integer,
@@ -87,7 +87,7 @@ insert into learning_journey (lj_id, lj_name, staff_id, role_id) values
     (4, "Elro's Learning Journey", 4, 4);
 
 create table skill (
-    skill_id integer primary key,
+    skill_id integer auto_increment primary key,
     skill_name varchar(50),
     skill_desc varchar(255)
 );
@@ -102,7 +102,7 @@ insert into skill (skill_id, skill_name, skill_desc) values
     (7, "Operator", "This skill makes you good at operations.");
 
 create table course (
-    course_id integer primary key,
+    course_id integer auto_increment primary key,
     course_name varchar(50),
     course_desc varchar(255),
     course_status varchar(15),      -- boolean. Tracks active/retired courses
