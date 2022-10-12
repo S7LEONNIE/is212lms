@@ -374,16 +374,6 @@ body {
     box-shadow: var(--box-shadow-hover);
 }
 
-@media only screen and (max-width: 768px) {
-    .circles-container .circles {
-        min-width: 100px;
-        width: 100px;
-        min-height: 100px;
-        height: 100px;
-        line-height: 100px;
-    }
-}
-
 /* cards */
 .cards {
     display: flex;
@@ -432,6 +422,9 @@ body {
 .course-title {
     font-size: 1.2rem;
     font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .course-type {
@@ -441,7 +434,12 @@ body {
 .course-description {
     word-wrap: break-word;
     white-space: initial;
-    min-width: 100px;
+    height: 120px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
 }
 
 .course-tags-container {
@@ -456,13 +454,6 @@ body {
     padding: 2px;
 }
 
-@media only screen and (max-width: 768px) {
-    .course-card {
-        height: 550px;
-        min-width: 250px;
-    }
-}
-
 .quick_banner {
     display: flex;
     gap: 20px;
@@ -473,6 +464,12 @@ body {
     display: flex;
     flex-direction: row;
     gap: 20px;
+}
+
+@media only screen and (max-width: 768px) {
+    .banner_container {
+        flex-direction: column;
+    }
 }
 
 .banner img {
