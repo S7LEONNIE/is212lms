@@ -656,15 +656,21 @@ body {
     border: 1px solid var(--primary-color);
 }
 
-.action_back {
+.action_back,
+.action_sort {
     border: 1px solid var(--primary-color);
     color: var(--primary-color);
+}
+
+.action_sort::before {
+    content: 'Sort By: ';
 }
 
 .action_positive {
     background-color: var(--primary-color);
     color: white;
 }
+
 
 @media only screen and (max-width: 425px) {
     .action-container {
@@ -727,6 +733,52 @@ body {
 .journey-model_content .action-container {
     flex-direction: column;
     margin-top: 0;
+}
+
+/* Search skills course page */
+
+.search-page_body {
+    display: flex;
+    gap: 30px;
+}
+
+.search-page_body .course-card-container {
+    justify-content: center;
+}
+
+.search-page_filter_container {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-width: 200px;
+    gap: 20px;
+    padding: 20px 2px;
+}
+
+.search-page_filter_content {
+    flex: 4;
+}
+
+.filter-container {
+    height: 300px;
+    border: 1px solid var(--primary-color);
+    border-radius: 6px;
+}
+
+.header-title {
+    font-weight: 600;
+    font-size: 0.8rem;
+    text-align: center;
+    color: white;
+    background-color: var(--primary-color);
+    height: 30px;
+    line-height: 30px;
+}
+
+.filter-itemlist {
+    padding: 10px;
+    overflow: auto;
+    height: calc(100% - 30px);
 }
 
 footer {
