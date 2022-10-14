@@ -6,6 +6,7 @@ const app = Vue.createApp({
             roles: [],
             skills: [],
             courses: [],
+            skillsAndCourses: [],
         }
     },
     methods: {
@@ -46,6 +47,19 @@ const app = Vue.createApp({
                 .catch(error => {
                 console.log(error.message);
                 });
+        },
+
+        getSkillsAndCourses() {
+            axios.get("PHP/functionGetSkillsAndCourses.php")
+                .then(response => {
+                if (response.status == 200) {
+                    console.log(response.data)
+                    this.skillsAndCourses = response.data.records
+                }
+                })
+                .catch(error => {
+                console.log(error.message);
+                });
         }
 
     },
@@ -53,6 +67,7 @@ const app = Vue.createApp({
         this.getRoles();
         this.getSkills();
         this.getCourses();
+        this.getSkillsAndCourses();
     },
 })
 
