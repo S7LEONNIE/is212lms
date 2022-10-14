@@ -249,6 +249,13 @@ body {
     height: 100vh;
 }
 
+.login-page_title {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
 .login-page_left,
 .login-page_right {
     flex: 1;
