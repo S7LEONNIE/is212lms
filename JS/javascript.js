@@ -11,6 +11,8 @@ $(document).ready(function(){
 	$("#journey-model_close" ).on("click", function() { 
 		$('.journey-model').toggle();
 	});
+
+	generalSearch();
 });
 
 function classToggle() {
@@ -28,4 +30,18 @@ function carouselChange() {
 		$active.removeClass('carousel-shown');
 		$next.fadeIn().addClass('carousel-shown');
 	});
+}
+
+function generalSearch() {
+	$('#general_search').on('keyup', function() {
+		var value = $(this).val().toLowerCase();
+		console.log(value);
+		$('.overall-cards').filter(function() {
+			$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+		})
+
+		$('.course-card').filter(function() {
+			$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+		})
+	})
 }
