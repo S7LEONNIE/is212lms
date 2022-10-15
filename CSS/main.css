@@ -762,6 +762,10 @@ body {
     padding: 20px 2px;
 }
 
+#search-filter {
+    display: none;
+}
+
 .search-page_filter_content {
     flex: 4;
 }
@@ -786,6 +790,33 @@ body {
     padding: 10px;
     overflow: auto;
     height: calc(100% - 30px);
+}
+
+.search-page_filter_container.search-filter_show {
+    display: flex;
+}
+
+@media only screen and (max-width: 884px) {
+    .search-page_body {
+        flex-direction: column;
+    }
+
+    .search-page_filter_container {
+        flex-direction: row;
+    }
+
+    .filter-container {
+        flex: 1;
+    }
+
+    #search-filter {
+        display: flex;
+        justify-content: center;
+    }
+
+    .search-page_filter_container {
+        display: none;
+    }
 }
 
 footer {

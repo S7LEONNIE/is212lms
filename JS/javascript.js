@@ -13,6 +13,10 @@ $(document).ready(function(){
 	});
 
 	generalSearch();
+
+	$('#search-filter').on("click", function() {
+		$('.search-page_filter_container').toggleClass("search-filter_show");
+	})
 });
 
 function classToggle() {
