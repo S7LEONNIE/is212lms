@@ -62,7 +62,7 @@
 
             <!-- search bar -->
             <div class="search_bar">
-                <input class="textbox">
+                <input id="general_search" class="textbox">
                 <button class="btn">Search</button>
             </div>
 
@@ -77,18 +77,18 @@
                     <div class="filter-container job-type_filter">
                         <div class="header-title">Job Type</div>
                         <div class="filter-itemlist">
-                            <div v-for="x in 20">
-                                <input type="checkbox" id="checkbox1" name="checkbox1" value="checkbox1">
-                                <label for="checkbox1">Checkbox1</label>
+                            <div v-for="course in courses" class="checkbox-field">
+                                <input type="checkbox" id="checkbox" name="checkbox" :value="course.course_name">
+                                <label for="checkbox1">{{ course.course_name }}</label>
                             </div>
                         </div>
                     </div>
                     <div class="filter-container skills-type_filter">
                         <div class="header-title">Skills</div>
                         <div class="filter-itemlist">
-                            <div v-for="x in 20">
-                                <input type="checkbox" id="checkbox1" name="checkbox1" value="checkbox1">
-                                <label for="checkbox1">Checkbox1</label>
+                            <div v-for="x in 20" class="checkbox-field">
+                                <input type="checkbox" id="checkbox" name="checkbox" value="course.skill_name">
+                                <label for="checkbox">Skills Name</label>
                             </div>
                         </div>
                     </div>
@@ -98,7 +98,7 @@
                     <div class="cards">
         
                         <div class="course-card-container">
-                            <div v-for="course in courses" class="course-card">
+                            <div v-for="course in courses" class="course-card" :class="[course.course_name]">
                                 <div class="course-img">
                                     <img src="https://cdn.pixabay.com/photo/2016/11/22/21/26/notebook-1850613_960_720.jpg">
                                     <div class="status-label status-label_complete">Completed</div>

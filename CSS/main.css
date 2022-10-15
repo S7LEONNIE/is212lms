@@ -131,7 +131,6 @@ body {
 
 .header {
     display: flex;
-    flex: 1;
     justify-content: space-between
 }
 
@@ -757,7 +756,7 @@ body {
     display: flex;
     flex-direction: column;
     flex: 1;
-    min-width: 200px;
+    min-width: 250px;
     gap: 20px;
     padding: 20px 2px;
 }
@@ -774,6 +773,18 @@ body {
     height: 300px;
     border: 1px solid var(--primary-color);
     border-radius: 6px;
+}
+
+.checkbox-field {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+}
+
+.checkbox-field:hover {
+    background-color: var(--primary-color);
+    border-radius: 6px;
+    color: white;
 }
 
 .header-title {
@@ -796,7 +807,7 @@ body {
     display: flex;
 }
 
-@media only screen and (max-width: 884px) {
+@media only screen and (max-width: 934px) {
     .search-page_body {
         flex-direction: column;
     }

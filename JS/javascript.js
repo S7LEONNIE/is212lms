@@ -1,11 +1,9 @@
-
 $(document).ready(function(){
 	// Run our swapImages() function every 5secs
 	setInterval('carouselChange()', 8000);
 
 	$("#journey-model" ).on("click", function() { 
 		$('.journey-model').toggle();
-		console.log("i");
 	});
 
 	$("#journey-model_close" ).on("click", function() { 
@@ -16,6 +14,18 @@ $(document).ready(function(){
 
 	$('#search-filter').on("click", function() {
 		$('.search-page_filter_container').toggleClass("search-filter_show");
+	})
+
+	$('.filter-itemlist :checkbox').click(function () {
+		if ($('.filter-itemlist :checkbox').is(':checked')) {
+			$('.course-card').hide();
+			$('.filter-itemlist :checkbox:checked').each(function() {
+				coursename = $(this).val().replace(/ /g, '.');
+				$('.course-card.' + coursename).show();
+			})
+		} else {
+			$('.course-card').show();
+		}
 	})
 });
 
@@ -39,6 +49,7 @@ function carouselChange() {
 function generalSearch() {
 	$('#general_search').on('keyup', function() {
 		var value = $(this).val().toLowerCase();
+		$('.filter-itemlist :checkbox').prop('checked', false);
 		console.log(value);
 		$('.overall-cards').filter(function() {
 			$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
