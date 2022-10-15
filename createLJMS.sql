@@ -3,7 +3,7 @@ create database SPM_LJMS_DB;
 use SPM_LJMS_DB;
 
 create table staff (
-    staff_id integer auto_increment primary key,
+    staff_id integer primary key,
     staff_fname varchar(50),
     staff_lname varchar(50),
     email varchar(50)
@@ -102,7 +102,7 @@ insert into skill (skill_id, skill_name, skill_desc) values
     (7, "Operator", "This skill makes you good at operations.");
 
 create table course (
-    course_id integer auto_increment primary key,
+    course_id varchar(10) primary key,
     course_name varchar(50),
     course_desc varchar(255),
     course_status varchar(15),      -- boolean. Tracks active/retired courses
@@ -130,7 +130,7 @@ insert into course (course_id, course_name, course_desc,
     "Active", "Internal", "Operations");
 
 create table course_skill (
-    course_id integer,
+    course_id varchar(10),
     skill_id integer,
     PRIMARY KEY (course_id, skill_id),
 	constraint course_skill_fk1 foreign key(course_id) references course(course_id),
@@ -169,7 +169,7 @@ insert into role_skill (role_id, skill_id) values
 
 create table lj_course (
     learning_journey_id integer,
-    course_id integer,
+    course_id varchar(10),
     PRIMARY KEY (learning_journey_id, course_id),
 	constraint lj_course_fk1 foreign key(learning_journey_id) references learning_journey(lj_id),
     constraint lj_course_fk2 foreign key(course_id) references course(course_id)
@@ -190,11 +190,12 @@ insert into lj_course (learning_journey_id, course_id) values
     (4, 8);
 
 create table registration (
+    reg_id integer auto_increment PRIMARY KEY, --sus
     staff_id integer,
-    course_id integer,
+    course_id varchar(10),
     reg_status varchar(20),
     completion_status varchar(20),
-    PRIMARY KEY (staff_id, course_id),
+    -- PRIMARY KEY (staff_id, course_id),
 	constraint registration_fk1 foreign key(staff_id) references staff(staff_id),
     constraint registration_fk2 foreign key(course_id) references course(course_id)
 );
