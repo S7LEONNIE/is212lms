@@ -44,12 +44,6 @@
 <script src="JS/vue.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
-<!-- <script>
-    URLSearchParams.getAll() 
-    let url = new URL('https://example.com?foo=1&bar=2');
-    let params = new URLSearchParams(url.search);
-</script> -->
-
 <script>
     const viewOneCourseVue = Vue.createApp({
         data() {
@@ -84,6 +78,7 @@
             }
         },
         beforeMount() {
+            // url: 'skeleton_view_one_course?course_id=1&foo=1&bar=2');
             let urlParams = window.location.search.substring(1).split("&");
             for (param of urlParams) {
                 let temp = param.split("=");
@@ -92,6 +87,7 @@
                 this.params[key] = val;
             }
             console.log(this.params);
+            this.course_id = this.params.course_id;
             this.getCourseById()
         },
 })
