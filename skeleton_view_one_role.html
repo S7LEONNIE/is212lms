@@ -46,10 +46,10 @@
             }
         },
         methods: {
-            getRoleById() {
+            getRoleById(role_id_input) {
                 axios.post("PHP/functionGetRoleById.php", 
                 {
-                    role_id: this.role_id
+                    role_id: role_id_input
                 })
                     .then(response => {
                     if (response.status == 200) {
@@ -74,7 +74,7 @@
             }
             console.log(this.params);
             this.role_id = parseInt(this.params.role_id);
-            this.getRoleById()
+            this.getRoleById(this.role_id)
         },
 })
 
