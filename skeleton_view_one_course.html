@@ -1,0 +1,98 @@
+<html>
+<head>
+    View Course Details
+</head>
+
+<body>
+    <div id="viewOneCourseVue">
+
+        <table border="black">
+            <tr>
+                <th> Course ID </th>
+                <th> Course Name </th>
+                <th> Course Description</th>
+                <th> Course Status </th>
+                <th> Course Type </th>
+                <th> Course Category </th>
+            </tr>
+            <tr>
+                <td>
+                    {{ course_details.course_id }}
+                </td>
+                <td>
+                    {{ course_details.course_name }}
+                </td>
+                <td>
+                    {{ course_details.course_desc }}
+                </td>
+                <td>
+                    {{ course_details.course_status }}
+                </td>
+                <td>
+                    {{ course_details.course_type }}
+                </td>
+                <td>
+                    {{ course_details.course_category }}
+                </td>
+            </tr>
+        </table>
+    </div>
+</body>
+
+</html>
+
+<script src="JS/vue.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+<script>
+    const viewOneCourseVue = Vue.createApp({
+        data() {
+            return {
+                params: {},
+                course_id: '',
+                course_details: {
+                    course_id: '',
+                    course_name: "",
+                    course_desc: "",
+                    course_status: "",
+                    course_type: "",
+                    course_category: ""
+                }
+            }
+        },
+        methods: {
+            getCourseById() {
+                axios.post("PHP/functionGetCourseById.php", 
+                {
+                    course_id: this.course_id
+                })
+                    .then(response => {
+                    if (response.status == 200) {
+                        console.log(response.data);
+                        this.course_details = response.data.records;
+                    }
+                    })
+                    .catch(error => {
+                    console.log(error.message);
+                    console.log(error.response.data.status);
+                    });
+            }
+        },
+        beforeMount() {
+            // url: 'skeleton_view_one_course?course_id=1&foo=1&bar=2');
+            let urlParams = window.location.search.substring(1).split("&");
+            for (param of urlParams) {
+                let temp = param.split("=");
+                let key = temp[0];
+                let val = temp[1];
+                this.params[key] = val;
+            }
+            console.log(this.params);
+            this.course_id = parseInt(this.params.course_id);
+            this.getCourseById()
+        },
+})
+
+const vm = viewOneCourseVue.mount("#viewOneCourseVue")
+</script>
+

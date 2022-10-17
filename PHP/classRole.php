@@ -23,7 +23,7 @@ class classRole {
     function setRole_Name($role_name) {
         $this->role_name = $role_name;
     }
-    function setRole_desc($role_desc) {
+    function setRole_Desc($role_desc) {
         $this->role_desc = $role_desc;
     }
 
@@ -35,7 +35,7 @@ class classRole {
     function getRole_Name() {
         return $this->role_name;
     }
-    function getRole_desc() {
+    function getRole_Desc() {
         return $this->role_desc;
     }
 }

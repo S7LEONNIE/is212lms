@@ -79,6 +79,46 @@ class classCourseDAO {
         return $list_course;
     }
 
+    public function getCourseById($course_id) {
+        $connMgr = new classConnectionManager();
+        $conn = $connMgr->connect();
+
+        // STEP 2: SQL commands
+        $sql = "SELECT
+            course_id,
+            course_name,
+            course_desc,
+            course_status,
+            course_type,
+            course_category
+            FROM course
+            WHERE course_id = :course_id;"; // ASC or DESC 
+
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':course_id', $course_id, PDO::PARAM_STR);
+
+        // STEP 3: Run SQL
+        $stmt->execute();
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+
+        // STEP 4: Display result
+        if ( $row = $stmt->fetch() ) {
+            $course = new classCourse(
+                $row['course_id'],
+                $row['course_name'],
+                $row['course_desc'],
+                $row['course_status'],
+                $row['course_type'],
+                $row['course_category']
+            );
+            return $course;
+        }
+        else {
+            return FALSE;
+        }
+
+    }
+
     // // The rest of this is code from my old WAD2 project. To be modified as necessary.
 
     // public function addItem($userid, $purchase_time, $item_name, $category, $price, $location, $latitude, $longitude) {
@@ -411,50 +451,6 @@ class classCourseDAO {
     //         }
     //     }
     //     return $spent;
-    // }
-
-
-    // public function loadByPurchaseId($purchaseid) {
-    //     $connMgr = new classConnectionManager();
-    //     $conn = $connMgr->connect();
-
-    //     // STEP 2: SQL commands
-    //     $sql = "SELECT
-    //         purchaseid,
-    //         userid,
-    //         purchase_time,
-    //         item_name,
-    //         category,
-    //         price,
-    //         location,
-    //         latitude,
-    //         longitude
-    //         FROM item
-    //         WHERE purchaseid = :purchaseid"; // ASC or DESC 
-
-    //     $stmt = $conn->prepare($sql);
-    //     $stmt->bindParam(':purchaseid', $purchaseid, PDO::PARAM_STR);
-
-    //     // STEP 3: Run SQL
-    //     $stmt->execute();
-    //     $stmt->setFetchMode(PDO::FETCH_ASSOC);
-
-    //     // STEP 4: Display result
-    //     $list_item = []; // Indexed Array of Post objects
-    //     while( $row = $stmt->fetch() ) {
-    //         $list_item[] =
-    //             new classItem(
-    //                 $row['purchaseid'],
-    //                 $row['userid'],
-    //                 $row['purchase_time'],
-    //                 $row['item_name'],
-    //                 $row['category'],
-    //                 $row['price'],
-    //                 $row['location'],
-    //                 $row['latitude'],
-    //                 $row['longitude']);
-    //             }
-    //     return $list_item;
     // }
 
 }
