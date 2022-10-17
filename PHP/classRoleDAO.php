@@ -64,6 +64,39 @@ class classRoleDAO {
         $conn = null;
         return $status;
     }
+    
+    public function getRoleById($role_id) {
+        $connMgr = new classConnectionManager();
+        $conn = $connMgr->connect();
+
+        // STEP 2: SQL commands
+        $sql = "SELECT
+            role_id,
+            role_name,
+            role_desc
+            FROM role
+            WHERE role_id = :role_id;";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':role_id', $role_id, PDO::PARAM_STR);
+
+        // STEP 3: Run SQL
+        $stmt->execute();
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+
+        // STEP 4: Display result
+        if ( $row = $stmt->fetch() ) {
+            $role = new classRole(
+                $row['role_id'],
+                $row['role_name'],
+                $row['role_desc']
+            );
+            return $role;
+        }
+        else {
+            return FALSE;
+        }
+    }
+
 
     // // The rest of this is code from my old WAD2 project. To be modified as necessary.
     

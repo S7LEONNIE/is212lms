@@ -92,7 +92,7 @@ class classCourseDAO {
             course_type,
             course_category
             FROM course
-            WHERE course_id = :course_id"; // ASC or DESC 
+            WHERE course_id = :course_id;"; // ASC or DESC 
 
         $stmt = $conn->prepare($sql);
         $stmt->bindParam(':course_id', $course_id, PDO::PARAM_STR);
@@ -102,7 +102,7 @@ class classCourseDAO {
         $stmt->setFetchMode(PDO::FETCH_ASSOC);
 
         // STEP 4: Display result
-        while( $row = $stmt->fetch() ) {
+        if ( $row = $stmt->fetch() ) {
             $course = new classCourse(
                 $row['course_id'],
                 $row['course_name'],
@@ -111,9 +111,12 @@ class classCourseDAO {
                 $row['course_type'],
                 $row['course_category']
             );
+            return $course;
+        }
+        else {
+            return FALSE;
         }
 
-        return $course;
     }
 
     // // The rest of this is code from my old WAD2 project. To be modified as necessary.
