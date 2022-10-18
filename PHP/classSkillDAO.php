@@ -99,6 +99,38 @@ class classSkillDAO {
             return FALSE;
         }
     }
+    
+    public function loadSkillsByCourseId($course_id) {
+        $connMgr = new classConnectionManager();
+        $conn = $connMgr->connect();
+
+        // STEP 2: SQL commands
+        $sql = "SELECT
+            skill.skill_id AS skill_id,
+            skill.skill_name AS skill_name,
+            skill.skill_desc AS skill_desc
+            FROM skill
+            INNER JOIN course_skill ON skill.skill_id = course_skill.skill_id
+            WHERE course_skill.course_id = :course_id;";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':course_id', $course_id, PDO::PARAM_STR);
+
+        // STEP 3: Run SQL
+        $stmt->execute();
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+
+        // STEP 4: Display result
+        $list_skill = []; // Indexed Array of Post objects
+        while( $row = $stmt->fetch() ) {
+            $list_skill[] =
+                new classSkill(
+                    $row['skill_id'],
+                    $row['skill_name'],
+                    $row['skill_desc']
+                );
+            }
+        return $list_skill;
+    }
 
     // // The rest of this is code from my old WAD2 project. To be modified as necessary.
 

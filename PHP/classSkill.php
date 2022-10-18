@@ -20,10 +20,10 @@ class classSkill {
     function setSkill_Id($skill_id) {
         $this->skill_id = $skill_id;
     }
-    function setSkill_name($skill_name) {
+    function setSkill_Name($skill_name) {
         $this->skill_name = $skill_name;
     }
-    function setSkill_desc($skill_desc) {
+    function setSkill_Desc($skill_desc) {
         $this->skill_desc = $skill_desc;
     }
 
@@ -35,7 +35,7 @@ class classSkill {
     function getSkill_Name() {
         return $this->skill_name;
     }
-    function getSkill_desc() {
+    function getSkill_Desc() {
         return $this->skill_desc;
     }
 }

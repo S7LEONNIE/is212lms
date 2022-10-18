@@ -7,6 +7,7 @@ const app = Vue.createApp({
             skills: [],
             courses: [],
             skillsAndCourses: [],
+
             role_details_exists: true,
             role_details: {
                 role_id: "",
@@ -14,6 +15,15 @@ const app = Vue.createApp({
                 role_desc: ""
             },
             skillsByRole: [],
+
+            skill_details_exists: true,
+            skill_details: {
+                skill_id: "",
+                skill_name: "",
+                skill_desc: ""
+            },
+            coursesBySkill: [],
+
             course_details_exists: true,
             course_details: {
                 course_id: "",
@@ -23,13 +33,8 @@ const app = Vue.createApp({
                 course_type: "",
                 course_category: ""
             },
-            skill_details_exists: true,
-            skill_details: {
-                skill_id: "",
-                skill_name: "",
-                skill_desc: ""
-            },
-            courseBySkill: [],
+            skillsByCourse: [],
+            rolesBySkill: [],
         }
     },
     methods: {
@@ -37,7 +42,6 @@ const app = Vue.createApp({
             axios.get("PHP/functionGetAllRoles.php")
                 .then(response => {
                 if (response.status == 200) {
-                    console.log(response.data)
                     this.roles = response.data.records
                 }
                 })
@@ -50,7 +54,6 @@ const app = Vue.createApp({
             axios.get("PHP/functionGetAllSkills.php")
                 .then(response => {
                 if (response.status == 200) {
-                    console.log(response.data)
                     this.skills = response.data.records
                 }
                 })
@@ -63,7 +66,6 @@ const app = Vue.createApp({
             axios.get("PHP/functionGetAllCourses.php")
                 .then(response => {
                 if (response.status == 200) {
-                    console.log(response.data)
                     this.courses = response.data.records
                 }
                 })
@@ -76,7 +78,6 @@ const app = Vue.createApp({
             axios.get("PHP/functionGetSkillsAndCourses.php")
                 .then(response => {
                 if (response.status == 200) {
-                    console.log(response.data)
                     this.skillsAndCourses = response.data.records;
                 }
                 })
@@ -105,7 +106,6 @@ const app = Vue.createApp({
                 })
                     .then(response => {
                     if (response.status == 200) {
-                        console.log(response.data);
                         this.role_details_exists = true;
                         this.role_details = response.data.records;
                     }
@@ -122,7 +122,6 @@ const app = Vue.createApp({
                 })
                 .then(response => {
                     if (response.status == 200) {
-                        console.log(response.data)
                         this.skillsByRole = response.data.records
                     }
                 })
@@ -156,7 +155,6 @@ const app = Vue.createApp({
                 })
                 .then(response => {
                     if (response.status == 200) {
-                        console.log(response.data);
                         this.skill_details_exists = true;
                         this.skill_details = response.data.records;
                     }
@@ -173,8 +171,7 @@ const app = Vue.createApp({
                 })
                 .then(response => {
                     if (response.status == 200) {
-                        console.log(response.data)
-                        this.courseBySkill = response.data.records
+                        this.coursesBySkill = response.data.records
                     }
                 })
                 .catch(error => {
@@ -206,7 +203,6 @@ const app = Vue.createApp({
                 })
                     .then(response => {
                     if (response.status == 200) {
-                        console.log(response.data);
                         this.course_details_exists = true;
                         this.course_details = response.data.records;
                     }
@@ -218,18 +214,33 @@ const app = Vue.createApp({
                     });
 
                 axios
-                .post("PHP/functionGetCoursesBySkill.php", {
-                    courseId: course_id,
+                .post("PHP/functionGetSkillsByCourse.php", {
+                    course_id: course_id,
                 })
                 .then(response => {
                     if (response.status == 200) {
-                        console.log(response.data)
-                        this.courseBySkill = response.data.records
+                        this.skillsByCourse = response.data.records
+
+                        for (let skill of this.skillsByCourse) {
+                            axios
+                            .post("PHP/functionGetRolesBySkill.php", {
+                                skill_id: skill.skill_id,
+                            })
+                            .then(response => {
+                                if (response.status == 200) {
+                                    this.rolesBySkill.push(...response.data.records);
+                                }
+                            })
+                            .catch(error => {
+                                console.log(error.message);
+                            });
+                        }
                     }
                 })
                 .catch(error => {
                     console.log(error.message);
                 });
+
             }
 
             catch {

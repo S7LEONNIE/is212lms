@@ -44,10 +44,7 @@ class classCourseDAO {
         $conn = $connMgr->connect();
 
         // STEP 2: SQL commands
-        $sql = "SELECT 
-            -- role.role_id AS role_id,
-            -- role.role_name AS role_name,
-            -- role.role_desc AS role_desc,
+        $sql = "SELECT
             course.course_id AS course_id,
             course.course_name AS course_name,
             course.course_desc AS course_desc,
