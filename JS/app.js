@@ -68,7 +68,7 @@ const app = Vue.createApp({
                 console.log(error.message);
                 });
         },
-        
+
         getRoleById() {
             // url: 'skeleton_view_one_role?role_id=1&foo=1&bar=2');
             let urlParams = window.location.search.substring(1).split("&");
@@ -79,11 +79,11 @@ const app = Vue.createApp({
                 let val = temp[1];
                 params[key] = val;
             }
-            
+
             try {
                 let role_id = params.job_id;
 
-                axios.post("PHP/functionGetRoleById.php", 
+                axios.post("PHP/functionGetRoleById.php",
                 {
                     role_id: role_id
                 })
@@ -99,7 +99,7 @@ const app = Vue.createApp({
                     console.log(error.response.data.status);
                     role_details_exists = false;
                     });
-    
+
                 axios
                 .post("PHP/functionGetSkillsByRole.php", {
                     roleId: role_id,
@@ -114,7 +114,7 @@ const app = Vue.createApp({
                     console.log(error.message);
                 });
             }
-            
+
             catch {
                 role_details_exists = false
             }
