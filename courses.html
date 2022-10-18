@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale = 1">
+
+    <title>LJMS - Courses</title>
+
+    <!-- CSS Import -->
+    <link rel="stylesheet" href="css/main.css">
+
+    <!-- import vue -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.js"></script>
+
+    <!-- import axios -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <!-- import jquery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
+    <!-- Font-awesome Import -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
+
+</head>
+
+<body id="app">
+    <div class="Navbar__Wrapper">
+        <!-- nav bar -->
+        <div class="Navbar">
+            <div class="Navbar__Link Navbar__Link-brand">
+                LJMS
+            </div>
+            <div onclick="classToggle()" class="Navbar__Link Navbar__Link-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+
+            <nav class="Navbar__Items">
+                <div class="Navbar__Link">
+                    <a href="index.php">Home</a>
+                </div>
+                <div class="Navbar__Link">
+                    <a href="job.php">Job</a>
+                </div>
+                <div class="Navbar__Link">
+                    <a href="skillcourse.php">Skills/Courses</a>
+                </div>
+            </nav>
+
+            <nav class="Navbar__Items Navbar__Items--right">
+                <div class="Navbar__Link">
+                    <a href="myjourney.php">My Journey</a>
+                </div>
+                <div class="Navbar__Link">
+                    <a href="#">Logout</a>
+                </div>
+            </nav>
+        </div>
+    </div>
+
+    <!-- main content -->
+    <div class="Main__Content">
+
+        <!-- search bar -->
+        <div class="search_bar">
+            <input id="general_search" class="textbox">
+            <button class="btn">Search</button>
+        </div>
+
+        <div class="banner">
+            <img src="https://cdn.pixabay.com/photo/2016/11/22/21/26/notebook-1850613_960_720.jpg">
+            <div class="quick_banner-text">Courses</div>
+        </div>
+
+        <div class="quick_cat">
+            <div class="header">
+                <div class="title">Top Courses</div>
+            </div>
+            <div class="circles-container">
+                <div v-for="course in courses" class="circles">{{ course.course_name }}</div>
+            </div>
+        </div>
+
+        <div class="overall-cards_container">
+            <div class="header">
+                <div class="title">Courses</div>
+            </div>
+            <div class="overall-cards_wrapper">
+                <div v-for="course in courses" class="overall-cards">
+                    <img src="https://cdn.pixabay.com/photo/2016/11/22/21/26/notebook-1850613_960_720.jpg">
+                    <div class="banner-text">{{ course.course_name }}</div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <footer>
+        Created By: SPM Group 3
+    </footer>
+
+    <!-- custom js -->
+    <script type="text/javascript" src="JS/javascript.js"></script>
+
+    <!-- custom vue.js -->
+    <script src="JS/app.js"></script>
+
+</body>
+
+</html>

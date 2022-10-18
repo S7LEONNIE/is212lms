@@ -557,12 +557,6 @@ body {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
-    justify-content: space-between;
-}
-
-.overall-cards_wrapper::after {
-    content: "";
-    flex: auto;
 }
 
 .overall-cards img {
@@ -581,7 +575,7 @@ body {
 .overall-cards {
     position: relative;
     text-align: center;
-    flex: 0 0 calc(25% - 20px);
+    flex: 0 0 calc(25% - 15px);
     color: white;
     font-size: 1rem;
     font-weight: 600;
