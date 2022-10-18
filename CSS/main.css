@@ -380,6 +380,16 @@ body {
     box-shadow: var(--box-shadow-hover);
 }
 
+.circles > a {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+}
+
 /* cards */
 .cards {
     display: flex;
