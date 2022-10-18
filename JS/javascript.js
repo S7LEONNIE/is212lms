@@ -1,3 +1,5 @@
+var filterSetting = false;
+
 $(document).ready(function(){
 	// Run our swapImages() function every 5secs
 	setInterval('carouselChange()', 8000);
@@ -16,10 +18,10 @@ $(document).ready(function(){
 		$('.search-page_filter_container').toggleClass("search-filter_show");
 	})
 
-	$('.filter-itemlist :checkbox').click(function () {
-		if ($('.filter-itemlist :checkbox').is(':checked')) {
+	$('.filter-itemlist-job :checkbox').click(function () {
+		if ($('.filter-itemlist-job :checkbox').is(':checked')) {
 			$('.course-card').hide();
-			$('.filter-itemlist :checkbox:checked').each(function() {
+			$('.filter-itemlist-job :checkbox:checked').each(function() {
 				coursename = $(this).val().replace(/ /g, '.');
 				$('.course-card.' + coursename).show();
 			})
@@ -27,6 +29,18 @@ $(document).ready(function(){
 			$('.course-card').show();
 		}
 	})
+
+	$('#journey-model-filter').click(function () {
+		if (filterSetting == false) {
+			$(".course-card-container .course-card").sort(sortFilterAsc).appendTo('.course-card-container');
+			filterSetting = true;
+			$('#journey-model-filter').text("Z - A");
+		} else {
+			$(".course-card-container .course-card").sort(sortFilterDesc).appendTo('.course-card-container');
+			filterSetting = false;
+			$('#journey-model-filter').text("A - Z");
+		}
+	});
 });
 
 function classToggle() {
@@ -34,7 +48,6 @@ function classToggle() {
 
 	navs.forEach(nav => nav.classList.toggle('Navbar__ToggleShow'));
 }
-
 
 function carouselChange() {
 	var $active = $('.carousel .carousel-shown');
@@ -59,4 +72,14 @@ function generalSearch() {
 			$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
 		})
 	})
+}
+
+// Filter Asc function
+function sortFilterAsc(a, b) {
+	return ($(b).text().toUpperCase()) < ($(a).text().toUpperCase()) ? 1 : -1; 
+}
+
+// Filter Desc function
+function sortFilterDesc(a, b) {
+	return ($(b).text().toUpperCase()) > ($(a).text().toUpperCase()) ? 1 : -1; 
 }

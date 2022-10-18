@@ -68,7 +68,7 @@
 
             <div class="header">
                 <div class="title">Skills / Course Search</div>
-                <button id="journey-model" class="action_button action_sort">A - Z</button>
+                <button id="journey-model-filter" class="action_button action_sort">A - Z</button>
             </div>
 
             <div class="search-page_body">
@@ -76,19 +76,19 @@
                 <div class="search-page_filter_container">
                     <div class="filter-container job-type_filter">
                         <div class="header-title">Job Type</div>
-                        <div class="filter-itemlist">
+                        <div class="filter-itemlist-job">
                             <div v-for="course in courses" class="checkbox-field">
-                                <input type="checkbox" id="checkbox" name="checkbox" :value="course.course_name">
+                                <input type="checkbox" id="checkbox" :name="course.course_name" :value="course.course_name">
                                 <label for="checkbox1">{{ course.course_name }}</label>
                             </div>
                         </div>
                     </div>
                     <div class="filter-container skills-type_filter">
                         <div class="header-title">Skills</div>
-                        <div class="filter-itemlist">
-                            <div v-for="x in 20" class="checkbox-field">
-                                <input type="checkbox" id="checkbox" name="checkbox" value="course.skill_name">
-                                <label for="checkbox">Skills Name</label>
+                        <div class="filter-itemlist-skill">
+                            <div v-for="skill in skills" class="checkbox-field">
+                                <input type="checkbox" id="checkbox" :name="skill.skill_name" :value="skill.skill_name">
+                                <label for="checkbox">{{ skill.skill_name }}</label>
                             </div>
                         </div>
                     </div>

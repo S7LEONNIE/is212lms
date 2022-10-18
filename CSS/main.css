@@ -802,7 +802,8 @@ body {
     line-height: 30px;
 }
 
-.filter-itemlist {
+.filter-itemlist-job,
+.filter-itemlist-skill {
     padding: 10px;
     overflow: auto;
     height: calc(100% - 30px);
