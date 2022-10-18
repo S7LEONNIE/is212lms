@@ -497,6 +497,8 @@ body {
     background-color: grey;
     border-radius: 6px;
     padding: 2px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .quick_banner {
