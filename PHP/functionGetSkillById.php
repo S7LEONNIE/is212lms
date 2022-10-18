@@ -2,9 +2,9 @@
 require_once "common.php";
 $_POST = json_decode(file_get_contents("php://input"), true);
 $skill_id = $_POST["skill_id"] ?? null;
-$skillDAO = new classskillDAO();
+$skillDAO = new classSkillDAO();
 
-$skill = $skillDAO->getSkillById($skill_id);
+$skill = $skillDAO->loadSkillById($skill_id);
 
 if ($skill) {
     $skill_id = $skill->getSkill_Id();

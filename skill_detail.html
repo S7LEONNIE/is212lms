@@ -68,25 +68,25 @@
 
             <div class="banner">
                 <img src="https://cdn.pixabay.com/photo/2016/11/22/21/26/notebook-1850613_960_720.jpg">
-                <div class="quick_banner-text">Skill Name Here</div>
+                <div class="quick_banner-text"> {{ skill_details.skill_name }} </div>
             </div>
 
             <div class="details_content">
                 <div class="header">
-                    <div class="title">Skill Description</div>
+                    <div class="title">Description</div>
                 </div>
                 <div class="description">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation...</p>
+                    <p> {{ skill_details.skill_desc }} </p>
                 </div>
             </div>
             <div class="cards">
                 <div class="header">
-                    <div class="title">Course related to [Skill]</div>
+                    <div class="title">Courses related to {{ skill_details.skill_name }}</div>
                     <button id="journey-model" class="action_button action_positive">Add to Learning Journey</button>
                 </div>
 
                 <div class="course-card-container">
-                    <div v-for="course in courses" class="course-card">
+                    <div v-for="course in courseBySkill" class="course-card">
                         <div class="course-img">
                             <img src="https://cdn.pixabay.com/photo/2016/11/22/21/26/notebook-1850613_960_720.jpg">
                             <div class="status-label status-label_complete">Completed</div>

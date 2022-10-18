@@ -68,6 +68,38 @@ class classSkillDAO {
         return $list_skill;
     }
 
+    public function loadSkillById($skill_id) {
+        $connMgr = new classConnectionManager();
+        $conn = $connMgr->connect();
+
+        // STEP 2: SQL commands
+        $sql = "SELECT
+            skill_id,
+            skill_name,
+            skill_desc
+            FROM skill
+            WHERE skill_id = :skill_id;";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':skill_id', $skill_id, PDO::PARAM_STR);
+
+        // STEP 3: Run SQL
+        $stmt->execute();
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+
+        // STEP 4: Display result
+        if ( $row = $stmt->fetch() ) {
+            $skill = new classSkill(
+                $row['skill_id'],
+                $row['skill_name'],
+                $row['skill_desc']
+            );
+            return $skill;
+        }
+        else {
+            return FALSE;
+        }
+    }
+
     // // The rest of this is code from my old WAD2 project. To be modified as necessary.
 
     // public function addItem($userid, $purchase_time, $item_name, $category, $price, $location, $latitude, $longitude) {
