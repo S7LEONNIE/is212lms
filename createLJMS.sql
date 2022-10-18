@@ -190,7 +190,7 @@ insert into lj_course (learning_journey_id, course_id) values
     (4, 8);
 
 create table registration (
-    reg_id integer auto_increment PRIMARY KEY, --sus
+    reg_id integer auto_increment PRIMARY KEY,
     staff_id integer,
     course_id varchar(10),
     reg_status varchar(20),
