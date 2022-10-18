@@ -1,7 +1,7 @@
 <?php
 require_once "common.php";
 $_POST = json_decode(file_get_contents("php://input"), true);
-$skill_id = $_POST["skillId"] ?? null;
+$skill_id = $_POST["skill_id"] ?? null;
 $courseDAO = new classCourseDAO();
 
 $courses = array();
