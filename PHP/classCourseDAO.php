@@ -116,6 +116,38 @@ class classCourseDAO {
 
     }
 
+    public function loadCoursesUnderManager() {
+        $connMgr = new classConnectionManager();
+        $conn = $connMgr->connect();
+
+        // STEP 2: SQL commands
+        $sql = "select * from course where course_id IN (select course_id from lj_course 
+        where learning_journey_id = (select lj_id from learning_journey
+        where staff_id = (select staff_id from department_staff 
+        where department_id = 1 AND is_manager = 0)));"; 
+
+        $stmt = $conn->prepare($sql);
+        
+        // STEP 3: Run SQL
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        // $stmt->bindParam(':skill_id', $skill_id, PDO::PARAM_INT);
+        $stmt->execute();
+
+        // STEP 4: Display result
+        while($row = $stmt->fetch() ) {
+            $coursesUnderManager[] =
+                new classCourse(
+                    $row['course_id'],
+                    $row['course_name'],
+                    $row['course_desc'],
+                    $row['course_status'],
+                    $row['course_type'],
+                    $row['course_category']);
+                }
+
+        return $coursesUnderManager;
+    }
+
     // // The rest of this is code from my old WAD2 project. To be modified as necessary.
 
     // public function addItem($userid, $purchase_time, $item_name, $category, $price, $location, $latitude, $longitude) {
