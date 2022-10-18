@@ -37,13 +37,13 @@
 
             <nav class="Navbar__Items">
                 <div class="Navbar__Link">
-                    <a href="index.php">Home</a>
+                    <a href="index.html">Home</a>
                 </div>
                 <div class="Navbar__Link">
-                    <a href="job.php">Job</a>
+                <a href="job.html">Job</a>
                 </div>
                 <div class="Navbar__Link">
-                    <a href="skillcourse.php">Skills/Courses</a>
+                <a href="skillcourse.html">Skills/Courses</a>
                 </div>
             </nav>
 
@@ -77,7 +77,9 @@
                 <div class="title">Top Jobs</div>
             </div>
             <div class="circles-container">
-                <div v-for="role in roles" class="circles">{{ role.role_name }}</div>
+                <div v-for="role in roles" class="circles">
+                    <a :href="'job_detail.html?job_id=' + role.role_id">{{ role.role_name }}</a>
+                </div>
             </div>
         </div>
 
@@ -87,8 +89,10 @@
             </div>
             <div class="overall-cards_wrapper">
                 <div v-for="role in roles" class="overall-cards">
-                    <img src="https://cdn.pixabay.com/photo/2016/11/22/21/26/notebook-1850613_960_720.jpg">
-                    <div class="banner-text">{{ role.role_name }}</div>
+                    <a :href="'job_detail.html?job_id=' + role.role_id">
+                        <img src="https://cdn.pixabay.com/photo/2016/11/22/21/26/notebook-1850613_960_720.jpg">
+                        <div class="banner-text">{{ role.role_name }}</div>
+                    </a>
                 </div>
             </div>
 

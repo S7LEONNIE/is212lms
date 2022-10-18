@@ -79,10 +79,12 @@
             <div class="quick_cat">
                 <div class="header">
                     <div class="title">Popular Jobs</div>
-                    <button class="btn">View More</button>
+                    <button class="btn" onClick="location.href='job.html'">View More</button>
                 </div>
                 <div class="circles-container">
-                    <div v-for="role in roles" class="circles">{{ role.role_name }}</div>
+                    <div v-for="role in roles" class="circles">
+                        <a :href="'job_detail.html?job_id=' + role.role_id">{{ role.role_name }}</a>
+                    </div>
                 </div>
             </div>
 
