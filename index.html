@@ -118,10 +118,12 @@
             <div class="quick_cat">
                 <div class="header">
                     <div class="title">Skills Category</div>
-                    <button class="btn">View More</button>
+                    <button class="btn" onClick="location.href='skills.html'">View More</button>
                 </div>
                 <div class="circles-container">
-                    <div v-for="skill in skills" class="circles">{{ skill.skill_name }}</div>
+                    <div v-for="skill in skills" class="circles">
+                        <a :href="'skill_detail.html?skill_id=' + skill.skill_id">{{ skill.skill_name }}</a>
+                    </div>
                 </div>
             </div>
 
