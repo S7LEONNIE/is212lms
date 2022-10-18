@@ -36,13 +36,13 @@
     
                 <nav class="Navbar__Items">
                     <div class="Navbar__Link">
-                        <a href="index.php">Home</a>
+                        <a href="index.html">Home</a>
                     </div>
                     <div class="Navbar__Link">
-                    <a href="job.php">Job</a>
+                    <a href="job.html">Job</a>
                     </div>
                     <div class="Navbar__Link">
-                    <a href="skillcourse.php">Skills/Courses</a>
+                    <a href="skillcourse.html">Skills/Courses</a>
                     </div>
                 </nav>
     
@@ -62,7 +62,7 @@
 
             <div class="details_content">
                 <div class="main-header">
-                    <div class="title">Job Title Here</div>
+                    <div class="title">{{ course_details.course_name }}</div>
                     <div class="main-header-label status-label_complete">Completed</div>
                 </div>
             </div>
@@ -76,29 +76,25 @@
                     <div class="title">Description</div>
                 </div>
                 <div class="description">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation...</p>
+                    <p>{{ course_details.course_desc }}</p>
                 </div>
             </div>
 
-            <div class="details_content">
+            <!-- <div class="details_content">
                 <div class="header">
                     <div class="title">Learning Objectives</div>
                 </div>
                 <div class="description">
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation...</p>
                 </div>
-            </div>
+            </div> -->
 
             <div class="details_content">
                 <div class="header">
                     <div class="title">Skills Covered</div>
                 </div>
                 <div class="course-tags-container">
-                    <div class="course-tags">Test tag</div>
-                    <div class="course-tags">Test tag</div>
-                    <div class="course-tags">Test tag</div>
-                    <div class="course-tags">Test tag</div>
-                    <div class="course-tags">Test tag</div>
+                    <div class="course-tags">{{ course_details.course_category }}</div>
                 </div>
             </div>
 
@@ -107,11 +103,7 @@
                     <div class="title">Job Roles Covered</div>
                 </div>
                 <div class="course-tags-container">
-                    <div class="course-tags">Test tag</div>
-                    <div class="course-tags">Test tag</div>
-                    <div class="course-tags">Test tag</div>
-                    <div class="course-tags">Test tag</div>
-                    <div class="course-tags">Test tag</div>
+                    <div class="course-tags">{{ course_details.course_category }}</div>
                 </div>
             </div>
 
@@ -168,7 +160,7 @@
         </footer>
         
         <!-- vue -->
-        <script src="JS/app.js"></script>
+        <script type="text/javascript" src="JS/app.js"></script>
 
         <!-- custom js -->
         <script type="text/javascript" src="JS/javascript.js"></script>

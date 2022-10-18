@@ -13,7 +13,17 @@ const app = Vue.createApp({
                 role_name: "",
                 role_desc: ""
             },
-            skillsByRole: []
+            skillsByRole: [],
+            course_details_exists: true,
+            course_details: {
+                course_id: "",
+                course_name: "",
+                course_desc: "",
+                course_status: "",
+                course_type: "",
+                course_category: ""
+            },
+            courseBySkill: []
         }
     },
     methods: {
@@ -118,6 +128,57 @@ const app = Vue.createApp({
             catch {
                 role_details_exists = false
             }
+        },
+
+        getCourseById() {
+            // url: 'skeleton_view_one_course?course_id=1&foo=1&bar=2');
+            let urlParams = window.location.search.substring(1).split("&");
+            let params = {};
+            for (let param of urlParams) {
+                let temp = param.split("=");
+                let key = temp[0];
+                let val = temp[1];
+                params[key] = val;
+            }
+
+            try {
+                let course_id = params.course_id;
+
+                axios.post("PHP/functionGetCourseById.php",
+                {
+                    course_id: course_id
+                })
+                    .then(response => {
+                    if (response.status == 200) {
+                        console.log(response.data);
+                        course_details_exists = true;
+                        this.course_details = response.data.records;
+                    }
+                    })
+                    .catch(error => {
+                    console.log(error.message);
+                    console.log(error.response.data.status);
+                    course_details_exists = false;
+                    });
+
+                axios
+                .post("PHP/functionGetCourseBySkill.php", {
+                    courseId: course_id,
+                })
+                .then(response => {
+                    if (response.status == 200) {
+                        console.log(response.data)
+                        this.courseBySkill = response.data.records
+                    }
+                })
+                .catch(error => {
+                    console.log(error.message);
+                });
+            }
+
+            catch {
+                course_details_exists = false
+            }
         }
 
     },
@@ -127,6 +188,7 @@ const app = Vue.createApp({
         this.getCourses();
         this.getSkillsAndCourses();
         this.getRoleById();
+        this.getCourseById();
     },
 })
 

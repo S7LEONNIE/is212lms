@@ -86,14 +86,15 @@
                 </div>
                 <div class="overall-cards_wrapper">
                     <div v-for="skill in skillsByRole" class="overall-cards">
-                        <img src="https://cdn.pixabay.com/photo/2016/11/22/21/26/notebook-1850613_960_720.jpg">
-                        <div class="banner-text">{{ skill.skill_name }}</div>
+                        <a :href="'skill_detail.html?skill_id=' + skill.skill_id">
+                            <img src="https://cdn.pixabay.com/photo/2016/11/22/21/26/notebook-1850613_960_720.jpg">
+                            <div class="banner-text">{{ skill.skill_name }}</div>
+                        </a>
 
                         <!-- add class status-label_inprogress if inprogress -->
                         <div class="status-label status-label_complete">Completed</div>
                     </div>
                 </div>
-
             </div>
 
         </div>
