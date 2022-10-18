@@ -380,7 +380,8 @@ body {
     box-shadow: var(--box-shadow-hover);
 }
 
-.circles > a {
+.circles > a,
+.overall-cards > a {
     text-decoration: none;
     color: inherit;
     display: flex;
