@@ -358,7 +358,7 @@ body {
     flex-wrap: nowrap;
     white-space: nowrap;
     flex-direction: row;
-    overflow: hidden;
+    overflow-y: auto;
     gap: 5px;
 }
 
@@ -436,13 +436,9 @@ body {
     flex-direction: row;
     flex-wrap: nowrap;
     white-space: nowrap;
-    overflow: hidden;
+    overflow-y: auto;
     padding: 20px 2px;
     gap: 10px;
-}
-
-.course-card-container-overflow:hover {
-    overflow-x: scroll;
 }
 
 .course-card {
