@@ -77,8 +77,11 @@
                 <div class="title">Top Skills</div>
             </div>
             <div class="circles-container">
-                <div v-for="role in roles" class="circles">{{ role.role_name }}</div>
+                <div v-for="skill in skills" class="circles">
+                    <a :href="'skill_detail.html?skill_id=' + skill.skill_id">{{ skill.skill_name }}</a>
+                </div>
             </div>
+            
         </div>
 
         <div class="overall-cards_container">
@@ -86,9 +89,11 @@
                 <div class="title">Skills</div>
             </div>
             <div class="overall-cards_wrapper">
-                <div v-for="role in roles" class="overall-cards">
-                    <img src="https://cdn.pixabay.com/photo/2016/11/22/21/26/notebook-1850613_960_720.jpg">
-                    <div class="banner-text">{{ role.role_name }}</div>
+                <div v-for="skill in skills" class="overall-cards">
+                    <a :href="'skill_detail.html?skill_id=' + skill.skill_id">
+                        <img src="https://cdn.pixabay.com/photo/2016/11/22/21/26/notebook-1850613_960_720.jpg">
+                        <div class="banner-text">{{ skill.skill_name }}</div>
+                    </a>
                 </div>
             </div>
 
