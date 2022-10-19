@@ -79,10 +79,13 @@ const app = Vue.createApp({
                 .then(response => {
                 if (response.status == 200) {
                     this.skillsAndCourses = response.data.records;
+                    console.log("abc");
+                    console.log(response.data.records);
                 }
                 })
                 .catch(error => {
                 console.log(error.message);
+                console.log("fail");
                 });
         },
 
@@ -164,9 +167,8 @@ const app = Vue.createApp({
                     console.log(error.response.data.status);
                     this.skill_details_exists = false;
                 });
-                
-                axios
-                .post("PHP/functionGetCoursesBySkill.php", {
+
+                axios.post("PHP/functionGetCoursesBySkill.php", {
                     skill_id: skill_id,
                 })
                 .then(response => {
