@@ -652,6 +652,10 @@ body {
     }
 }
 
+.search-found-msg {
+    display: none;
+}
+
 .action-container {
     display: flex;
     gap: 10px;

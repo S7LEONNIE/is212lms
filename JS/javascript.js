@@ -63,14 +63,24 @@ function generalSearch() {
 	$('#general_search').on('keyup', function() {
 		var value = $(this).val().toLowerCase();
 		$('.filter-itemlist :checkbox').prop('checked', false);
-		console.log(value);
 		$('.overall-cards').filter(function() {
-			$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+			$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
 		})
+		if ($('.overall-cards_wrapper .overall-cards:visible').length == 0) {
+			$(".search-found-msg").show();
+		} else {
+			$(".search-found-msg").hide();
+		}
 
 		$('.course-card').filter(function() {
 			$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
 		})
+
+		if ($('.course-card-container .course-card:visible').length == 0) {
+			$(".search-found-msg").show();
+		} else {
+			$(".search-found-msg").hide();
+		}
 	})
 }
 
