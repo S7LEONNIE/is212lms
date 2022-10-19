@@ -109,7 +109,10 @@
                             <div class="course-tags">tag here</div>
                             <div class="course-tags">tag here</div>
                         </div>
-                        <button class="btn" onClick="location.href='course_detail.html?course_id=' + course.course_id">View</button>     
+                        
+                        <button class="btn">
+                            <a :href="'course_detail.html?course_id=' + course.course_id">View</a>
+                        </button>
                     </div>
                 </div>
             </div>
