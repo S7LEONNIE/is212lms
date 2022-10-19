@@ -77,7 +77,9 @@
                 <div class="title">Top Courses</div>
             </div>
             <div class="circles-container">
-                <div v-for="course in courses" class="circles">{{ course.course_name }}</div>
+                <div v-for="course in courses" class="circles">
+                    <a :href="'course_detail.html?course_id=' + course.course_id">{{ course.course_name }}</a>
+                </div>
             </div>
         </div>
 
@@ -87,8 +89,10 @@
             </div>
             <div class="overall-cards_wrapper">
                 <div v-for="course in courses" class="overall-cards">
-                    <img src="https://cdn.pixabay.com/photo/2016/11/22/21/26/notebook-1850613_960_720.jpg">
-                    <div class="banner-text">{{ course.course_name }}</div>
+                    <a :href="'course_detail.html?course_id=' + course.course_id">
+                        <img src="https://cdn.pixabay.com/photo/2016/11/22/21/26/notebook-1850613_960_720.jpg">
+                        <div class="banner-text">{{ course.course_name }}</div>
+                    </a>
                 </div>
             </div>
 
