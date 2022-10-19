@@ -499,13 +499,15 @@ body {
     display: flex;
     flex-wrap: wrap;
     gap: 5px;
+    overflow-y: scroll;
+    height: 70px;
 }
 
 .course-tags {
     background-color: grey;
     border-radius: 6px;
     padding: 2px;
-    overflow: hidden;
+    height: fit-content;
     text-overflow: ellipsis;
 }
 
