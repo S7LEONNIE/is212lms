@@ -91,7 +91,7 @@
             <div class="cards">
                 <div class="header">
                     <div class="title">Popular Courses</div>
-                    <button class="btn view-more">View More</button>
+                    <button class="btn view-more" onClick="location.href='courses.html'">View More</button>
                 </div>
 
                 <div class="course-card-container-overflow">
@@ -99,7 +99,6 @@
                         <div class="course-img">
                             <img src="https://cdn.pixabay.com/photo/2016/11/22/21/26/notebook-1850613_960_720.jpg">
                         </div>
-    
                         <div class="course-title">{{ course.course_name }}</div>
                         <div class="course-type">{{ course.course_type }}</div>
                         <div class="course-description">{{ course.course_desc }}</div>
@@ -110,7 +109,7 @@
                             <div class="course-tags">tag here</div>
                             <div class="course-tags">tag here</div>
                         </div>
-                        <button class="btn">View</button>
+                        <button class="btn" onClick="location.href='course_detail.html?course_id=' + course.course_id">View</button>     
                     </div>
                 </div>
             </div>
@@ -133,12 +132,12 @@
                     <button class="btn">View More</button>
                 </div>
                 <div class="banner_container">
-                    <div class="banner">
+                    <div class="banner" onClick="location.href='skills.html'">
                         <img src="https://cdn.pixabay.com/photo/2016/11/22/21/26/notebook-1850613_960_720.jpg">
                         <div class="quick_banner-text">Skills</div>
                     </div>
                     
-                    <div class="banner">
+                    <div class="banner" onClick="location.href='courses.html'">
                         <img src="https://cdn.pixabay.com/photo/2016/11/22/21/26/notebook-1850613_960_720.jpg">
                         <div class="quick_banner-text">Courses</div>
                     </div>
