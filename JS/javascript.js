@@ -12,6 +12,14 @@ $(document).ready(function(){
 		$('.journey-model').toggle();
 	});
 
+	$("#myjourney-edit-btn" ).on("click", function() { 
+		$('.journey-model-edit').toggle();
+	});
+
+	$("#journey-model-edit_close" ).on("click", function() { 
+		$('.journey-model-edit').toggle();
+	});
+
 	generalSearch();
 
 	$('#search-filter').on("click", function() {

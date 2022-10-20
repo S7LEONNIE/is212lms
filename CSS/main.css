@@ -122,6 +122,7 @@ body {
     height: 40px;
     color: white;
     cursor: pointer;
+    margin-top: auto;
 }
 
 .btn:hover,
@@ -656,10 +657,14 @@ body {
     display: none;
 }
 
-.action-container {
+.action-container,
+.action-wrapper {
     display: flex;
     gap: 10px;
     justify-content: end;
+}
+
+.action-container {
     margin-top: 20px;
 }
 
@@ -711,7 +716,8 @@ body {
 }
 
 /* Model */
-.journey-model {
+.journey-model,
+.journey-model-edit {
     display: none;
     position: fixed;
     z-index: 1;
@@ -727,7 +733,7 @@ body {
 .journey-model_content {
     display: flex;
     flex-direction: column;
-    height: 500px;
+    height: fit-content;
     background-color: white;
     margin: 15% auto;
     padding: 20px;
@@ -746,7 +752,8 @@ body {
     justify-content: space-between;
 }
 
-#journey-model_close {
+#journey-model_close,
+#journey-model-edit_close {
     cursor: pointer;
 }
 
