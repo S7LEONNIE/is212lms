@@ -716,7 +716,8 @@ body {
 }
 
 /* Model */
-.journey-model {
+.journey-model,
+.journey-model-edit {
     display: none;
     position: fixed;
     z-index: 1;
@@ -751,7 +752,8 @@ body {
     justify-content: space-between;
 }
 
-#journey-model_close {
+#journey-model_close,
+#journey-model-edit_close {
     cursor: pointer;
 }
 

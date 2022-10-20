@@ -91,7 +91,7 @@
                         <div class="course-type">Not Started: 1</div>
                         <div class="course-type">On-going: 1</div>
                         <div class="course-type">Completed: 1</div>
-                        <button class="btn">Edit</button>
+                        <button id="myjourney-edit-btn" class="btn">Edit</button>
                     </div>
                 </div>
             </div>
@@ -113,6 +113,27 @@
                     <button class="action_button action_back">Cancel</button>
                 </div>
 
+            </div>
+        </div>
+
+        <div class="journey-model-edit">
+            <div class="journey-model_content">
+                <div class="journey-model_header">
+                    <div class="title">Edit Journey</div>
+                    <i id="journey-model-edit_close" class="fa fa-times"></i>
+                </div>
+
+                <div class="journey-model_list">
+                    <div v-for="x in 20">
+                        <input checked type="checkbox" id="checkbox1" name="checkbox1" value="checkbox1">
+                        <label for="checkbox1">Checkbox1</label>
+                    </div>
+                </div>
+
+                <div class="action-container">
+                    <button class="action_button action_positive">Save</button>
+                    <button class="action_button action_back">Cancel</button>
+                </div>
             </div>
         </div>
 
