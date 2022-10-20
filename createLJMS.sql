@@ -99,7 +99,10 @@ insert into skill (skill_id, skill_name, skill_desc) values
     (4, "SQL", "This skill makes you good at DBMS."),
     (5, "Meteor Swarm", "This skill does 40d6 fire and bludgeoning damage to all creatures in the area."),
     (6, "Lightning Bolt", "This skill does 8d6 lightning damage in a 100ft line"),
-    (7, "Operator", "This skill makes you good at operations.");
+    (7, "Operator", "This skill makes you good at operations."),
+    (8, "Technical Photography", "This skill makes you good at the Hardware equipment aspects of photography."),
+    (9, "Marketing", "This skill makes you good at Digital Marketing."),
+    (10, "Network Security", "This skill makes you good at implementing Network Security.");
 
 create table course (
     course_id varchar(10) primary key,
@@ -127,7 +130,15 @@ insert into course (course_id, course_name, course_desc,
     (7, "Defense against the Dark Arts", "This is a course about magic",
     "Active", "External", "Magic"),
     (8, "Operations Course", "This is a course about Operations",
-    "Active", "Internal", "Operations");
+    "Active", "Internal", "Operations"),
+    (9, "Workplace Conflict Management for Professionals", "This course will address the gaps to build consensus and utilise knowledge of conflict management techniques to diffuse tensions and achieve resolutions effectively in the best interests of the organisation.", 
+    "Active","External", "Management"),
+    (10, "Canon MFC Mainteance and Troubleshooting", "Troubleshoot and fixing L2,3 issues of Canon ImageRUNNER series of products",
+    "Active", "Internal", "Technical"),
+    (11, "Optimising Your Brand For The Digital Spaces", "Digital has fundamentally shifted communication between brands and their consumers from a one-way broadcast to a two-way dialogue. In a hastened bid to transform their businesses to be digital market-ready.",
+    "Active", "External", "Sales"),
+    (12, "Network Security", "Understanding of the fundamental knowledge of network security including cryptography, authentication and key distribution. The security techniques at various layers of computer networks are examined.",
+    "Active", "External", "Technical");
 
 create table course_skill (
     course_id varchar(10),
@@ -147,7 +158,11 @@ insert into course_skill (course_id, skill_id) values
     (6, 4),
     (7, 5),
     (7, 6),
-    (8, 7);
+    (8, 7),
+    (9,2),
+    (10,8),
+    (11,9),
+    (12,10);
 
 create table role_skill (
     role_id integer,
