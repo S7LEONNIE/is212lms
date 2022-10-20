@@ -74,8 +74,10 @@
             <div class="cards">
                 <div class="header">
                     <div class="title">Current Journey</div>
-                    <button id="journey-model-filter" class="action_button action_sort">A - Z</button>
-                    <button id="journey-model" class="action_button action_positive">New</button>
+                    <div class="action-wrapper">
+                        <button id="journey-model-filter" class="action_button action_sort">A - Z</button>
+                        <button id="journey-model" class="action_button action_positive">New</button>
+                    </div>
                 </div>
 
                 <div class="course-card-container">
@@ -85,45 +87,30 @@
                         </div>
     
                         <div class="course-title">Journey Name</div>
-                        <div class="course-type">Total Skills Required: </div>
-                        <div class="course-type">Total Skills Required: </div>
-                        <div class="course-type">Total Skills Required: </div>
-                        <div class="course-type">Total Skills Required: </div>
-                        <button class="btn">
-                            <a :href="'course_detail.html?course_id=' + course.course_id">Edit</a>
-                        </button>
+                        <div class="course-type">Total Skills Required: 10</div>
+                        <div class="course-type">Not Started: 1</div>
+                        <div class="course-type">On-going: 1</div>
+                        <div class="course-type">Completed: 1</div>
+                        <button class="btn">Edit</button>
                     </div>
                 </div>
             </div>
-
         </div>
 
         <div class="journey-model">
             <div class="journey-model_content">
                 <div class="journey-model_header">
-                    <div class="title">Add to</div>
+                    <div class="title">New Journey</div>
                     <i id="journey-model_close" class="fa fa-times"></i>
                 </div>
-
-                <div class="journey-model_list">
-                    <div v-for="x in 20">
-                        <input type="checkbox" id="checkbox1" name="checkbox1" value="checkbox1">
-                        <label for="checkbox1">Checkbox1</label>
-                    </div>
-                </div>
-
-                <div class="action-container" v-if="!journeyCreate">
-                    <button @click="journeyCreate=true" class="action_button action_positive">New Journey</button>
-                    <button class="action_button action_positive">Save</button>
-                </div>
-                <div class="action-container" v-else>
+                <div class="action-container">
                     <select class="action_select">
                         <option value="journeyname">journeyname</option>
                         <option value="journeyname">journeyname</option>
                         <option value="journeyname">journeyname</option>
                     </select>
-                    <button @click="journeyCreate=false" class="action_button action_positive">Create</button>
-                    <button @click="journeyCreate=false" class="action_button action_back">Cancel</button>
+                    <button class="action_button action_positive">Create</button>
+                    <button class="action_button action_back">Cancel</button>
                 </div>
 
             </div>
