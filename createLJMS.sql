@@ -10,18 +10,18 @@ create table staff (
 );
 
 insert into staff (staff_id, staff_fname, staff_lname, email) values 
-    (1, 'John', 'Doe', 'kingfisher.throwaway@gmail.com'),
-    (2, 'Edel',  'Weiss', 'kingfisher.throwaway@gmail.com'),
-    (3, 'Simron', 'Ferzair', 'kingfisher.throwaway@gmail.com'),
-    (4, 'Elro', 'Robins', 'kingfisher.throwaway@gmail.com'),
-    (5, 'Annaliese', 'Fair', 'kingfisher.throwaway@gmail.com'),
-    (6, 'Therrus', 'Lyrandar', 'kingfisher.throwaway@gmail.com'),
-    (7, 'Lorentz', 'Kramer', 'kingfisher.throwaway@gmail.com'),
-    (8, 'Linnaeus', 'de Cona', 'kingfisher.throwaway@gmail.com'),
-    (9, 'Ceiren', 'Reyn', 'kingfisher.throwaway@gmail.com'),
-    (10, 'Ochrus', 'Athodo', 'kingfisher.throwaway@gmail.com'),
-    (11, 'Oscar', 'Bonnheim', 'kingfisher.throwaway@gmail.com'),
-    (12, 'Violyn', 'von Volkslied', 'kingfisher.throwaway@gmail.com');
+    (1, 'John', 'Doe', 'john.doe@gmail.com'),
+    (2, 'Edel',  'Weiss', 'edel.weiss@gmail.com'),
+    (3, 'Simron', 'Ferzair', 'simron.ferzair@gmail.com'),
+    (4, 'Elro', 'Robins', 'elro.robins@gmail.com'),
+    (5, 'Annaliese', 'Fair', 'annaliese.fair@gmail.com'),
+    (6, 'Therrus', 'Lyrandar', 'therrus.lyrandar@gmail.com'),
+    (7, 'Lorentz', 'Kramer', 'lorentz.kramer@gmail.com'),
+    (8, 'Linnaeus', 'de Cona', 'linnaeus.decona@gmail.com'),
+    (9, 'Ceiren', 'Reyn', 'ceiren.reyn@gmail.com'),
+    (10, 'Ochrus', 'Athodo', 'ochrus.athodo@gmail.com'),
+    (11, 'Oscar', 'Bonnheim', 'oscar.bonnheim@gmail.com'),
+    (12, 'Violyn', 'von Volkslied', 'violyn.vonvolkslied@gmail.com');
 
 create table department (
     dept_id integer auto_increment primary key,
