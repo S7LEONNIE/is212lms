@@ -20,6 +20,21 @@ class ExampleTest extends \Codeception\Test\Unit
 
     }
 
+    public function testValidation()
+    {
+        $user = new \App\classCourse();
+
+        $user->setName(null);
+        $this->assertFalse($user->validate(['course_name']));
+
+        $user->setName('toolooooongnaaaaaaameeee2222222222222');
+        $this->assertFalse($user->validate(['course_name']));
+
+        $user->setName('122');
+        $this->assertTrue($user->validate(['course_name']));
+    }
+
+
     
 }
 

@@ -10,10 +10,12 @@ modules:
     enabled:
         - \Helper\Functional
         - Db:
-            dsn: 'mysql:host=%DB_HOST%;dbname=%DB_NAME%;port=%DB_PORT%'
-            user: '%DB_USERNAME%'
-            password: '%DB_PASSWORD%'
+            dsn: 'mysql:host=localhost;dbname=testdb'
+            user: 'root'
+            password: ''
             populate: no
             cleanup: true
-            dump: 'tests/_data/structure.sql'
+            dump: 
+                - 'tests/_data/dump.sql'
+                - 'tests/_data/dump-2.sql'
     step_decorators: ~
