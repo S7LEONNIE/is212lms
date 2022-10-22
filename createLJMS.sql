@@ -6,22 +6,23 @@ create table staff (
     staff_id integer primary key,
     staff_fname varchar(50),
     staff_lname varchar(50),
-    email varchar(50)
+    email varchar(50),
+    designation integer
 );
 
-insert into staff (staff_id, staff_fname, staff_lname, email) values 
-    (1, 'John', 'Doe', 'john.doe@gmail.com'),
-    (2, 'Edel',  'Weiss', 'edel.weiss@gmail.com'),
-    (3, 'Simron', 'Ferzair', 'simron.ferzair@gmail.com'),
-    (4, 'Elro', 'Robins', 'elro.robins@gmail.com'),
-    (5, 'Annaliese', 'Fair', 'annaliese.fair@gmail.com'),
-    (6, 'Therrus', 'Lyrandar', 'therrus.lyrandar@gmail.com'),
-    (7, 'Lorentz', 'Kramer', 'lorentz.kramer@gmail.com'),
-    (8, 'Linnaeus', 'de Cona', 'linnaeus.decona@gmail.com'),
-    (9, 'Ceiren', 'Reyn', 'ceiren.reyn@gmail.com'),
-    (10, 'Ochrus', 'Athodo', 'ochrus.athodo@gmail.com'),
-    (11, 'Oscar', 'Bonnheim', 'oscar.bonnheim@gmail.com'),
-    (12, 'Violyn', 'von Volkslied', 'violyn.vonvolkslied@gmail.com');
+insert into staff (staff_id, staff_fname, staff_lname, email, designation) values 
+    (1, 'John', 'Doe', 'john.doe@gmail.com', 1),
+    (2, 'Edel',  'Weiss', 'edel.weiss@gmail.com', 3),
+    (3, 'Simron', 'Ferzair', 'simron.ferzair@gmail.com', 1),
+    (4, 'Elro', 'Robins', 'elro.robins@gmail.com', 3),
+    (5, 'Annaliese', 'Fair', 'annaliese.fair@gmail.com', 2),
+    (6, 'Therrus', 'Lyrandar', 'therrus.lyrandar@gmail.com', 3),
+    (7, 'Lorentz', 'Kramer', 'lorentz.kramer@gmail.com', 2),
+    (8, 'Linnaeus', 'de Cona', 'linnaeus.decona@gmail.com', 3),
+    (9, 'Ceiren', 'Reyn', 'ceiren.reyn@gmail.com', 2),
+    (10, 'Ochrus', 'Athodo', 'ochrus.athodo@gmail.com', 3),
+    (11, 'Oscar', 'Bonnheim', 'oscar.bonnheim@gmail.com', 1),
+    (12, 'Violyn', 'von Volkslied', 'violyn.vonvolkslied@gmail.com', 3);
 
 create table department (
     dept_id integer auto_increment primary key,

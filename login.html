@@ -17,7 +17,7 @@
 
     </head>
 
-    <body>
+    <body id="app">
 
         <div class="login-page">
             
@@ -32,20 +32,18 @@
                     </div>
                      
                     <label for="login-page_username">Username</label>
-                    <input class="textbox login-page_username">
+                    <input id="login_page_username" class="textbox login-page_username">
 
                     <label for="login-page_password">Password</label>
-                    <input type="password" class="textbox login-page_password">
+                    <input type="password" id="login_page_password" class="textbox login-page_password">
 
-                    <button class="btn login-page_login">Login</button>
+                    <button v-on:click="ljps_login" class="btn login-page_login">Login</button>
                 </div>
             </div>
         </div>
 
-        
-
-
-
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script type="text/javascript" src="JS/app.js"></script>
         <script type="text/javascript" src="JS/javascript.js"></script>
         
     </body>
