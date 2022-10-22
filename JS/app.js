@@ -38,6 +38,47 @@ const app = Vue.createApp({
         }
     },
     methods: {
+        isLoggedIn() {
+            let staff_id = localStorage.getItem("staff_id");
+            console.log("isLoggedIn function")
+            if (!staff_id && window.location.pathname != "/is212lms/login.html") {
+                window.location.href = "/is212lms/login.html";
+            }
+            else return staff_id;
+        },
+        ljps_login() {
+            let login_staff_id = document.getElementById("login_page_username").value;
+            let login_staff_pw = document.getElementById("login_page_password").value;
+
+            axios.post("PHP/functionGetStaffByEmail.php",
+                {
+                    staff_email: login_staff_id 
+                }
+            )
+            .then(response => {
+                if (response.status == 200) {
+                    console.log(response);
+                    localStorage.setItem("staff_id", response.data.records.staff_id);
+                    localStorage.setItem("staff_fName", response.data.records.staff_fName);
+                    localStorage.setItem("staff_lName", response.data.records.staff_lName);
+                    localStorage.setItem("staff_designation", response.data.records.staff_designation);
+                    window.location.href = "/is212lms/";
+                }
+            })
+            .catch(error => {
+                console.log(error.message);
+                console.log("fail");
+                alert("Login failed. Please check your email and password.")
+            });
+            
+        },
+        ljps_logout() {
+            localStorage.removeItem("staff_id");
+            localStorage.removeItem("staff_fName");
+            localStorage.removeItem("staff_lName");
+            localStorage.removeItem("staff_designation");
+            window.location.href = "/is212lms/login.html";
+        },
         getRoles() {
             axios.get("PHP/functionGetAllRoles.php")
                 .then(response => {
@@ -269,6 +310,7 @@ const app = Vue.createApp({
 
     },
     beforeMount(){
+        this.isLoggedIn();
         this.getRoles();
         this.getSkills();
         this.getCourses();
