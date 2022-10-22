@@ -248,6 +248,23 @@ const app = Vue.createApp({
             catch {
                 this.course_details_exists = false
             }
+        },
+
+        roleDelete() {
+            swal({
+                title: "Are you sure?",
+                text: "Once deleted, you will not be able to undo this!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+            .then((willDelete) => {
+                if (willDelete) {
+                    swal("Deleted", {
+                    icon: "success",
+                });
+                }
+            });
         }
 
     },

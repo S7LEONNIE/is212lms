@@ -20,6 +20,51 @@ $(document).ready(function(){
 		$('.journey-model-edit').toggle();
 	});
 
+	$("#admin-role-btn_new" ).on("click", function() { 
+		$('.admin-model_header .title').text('Add Role');
+		$('.admin-model.role').toggle();
+	});
+
+	$(".admin-role-btn_update" ).on("click", function() { 
+		$('.admin-model_header .title').text('Update Role');
+		$('.admin-model.role').toggle();
+	});
+
+	$(".admin-model_close.role" ).on("click", function() { 
+		$('.admin-model.role').toggle();
+	});
+
+	$(".admin-staff-btn_view" ).on("click", function() { 
+		$('.admin-model_header .title').text('View Role');
+		$('.admin-model.staff .action_button.action_positive').hide();
+		$("input").prop('disabled', true);
+		$("select").prop('disabled', true);
+		$(".admin-model-select.learning-journey").prop('disabled', false);
+		$('.journey-model_list').hide();
+		$('.admin-model.staff').toggle();
+	});
+
+	$(".admin-staff-btn_update" ).on("click", function() { 
+		$('.admin-model_header .title').text('Update Role');
+		$('.admin-model.staff .action_button.action_positive').show();
+		$('.journey-model_list').hide();
+		$('.admin-model.staff ').toggle();
+	});
+
+	$(".admin-model_close.staff" ).on("click", function() { 
+		$('.admin-model.staff').toggle();
+		$("input").prop('disabled', false);
+		$("select").prop('disabled', false);
+	});
+
+	$('.admin-model-select.staff').select2();
+
+	$('.admin-model-select.learning-journey').select2();
+
+	$('.admin-model-select.learning-journey').change(function() {
+		$('.journey-model_list').show();
+	})
+
 	generalSearch();
 
 	$('#search-filter').on("click", function() {
@@ -49,6 +94,36 @@ $(document).ready(function(){
 			$('#journey-model-filter').text("A - Z");
 		}
 	});
+
+	$('.tab-selection-wrapper button').click(function() {
+		var t = $(this).attr('name');
+
+		$('.tab-selection-wrapper button').removeClass('tab-selected')
+		$(this).addClass('tab-selected');
+		
+		$('.tab-selection-content').hide();
+		$('.tab-selection-content.' + t).fadeIn('slow');
+
+		if (t == 'all') {
+			$('.tab-selection-content').fadeIn('slow');
+		}
+
+	})
+
+	$('#role-table').DataTable({
+		scrollY: 500,
+		responsive: true,
+		pageLength: 25,
+        lengthMenu: [25, 50, 75, 100],
+	});
+
+	$('#staff-table').DataTable({
+		scrollY: 500,
+		responsive: true,
+		pageLength: 25,
+        lengthMenu: [25, 50, 75, 100],
+	});
+
 });
 
 function classToggle() {
