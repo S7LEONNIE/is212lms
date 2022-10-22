@@ -19,7 +19,7 @@ class FirstCest
     public function frontpageWorks(AcceptanceTester $I)
     {
         $I->amOnPage('/');
-        $I->see('Home');
+        $I->see('Popular Jobs');
     }
 
     public function loginWorks(AcceptanceTester $I)
