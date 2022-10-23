@@ -41,7 +41,7 @@ class classLearningJourneyDAO {
         return $list_role;
     }
 
-    public function addRole($role_name, $role_desc) {
+    public function addLearningJourney($lj_name, $staff_id, $role_id) {
         
         // STEP 1: establish a connection
 
@@ -50,24 +50,29 @@ class classLearningJourneyDAO {
 
         // STEP 2: SQL commands
 
-        $sql = "INSERT INTO role
+        $sql = "INSERT INTO learning_journey
                         (
-                            role_name, 
-                            role_desc
+                            lj_name, 
+                            staff_id,
+                            role_id
                         )
                     VALUES
                         (
-                            :role_name,
-                            :role_desc
+                            :learningjourney_name,
+                            :staff_no,
+                            :role_no
                         )";
 
         $stmt = $conn->prepare($sql);
-        $stmt->bindParam(':role_name', $role_name, PDO::PARAM_STR);
-        $stmt->bindParam(':role_desc', $role_desc, PDO::PARAM_STR);
+        $stmt->bindParam(':learningjourney_name', $lj_name, PDO::PARAM_STR);
+        $stmt->bindParam(':staff_no', $staff_id, PDO::PARAM_INT);
+        $stmt->bindParam(':role_no', $role_id, PDO::PARAM_INT);
 
         // STEP 3: Run SQL
         $status = $stmt->execute();
-
+        $stmt->closeCursor();
+        
+        $pdo = null;
         $stmt = null;
         $conn = null;
         return $status;

@@ -120,8 +120,6 @@ const app = Vue.createApp({
                 .then(response => {
                 if (response.status == 200) {
                     this.skillsAndCourses = response.data.records;
-                    console.log("abc");
-                    console.log(response.data.records);
                 }
                 })
                 .catch(error => {

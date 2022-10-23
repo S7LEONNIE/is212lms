@@ -1,0 +1,60 @@
+<html>
+<head>
+    Create Learning Journey
+</head>
+
+<body>
+    <div id="createRolesVue">
+
+        <p>{{ message }}</p>
+
+        Learning Journey Name: <input type="text" v-model="learningjourney_name"> <br />
+
+        <button type="button" v-on:click="createLearningJourney">Create New Learning Journey Button</button> <br />
+
+        <hr />
+    </div>
+</body>
+
+</html>
+
+
+<script src="JS/vue.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+<script>
+    const createRolesVue = Vue.createApp({
+        data() {
+            return {
+                learningjourney_name: '',
+                message: '',
+                success_message: 'Learning Journey Successfully Created.',
+                failure_message: 'Could not create Learning Journey.',
+            }
+        },
+        methods: {
+            createLearningJourney() {
+                axios.post("PHP/functionAddLearningJourney.php", {
+                    learningjourney_name: this.learningjourney_name,
+                })
+                    .then(response => {
+                    if (response.status == 200) {
+                        console.log(response.data);
+                        this.message = this.success_message;
+                        this.learningjourney_name = '';
+                    }
+                    else {
+                        console.log(response.data);
+                        this.message = this.failure_message;
+                    }
+                    })
+                    .catch(error => {
+                    console.log(error.message);
+                    this.message = this.failure_message;
+                    });
+            },
+        }
+})
+
+const vm = createRolesVue.mount("#createRolesVue")
+</script>
