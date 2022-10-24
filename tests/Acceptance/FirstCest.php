@@ -30,11 +30,11 @@ class FirstCest
     
     public function loginSuccesful(AcceptanceTester $I)
     {
-        // $I->amOnPage('/login');
-        // $I->fillField('username', 'davert');
-        // $I->fillField('password', 'qwerty');
-        // $I->click('LOGIN');
-        // $I->see('Welcome, Davert!');
+        $I->amOnPage('/login');
+        $I->fillField('username', 'davert');
+        $I->fillField('password', 'qwerty');
+        $I->click('LOGIN');
+        $I->see('Welcome, Davert!');
     }
 
     public function searchbarWorks(AcceptanceTester $I)
