@@ -16,12 +16,6 @@ class FirstCest
     {
     }
 
-    public function frontpageWorks(AcceptanceTester $I)
-    {
-        $I->amOnPage('/');
-        $I->see('Popular Jobs');
-    }
-
     public function loginWorks(AcceptanceTester $I)
     {
         $I->amOnPage('/login');
@@ -31,10 +25,10 @@ class FirstCest
     public function loginSuccesful(AcceptanceTester $I)
     {
         $I->amOnPage('/login');
-        $I->fillField('username', 'davert');
-        $I->fillField('password', 'qwerty');
+        $I->fillField('Username', 'john.doe@gmail.com');
+        $I->fillField('Password', '1');
         $I->click('LOGIN');
-        $I->see('Welcome, Davert!');
+        $I->see('Popular Jobs');
     }
 
     public function searchbarWorks(AcceptanceTester $I)
@@ -45,7 +39,7 @@ class FirstCest
 
     public function searchbarResults(AcceptanceTester $I)
     {
-        $I->amOnPage('/');
+        $I->amOnPage('/job');
         $I->fillField('Search', 'Defense');
         $I->click('Search');
         $I->see('Defense against the Dark Arts');

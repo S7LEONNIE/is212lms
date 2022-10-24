@@ -8,6 +8,6 @@ actor: AcceptanceTester
 modules:
     enabled:
         - PhpBrowser:
-            url: http://localhost/github/is212lms/
+            url: http://localhost/is212lms/
 step_decorators:
     - \Codeception\Step\ConditionalAssertion
