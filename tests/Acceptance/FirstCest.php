@@ -25,8 +25,8 @@ class FirstCest
     public function loginSuccesful(AcceptanceTester $I)
     {
         $I->amOnPage('/login');
-        $I->fillField('Username', 'john.doe@gmail.com');
-        $I->fillField('Password', '1');
+        $I->fillField('user[email]', 'john.doe@gmail.com');
+        $I->fillField('password', '1');
         $I->click('LOGIN');
         $I->see('Popular Jobs');
     }

@@ -32,10 +32,10 @@
                     </div>
                      
                     <label for="login-page_username">Username</label>
-                    <input id="login_page_username" class="textbox login-page_username">
+                    <input name="user[email]" id="login_page_username" class="textbox login-page_username">
 
                     <label for="login-page_password">Password</label>
-                    <input type="password" id="login_page_password" class="textbox login-page_password">
+                    <input name="password" type="password" id="login_page_password" class="textbox login-page_password">
 
                     <button v-on:click="ljps_login" class="btn login-page_login">Login</button>
                 </div>
