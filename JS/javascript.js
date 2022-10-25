@@ -69,21 +69,22 @@ $(document).ready(function(){
 
 	$('#search-filter').on("click", function() {
 		$('.search-page_filter_container').toggleClass("search-filter_show");
-	})
+	});
 
-	$('.filter-itemlist-job :checkbox').click(function () {
-		if ($('.filter-itemlist-job :checkbox').is(':checked')) {
+	$('.filter-itemlist-job').on("click", function () {
+		console.log('e');
+		if ($('.filter-itemlist-job input:checkbox').is(':checked')) {
 			$('.course-card').hide();
-			$('.filter-itemlist-job :checkbox:checked').each(function() {
+			$('.filter-itemlist-job input:checkbox:checked').each(function() {
 				coursename = $(this).val().replace(/ /g, '.');
 				$('.course-card.' + coursename).show();
 			})
 		} else {
 			$('.course-card').show();
 		}
-	})
+	});
 
-	$('#journey-model-filter').click(function () {
+	$('#journey-model-filter').on("change", function () {
 		if (filterSetting == false) {
 			$(".course-card-container .course-card").sort(sortFilterAsc).appendTo('.course-card-container');
 			filterSetting = true;
