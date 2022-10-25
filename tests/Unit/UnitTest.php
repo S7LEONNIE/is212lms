@@ -38,4 +38,4 @@ class ExampleTest extends \Codeception\Test\Unit
     
 }
 
-// php vendor/bin/codecept run Unit ExampleTest
+// php vendor/bin/codecept run Unit UnitTest

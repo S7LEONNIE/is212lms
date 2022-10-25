@@ -13,9 +13,8 @@ modules:
             dsn: 'mysql:host=localhost;dbname=testdb'
             user: 'root'
             password: ''
-            populate: no
-            cleanup: true
-            dump: 
-                - 'tests/_data/dump.sql'
-                - 'tests/_data/dump-2.sql'
+            dump: 'tests/Data/createLJMS.sql'
+            populate: true # run populator before all tests
+            cleanup: true # run populator before each test
+            populator: 'mysql -u $user -h $host $dbname < $dump'
     step_decorators: ~
