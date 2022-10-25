@@ -26,7 +26,7 @@ class FirstCest
     {
         $I->amOnPage('/login');
         $I->fillField('user[email]', 'john.doe@gmail.com');
-        $I->fillField('password', '1');
+        $I->fillField('password', '');
         $I->click('LOGIN');
         $I->see('Popular Jobs');
     }
