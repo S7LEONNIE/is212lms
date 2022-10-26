@@ -41,7 +41,19 @@ const app = Vue.createApp({
         rolesDT: function() {
             let array_init = [];
             for (role of this.roles) {
-                let role_array = [role.role_id, role.role_name, role.role_desc, role.is_active];
+                let role_array = 
+                [
+                    role.role_id, 
+                    role.role_name, 
+                    role.role_desc, 
+                    role.is_active,
+                    `
+                    <button class="admin-role-btn_update">Update</button>
+                    <button onclick="vm.roleDelete(` + 
+                    role.role_id 
+                    + `)">Delete</button>
+                    `
+                ];
                 array_init.push(role_array);
             }
             return array_init;
@@ -302,21 +314,22 @@ const app = Vue.createApp({
             }
         },
 
-        roleDelete() {
-            swal({
-                title: "Are you sure?",
-                text: "Once deleted, you will not be able to undo this!",
-                icon: "warning",
-                buttons: true,
-                dangerMode: true,
-            })
-            .then((willDelete) => {
-                if (willDelete) {
-                    swal("Deleted", {
-                    icon: "success",
-                });
-                }
-            });
+        roleDelete(role_id) {
+            console.log("You Got This" + role_id);
+            // swal({
+            //     title: "Are you sure?",
+            //     text: "Once deleted, you will not be able to undo this!",
+            //     icon: "warning",
+            //     buttons: true,
+            //     dangerMode: true,
+            // })
+            // .then((willDelete) => {
+            //     if (willDelete) {
+            //         swal("Deleted", {
+            //         icon: "success",
+            //     });
+            //     }
+            // });
         },
         skillDelete() {
             swal({

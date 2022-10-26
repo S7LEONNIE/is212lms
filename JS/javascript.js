@@ -11,8 +11,9 @@ var rolesTable = $('#role-table').DataTable({
 		{ title: 'id' },
 		{ title: 'Name' },
 		{ title: 'Description' },
-		{ title: 'Status' }
-	],
+		{ title: 'Status' },
+		{ title: '' }
+	]
 });
 
 $(document).ready(function(){
