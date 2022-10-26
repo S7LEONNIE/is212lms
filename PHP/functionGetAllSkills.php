@@ -5,7 +5,6 @@ $skillDAO = new classSkillDAO();
 
 $skills = array();
 
-// $database = $itemDAO->loadByMonth($userId, $date[1], $date[0]);
 $database = $skillDAO->loadAll();
 
 foreach ($database as $skill) {
@@ -25,8 +24,6 @@ foreach ($database as $skill) {
 
     $skills[] = $skillToArray;
 }
-
-// $labels = ["Skill ID", "Skill Name", "Skill Description"];
 
 $output = ["records" => $skills];
 

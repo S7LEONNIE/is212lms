@@ -127,7 +127,7 @@ const app = Vue.createApp({
                                 skill.skill_desc, 
                                 skill.is_active,
                                 `
-                                <button class="admin-role-btn_update">Update</button>
+                                <button class="admin-skill-btn_update">Update</button>
                                 <button onclick="vm.skillDelete(` + 
                                 skill.skill_id 
                                 + `)">Delete</button>
@@ -364,6 +364,25 @@ const app = Vue.createApp({
             //     }
             // });
         },
+        createRole(){
+            let role_name = document.getElementById('new_role_name').value;
+            let role_desc = document.getElementById('new_role_desc').value;
+            axios.post("PHP/functionAddRole.php", {
+                role_name: role_name,
+                role_desc: role_desc,
+            })
+                .then(response => {
+                if (response.status == 200) {
+                    console.log('successful add role');
+                    console.log(response)
+                }
+                })
+                .catch(error => {
+                console.log(error.message);
+                console.log("fail");
+                });
+
+        },
         createSkill(){
             console.log("test");
             axios.post("PHP/functionAddSkills.php", {
@@ -373,6 +392,22 @@ const app = Vue.createApp({
                 .then(response => {
                 if (response.status == 200) {
                     console.log('successful add skills');
+                    console.log(response)
+                    // let skill_array = 
+                    // [
+                    //     skill.skill_id, 
+                    //     skill.skill_name, 
+                    //     skill.skill_desc, 
+                    //     skill.is_active,
+                    //     `
+                    //     <button class="admin-role-btn_update">Update</button>
+                    //     <button onclick="vm.skillDelete(` + 
+                    //     skill.skill_id 
+                    //     + `)">Delete</button>
+                    //     `
+                    // ];
+                    // skillsDT.push(skill_array);
+
                 }
                 })
                 .catch(error => {
@@ -381,7 +416,6 @@ const app = Vue.createApp({
                 });
 
         },
-
     },
     beforeMount(){
         this.isLoggedIn();
@@ -393,6 +427,41 @@ const app = Vue.createApp({
         this.getCourseById();
         this.getSkillById();
     },
+})
+
+app.component('navbar-component', {
+    template: `
+    <div class="Navbar__Wrapper">
+        <div class="Navbar">
+            <div class="Navbar__Link Navbar__Link-brand">
+                LJMS
+            </div>
+            <div onclick="classToggle()" class="Navbar__Link Navbar__Link-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+
+            <nav class="Navbar__Items">
+                <div class="Navbar__Link">
+                    <a href="index.html">Home</a>
+                </div>
+                <div class="Navbar__Link">
+                <a href="role.html">Role</a>
+                </div>
+                <div class="Navbar__Link">
+                <a href="skills_course_search.html">Skills/Courses</a>
+                </div>
+            </nav>
+
+            <nav class="Navbar__Items Navbar__Items--right">
+                <div class="Navbar__Link">
+                    <a href="myjourney.php">My Journey</a>
+                </div>
+                <div class="Navbar__Link">
+                    <a href="#">Logout</a>
+                </div>
+            </nav>
+        </div>
+    </div>`
 })
 
 const vm = app.mount('#app')

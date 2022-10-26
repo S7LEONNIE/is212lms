@@ -38,38 +38,7 @@
     </head>
 
     <body id="app">
-        <div class="Navbar__Wrapper">
-            <!-- nav bar -->
-            <div class="Navbar">
-                <div class="Navbar__Link Navbar__Link-brand">
-                    LJMS
-                </div>
-                <div onclick="classToggle()" class="Navbar__Link Navbar__Link-toggle">
-                    <i class="fas fa-bars"></i>
-                </div>
-    
-                <nav class="Navbar__Items">
-                    <div class="Navbar__Link">
-                        <a href="index.html">Home</a>
-                    </div>
-                    <div class="Navbar__Link">
-                    <a href="role.html">Role</a>
-                    </div>
-                    <div class="Navbar__Link">
-                    <a href="skills_course_search.html">Skills/Courses</a>
-                    </div>
-                </nav>
-    
-                <nav class="Navbar__Items Navbar__Items--right">
-                    <div class="Navbar__Link">
-                        <a href="myjourney.php">My Journey</a>
-                    </div>
-                    <div class="Navbar__Link">
-                        <a href="#">Logout</a>
-                    </div>
-                </nav>
-            </div>
-        </div>
+        <navbar-component></navbar-component>
 
         <!-- main content -->
         <div class="Main__Content">
@@ -88,25 +57,7 @@
                 </div>
 
                 <table id="role-table" class="display responsive nowrap" width="100%">
-                    <!-- <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>Role Name</th>
-                            <th>Role Description</th>
-                            <th>Edit</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr v-for="role, index in roles">
-                            <td>{{ index+1 }}</td>
-                            <td>{{ role.role_name }}</td>
-                            <td>{{ role.role_desc }}</td>
-                            <td>
-                                <button class="admin-role-btn_update">Update</button>
-                                <button v-on:click="roleDelete()">Delete</button>
-                            </td>
-                        </tr>
-                    </tbody> -->
+                    <!-- This is a Data Table -->
                 </table>
             </div>
 
@@ -118,25 +69,7 @@
                 </div>
 
                 <table id="skill-table" class="display responsive nowrap" width="100%">
-                    <!-- <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>Skill Name</th>
-                            <th>Description</th>
-                            <th>Edit</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr v-for="x in 20">
-                            <td>{{ x }}</td>
-                            <td>Business</td>
-                            <td>This is business skill name lol</td>
-                            <td>
-                                <button class="admin-skill-btn_update">Update</button>
-                                <button v-on:click="skillDelete()">Delete</button>
-                            </td>
-                        </tr>
-                    </tbody> -->
+                    <!-- This is a Data Table -->
                 </table>
             </div>
 
@@ -183,12 +116,12 @@
                 </div>
 
                 <label>Role Name</label>
-                <input class="textbox">
+                <input id="new_role_name" class="textbox">
                 <label>Description</label>
-                <input class="textbox">
+                <input id="new_role_desc" class="textbox">
                 
                 <div class="action-container">
-                    <button class="action_button action_positive">Save</button>
+                    <button class="action_button action_positive" v-on:click="createRole">Save</button>
                     <button class="action_button action_back admin-model_close role">Cancel</button>
                 </div>
             </div>
