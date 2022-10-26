@@ -50,7 +50,7 @@
                         <a href="index.html">Home</a>
                     </div>
                     <div class="Navbar__Link">
-                    <a href="job.html">Job</a>
+                    <a href="role.html">Role</a>
                     </div>
                     <div class="Navbar__Link">
                     <a href="skills_course_search.html">Skills/Courses</a>
@@ -89,12 +89,12 @@
 
             <div class="quick_cat">
                 <div class="header">
-                    <div class="title">Popular Jobs</div>
-                    <button class="btn" onClick="location.href='job.html'">View More</button>
+                    <div class="title">Popular Roles</div>
+                    <button class="btn" onClick="location.href='role.html'">View More</button>
                 </div>
                 <div class="circles-container">
                     <div v-for="role in roles" class="circles">
-                        <a :href="'job_detail.html?job_id=' + role.role_id">{{ role.role_name }}</a>
+                        <a :href="'role_detail.html?role_id=' + role.role_id">{{ role.role_name }}</a>
                     </div>
                 </div>
             </div>

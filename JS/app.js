@@ -140,7 +140,7 @@ const app = Vue.createApp({
             }
 
             try {
-                let role_id = params.job_id;
+                let role_id = params.role_id;
 
                 axios.post("PHP/functionGetRoleById.php",
                 {

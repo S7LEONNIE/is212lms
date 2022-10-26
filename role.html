@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale = 1">
 
-    <title>LJMS - Jobs</title>
+    <title>LJMS - Role</title>
 
     <!-- CSS Import -->
     <link rel="stylesheet" href="css/main.css">
@@ -52,7 +52,7 @@
                     <a href="index.html">Home</a>
                 </div>
                 <div class="Navbar__Link">
-                <a href="job.html">Job</a>
+                <a href="role.html">Role</a>
                 </div>
                 <div class="Navbar__Link">
                 <a href="skills_course_search.html">Skills/Courses</a>
@@ -81,27 +81,27 @@
 
         <div class="banner">
             <img src="https://cdn.pixabay.com/photo/2016/11/22/21/26/notebook-1850613_960_720.jpg">
-            <div class="quick_banner-text">Jobs</div>
+            <div class="quick_banner-text">Role</div>
         </div>
 
         <div class="quick_cat">
             <div class="header">
-                <div class="title">Top Jobs</div>
+                <div class="title">Top Role</div>
             </div>
             <div class="circles-container">
                 <div v-for="role in roles" class="circles">
-                    <a :href="'job_detail.html?job_id=' + role.role_id">{{ role.role_name }}</a>
+                    <a :href="'role_detail.html?role_id=' + role.role_id">{{ role.role_name }}</a>
                 </div>
             </div>
         </div>
 
         <div class="overall-cards_container">
             <div class="header">
-                <div class="title">Jobs</div>
+                <div class="title">Role</div>
             </div>
             <div class="overall-cards_wrapper">
                 <div v-for="role in roles" class="overall-cards">
-                    <a :href="'job_detail.html?job_id=' + role.role_id">
+                    <a :href="'role_detail.html?role_id=' + role.role_id">
                         <img src="https://cdn.pixabay.com/photo/2016/11/22/21/26/notebook-1850613_960_720.jpg">
                         <div class="banner-text">{{ role.role_name }}</div>
                     </a>
