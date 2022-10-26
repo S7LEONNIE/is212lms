@@ -15,7 +15,7 @@ class classRoleDAO {
             role_desc,
             is_active
             FROM role
-            ORDER BY role_id ASC;"; // ASC or DESC 
+            WHERE is_active = 'active' ORDER BY role_id ASC;"; // ASC or DESC 
         $stmt = $conn->prepare($sql);
 
         // STEP 3: Run SQL
@@ -136,6 +136,55 @@ class classRoleDAO {
             }
         return $list_role;
     }
+
+    public function updateRole($role_id,$role_name, $role_desc) {
+        
+        // STEP 1: establish a connection
+
+        $connMgr = new classConnectionManager();
+        $conn = $connMgr->connect();
+
+        // STEP 2: SQL commands
+        $sql = "UPDATE role 
+                SET role_name = :role_name, role_desc = :role_desc
+                WHERE role_id = :role_id;";
+
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':role_name', $role_name, PDO::PARAM_STR);
+        $stmt->bindParam(':role_desc', $role_desc, PDO::PARAM_STR);
+        $stmt->bindParam(':role_id', $role_id, PDO::PARAM_INT);
+
+        // STEP 3: Run SQL
+        $status = $stmt->execute();
+
+        $stmt = null;
+        $conn = null;
+        return $status;
+    }
+
+    public function deleteRole($role_id) {
+        
+        // STEP 1: establish a connection
+
+        $connMgr = new classConnectionManager();
+        $conn = $connMgr->connect();
+
+        // STEP 2: SQL commands
+        $sql = "UPDATE role
+        SET is_active = 'inactive' 
+        WHERE role_id = :role_id;";
+
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':role_id', $role_id, PDO::PARAM_INT);
+
+        // STEP 3: Run SQL
+        $status = $stmt->execute();
+
+        $stmt = null;
+        $conn = null;
+        return $status;
+    }
+    
 }
 
 

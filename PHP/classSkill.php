@@ -6,6 +6,7 @@ class classSkill {
     private $skill_id;
     private $skill_name;
     private $skill_desc;
+    private $is_active;
 
     // Methods
 

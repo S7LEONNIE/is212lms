@@ -53,7 +53,7 @@
             <div class="tab-selection-content role">
                 <div class="header">
                     <div class="title">Role Management</div>
-                    <button id="admin-role-btn_new" class="btn action_button">New</button>
+                    <button id="admin-role-btn_new" class="btn action_button" @click="roleButtonAction = 'new'">New</button>
                 </div>
 
                 <table id="role-table" class="display responsive nowrap" width="100%">
@@ -65,7 +65,7 @@
             <div class="tab-selection-content skill">
                 <div class="header">
                     <div class="title">Skill Management</div>
-                    <button id="admin-skill-btn_new" class="btn action_button">New</button>
+                    <button id="admin-skill-btn_new" class="btn action_button" @click="skillButtonAction = 'new'">New</button>
                 </div>
 
                 <table id="skill-table" class="display responsive nowrap" width="100%">
@@ -116,12 +116,17 @@
                 </div>
 
                 <label>Role Name</label>
-                <input id="new_role_name" class="textbox">
+                <input id="new_role_name" class="textbox" v-model="new_role_name">
                 <label>Description</label>
-                <input id="new_role_desc" class="textbox">
+                <input id="new_role_desc" class="textbox" v-model="new_role_desc">
                 
                 <div class="action-container">
-                    <button class="action_button action_positive" v-on:click="createRole">Save</button>
+                    <template v-if="roleButtonAction == 'new'">
+                        <button class="action_button action_positive" v-on:click="createRole">Save</button>
+                    </template>
+                    <template v-else-if="roleButtonAction == 'update'">
+                        <button class="action_button action_positive" v-on:click="updateRole(updateRoleID)">Save</button>
+                    </template>
                     <button class="action_button action_back admin-model_close role">Cancel</button>
                 </div>
             </div>
@@ -137,12 +142,17 @@
                 </div>
 
                 <label>Skill Name</label>
-                <input type="text" class="textbox" v-model="skill_name">
+                <input id="new_skill_name" class="textbox" v-model="new_skill_name">
                 <label>Description</label>
-                <input type="text" class="textbox" v-model="skill_desc">
+                <input id="new_skill_desc" class="textbox" v-model="new_skill_desc">
                 
                 <div class="action-container">
-                    <button type="button" v-on:click="createSkill" class="action_button action_positive">Save</button>
+                    <template v-if="skillButtonAction == 'new'">
+                        <button class="action_button action_positive" v-on:click="createSkill">Save</button>
+                    </template>
+                    <template v-else-if="skillButtonAction == 'update'">
+                        <button class="action_button action_positive" v-on:click="updateSkill(updateSkillID)">Save</button>
+                    </template>
                     <button class="action_button action_back admin-model_close skill">Cancel</button>
                 </div>
             </div>

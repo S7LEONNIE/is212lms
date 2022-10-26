@@ -70,7 +70,7 @@ $(document).ready(function(){
 		$('.admin-model_header .title').text('Add Skill');
 		$('.admin-model.skill').toggle();
 	});
-
+	
 	$(".admin-skill-btn_update" ).on("click", function() { 
 		$('.admin-model_header .title').text('Update Skill');
 		$('.admin-model.skill').toggle();
@@ -215,4 +215,9 @@ function sortFilterAsc(a, b) {
 // Filter Desc function
 function sortFilterDesc(a, b) {
 	return ($(b).text().toUpperCase()) > ($(a).text().toUpperCase()) ? 1 : -1; 
+}
+
+function toggleSkillsModal () {
+	$('.admin-model_header .title').text('Update Skill');
+	$('.admin-model.skill').toggle();
 }

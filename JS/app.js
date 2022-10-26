@@ -7,6 +7,10 @@ const app = Vue.createApp({
             skills: [],
             courses: [],
             skillsAndCourses: [],
+            roleButtonAction: "",
+            updateRoleID: "",
+            skillButtonAction: "",
+            updateSkillID: "",
 
             role_details_exists: true,
             role_details: {
@@ -95,11 +99,8 @@ const app = Vue.createApp({
                                 role.role_desc, 
                                 role.is_active,
                                 `
-                                <button class="admin-role-btn_update">Update</button>
-                                <button onclick="vm.roleDelete(` + 
-                                role.role_id 
-                                + `)">Delete</button>
-                                `
+                                <button onclick="vm.roleButtonAction='update'; vm.updateRoleID=`+role.role_id+`" class="admin-role-btn_update">Update</button>
+                                <button onclick="vm.roleDelete(` + role.role_id + `)" >Delete</button>`
                             ];
                             rolesDT.push(role_array);
                         }
@@ -127,11 +128,8 @@ const app = Vue.createApp({
                                 skill.skill_desc, 
                                 skill.is_active,
                                 `
-                                <button class="admin-skill-btn_update">Update</button>
-                                <button onclick="vm.skillDelete(` + 
-                                skill.skill_id 
-                                + `)">Delete</button>
-                                `
+                                <button onclick="toggleSkillsModal(); vm.skillButtonAction='update'; vm.updateSkillID=`+skill.skill_id+`"class="admin-skill-btn_update">Update</button>
+                                <button onclick="vm.skillDelete(` + skill.skill_id + `)">Delete</button>`
                             ];
                             skillsDT.push(skill_array);
                         }
@@ -337,38 +335,60 @@ const app = Vue.createApp({
         },
 
         roleDelete(role_id) {
-            console.log("You Got This" + role_id);
-            // swal({
-            //     title: "Are you sure?",
-            //     text: "Once deleted, you will not be able to undo this!",
-            //     icon: "warning",
-            //     buttons: true,
-            //     dangerMode: true,
-            // })
-            // .then((willDelete) => {
-            //     if (willDelete) {
-            //         swal("Deleted", {
-            //         icon: "success",
-            //     });
-            //     }
-            // });
+            swal({
+                title: "Are you sure?",
+                text: "Once deleted, you will not be able to undo this!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+            .then((willDelete) => {
+                if (willDelete) {
+                    axios.post("PHP/functionDeleteRole.php", {
+                        role_id: role_id
+                    })
+                        .then(response => {
+                        if (response.status == 200) {
+                            console.log('successful deleted role');
+                        }
+                        })
+                        .catch(error => {
+                        console.log(error.message);
+                        console.log("fail");
+                        });
+                    swal("Deleted", {
+                    icon: "success",
+                });
+                }
+            });
         },
         skillDelete(skill_id) {
-            console.log("You Got This" + skill_id);
-            // swal({
-            //     title: "Are you sure?",
-            //     text: "Once deleted, you will not be able to undo this!",
-            //     icon: "warning",
-            //     buttons: true,
-            //     dangerMode: true,
-            // })
-            // .then((willDelete) => {
-            //     if (willDelete) {
-            //         swal("Deleted", {
-            //         icon: "success",
-            //     });
-            //     }
-            // });
+            swal({
+                title: "Are you sure?",
+                text: "Once deleted, you will not be able to undo this!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+            .then((willDelete) => {
+                if (willDelete) {
+                    axios.post("PHP/functionDeleteSkills.php", {
+                        skill_id: skill_id
+                    })
+                        .then(response => {
+                        if (response.status == 200) {
+                            console.log('successful deleted skill');
+                        }
+                        })
+                        .catch(error => {
+                        console.log(error.message);
+                        console.log("fail");
+                        });
+                    swal("Deleted", {
+                    icon: "success",
+                });
+                }
+            });
         },
         createRole(){
             let role_name = document.getElementById('new_role_name').value;
@@ -387,33 +407,54 @@ const app = Vue.createApp({
                 console.log(error.message);
                 console.log("fail");
                 });
-
+        },
+        updateRole(var_role_id){
+            let role_name = document.getElementById('new_role_name').value;
+            let role_desc = document.getElementById('new_role_desc').value;
+            axios.post("PHP/functionUpdateRole.php", {
+                    role_name: role_name,
+                    role_desc: role_desc,
+                    role_id: var_role_id
+            })
+                .then(response => {
+                if (response.status == 200) {
+                    console.log("Successfully Updated Role");
+                }
+                })
+                .catch(error => {
+                console.log(error.message);
+                console.log("Update role fail");
+                });
+        },
+        updateSkill(var_skill_id){
+            let skill_name = document.getElementById('new_skill_name').value;
+            let skill_desc = document.getElementById('new_skill_desc').value;
+            axios.post("PHP/functionUpdateSkills.php", {
+                    skill_name: skill_name,
+                    skill_desc: skill_desc,
+                    skill_id: var_skill_id
+            })
+                .then(response => {
+                if (response.status == 200) {
+                    console.log("Successfully Updated Skill");
+                }
+                })
+                .catch(error => {
+                console.log(error.message);
+                console.log("Update Skill fail");
+                });
         },
         createSkill(){
-            console.log("test");
+            let skill_name = document.getElementById('new_skill_name').value;
+            let skill_desc = document.getElementById('new_skill_desc').value;
             axios.post("PHP/functionAddSkills.php", {
-                skill_name: this.skill_name,
-                skill_desc: this.skill_desc,
+                skill_name: skill_name,
+                skill_desc: skill_desc,
             })
                 .then(response => {
                 if (response.status == 200) {
                     console.log('successful add skills');
                     console.log(response)
-                    // let skill_array = 
-                    // [
-                    //     skill.skill_id, 
-                    //     skill.skill_name, 
-                    //     skill.skill_desc, 
-                    //     skill.is_active,
-                    //     `
-                    //     <button class="admin-role-btn_update">Update</button>
-                    //     <button onclick="vm.skillDelete(` + 
-                    //     skill.skill_id 
-                    //     + `)">Delete</button>
-                    //     `
-                    // ];
-                    // skillsDT.push(skill_array);
-
                 }
                 })
                 .catch(error => {
@@ -422,6 +463,7 @@ const app = Vue.createApp({
                 });
 
         },
+
     },
     beforeMount(){
         this.isLoggedIn();

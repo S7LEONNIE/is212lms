@@ -15,6 +15,7 @@ class classSkillDAO {
             skill_desc,
             is_active
             FROM skill
+            WHERE is_active = 'active'
             ORDER BY skill_id ASC;"; // ASC or DESC 
         $stmt = $conn->prepare($sql);
 
@@ -175,6 +176,53 @@ class classSkillDAO {
         // $conn = null;
         return $status;
     }
+
+    public function updateSkill($skill_id,$skill_name, $skill_desc) {
+        
+        // STEP 1: establish a connection
+
+        $connMgr = new classConnectionManager();
+        $conn = $connMgr->connect();
+
+        // STEP 2: SQL commands
+        $sql = "UPDATE skill 
+                SET skill_name = :skill_name, skill_desc = :skill_desc
+                WHERE skill_id = :skill_id;";
+
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':skill_name', $skill_name, PDO::PARAM_STR);
+        $stmt->bindParam(':skill_desc', $skill_desc, PDO::PARAM_STR);
+        $stmt->bindParam(':skill_id', $skill_id, PDO::PARAM_INT);
+
+        // STEP 3: Run SQL
+        $status = $stmt->execute();
+
+        return $status;
+    }
+
+    public function deleteSkill($skill_id) {
+        
+        // STEP 1: establish a connection
+
+        $connMgr = new classConnectionManager();
+        $conn = $connMgr->connect();
+
+        // STEP 2: SQL commands
+        $sql = "UPDATE skill
+        SET is_active = 'inactive' 
+        WHERE skill_id = :skill_id;";
+
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':skill_id', $skill_id, PDO::PARAM_INT);
+
+        // STEP 3: Run SQL
+        $status = $stmt->execute();
+
+        $stmt = null;
+        $conn = null;
+        return $status;
+    }
+
 
     // // The rest of this is code from my old WAD2 project. To be modified as necessary.
 

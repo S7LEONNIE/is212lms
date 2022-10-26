@@ -6,6 +6,7 @@ class classRole {
     private $role_id;
     private $role_name;
     private $role_desc;
+    private $is_active;
 
     // Methods
 
