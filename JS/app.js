@@ -37,28 +37,7 @@ const app = Vue.createApp({
             rolesBySkill: [],
         }
     },
-    computed: {
-        rolesDT: function() {
-            let array_init = [];
-            for (role of this.roles) {
-                let role_array = 
-                [
-                    role.role_id, 
-                    role.role_name, 
-                    role.role_desc, 
-                    role.is_active,
-                    `
-                    <button class="admin-role-btn_update">Update</button>
-                    <button onclick="vm.roleDelete(` + 
-                    role.role_id 
-                    + `)">Delete</button>
-                    `
-                ];
-                array_init.push(role_array);
-            }
-            return array_init;
-        }
-    },
+    // computed: {},
     methods: {
         isLoggedIn() {
             let staff_id = localStorage.getItem("staff_id");
@@ -107,7 +86,24 @@ const app = Vue.createApp({
                 if (response.status == 200) {
                     this.roles = response.data.records;
                     if (rolesTable) {
-                        rolesTable.rows.add(this.rolesDT).draw();                        
+                        let rolesDT = [];
+                        for (role of this.roles) {
+                            let role_array = 
+                            [
+                                role.role_id, 
+                                role.role_name, 
+                                role.role_desc, 
+                                role.is_active,
+                                `
+                                <button class="admin-role-btn_update">Update</button>
+                                <button onclick="vm.roleDelete(` + 
+                                role.role_id 
+                                + `)">Delete</button>
+                                `
+                            ];
+                            rolesDT.push(role_array);
+                        }
+                        rolesTable.rows.add(rolesDT).draw();                        
                     }        
                 }
                 })
@@ -121,6 +117,26 @@ const app = Vue.createApp({
                 .then(response => {
                 if (response.status == 200) {
                     this.skills = response.data.records
+                    if (skillsTable) {
+                        let skillsDT = [];
+                        for (skill of this.skills) {
+                            let skill_array = 
+                            [
+                                skill.skill_id, 
+                                skill.skill_name, 
+                                skill.skill_desc, 
+                                skill.is_active,
+                                `
+                                <button class="admin-role-btn_update">Update</button>
+                                <button onclick="vm.skillDelete(` + 
+                                skill.skill_id 
+                                + `)">Delete</button>
+                                `
+                            ];
+                            skillsDT.push(skill_array);
+                        }
+                        skillsTable.rows.add(skillsDT).draw();                        
+                    }        
                 }
                 })
                 .catch(error => {
@@ -331,21 +347,22 @@ const app = Vue.createApp({
             //     }
             // });
         },
-        skillDelete() {
-            swal({
-                title: "Are you sure?",
-                text: "Once deleted, you will not be able to undo this!",
-                icon: "warning",
-                buttons: true,
-                dangerMode: true,
-            })
-            .then((willDelete) => {
-                if (willDelete) {
-                    swal("Deleted", {
-                    icon: "success",
-                });
-                }
-            });
+        skillDelete(skill_id) {
+            console.log("You Got This" + skill_id);
+            // swal({
+            //     title: "Are you sure?",
+            //     text: "Once deleted, you will not be able to undo this!",
+            //     icon: "warning",
+            //     buttons: true,
+            //     dangerMode: true,
+            // })
+            // .then((willDelete) => {
+            //     if (willDelete) {
+            //         swal("Deleted", {
+            //         icon: "success",
+            //     });
+            //     }
+            // });
         },
         createSkill(){
             console.log("test");

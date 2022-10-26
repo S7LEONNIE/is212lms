@@ -12,7 +12,23 @@ var rolesTable = $('#role-table').DataTable({
 		{ title: 'Name' },
 		{ title: 'Description' },
 		{ title: 'Status' },
-		{ title: '' }
+		{ title: '' } // this row is for update/delete buttons
+	]
+});
+
+var skillsTable = $('#skill-table').DataTable({
+	scrollY: 500,
+	responsive: true,
+	pageLength: 25,
+	lengthMenu: [25, 50, 75, 100],
+	
+	data: [],
+	columns: [
+		{ title: 'id' },
+		{ title: 'Name' },
+		{ title: 'Description' },
+		{ title: 'Status' },
+		{ title: '' } // this row is for update/delete buttons
 	]
 });
 
@@ -140,13 +156,6 @@ $(document).ready(function(){
 		}
 
 	})
-
-	$('#skill-table').DataTable({
-		scrollY: 500,
-		responsive: true,
-		pageLength: 25,
-        lengthMenu: [25, 50, 75, 100],
-	});
 
 	$('#staff-table').DataTable({
 		scrollY: 500,
