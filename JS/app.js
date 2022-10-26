@@ -180,42 +180,44 @@ const app = Vue.createApp({
                 params[key] = val;
             }
 
-            try {
-                let role_id = params.role_id;
-
-                axios.post("PHP/functionGetRoleById.php",
-                {
-                    role_id: role_id
-                })
+            let role_id = params.role_id;
+            if (role_id) {
+                try {
+                    axios.post("PHP/functionGetRoleById.php",
+                    {
+                        role_id: role_id
+                    })
+                        .then(response => {
+                        if (response.status == 200) {
+                            this.role_details_exists = true;
+                            this.role_details = response.data.records;
+                        }
+                        })
+                        .catch(error => {
+                        console.log(error.message);
+                        console.log(error.response.data.status);
+                        this.role_details_exists = false;
+                        });
+    
+                    axios
+                    .post("PHP/functionGetSkillsByRole.php", {
+                        roleId: role_id,
+                    })
                     .then(response => {
-                    if (response.status == 200) {
-                        this.role_details_exists = true;
-                        this.role_details = response.data.records;
-                    }
+                        if (response.status == 200) {
+                            this.skillsByRole = response.data.records
+                        }
                     })
                     .catch(error => {
-                    console.log(error.message);
-                    console.log(error.response.data.status);
-                    this.role_details_exists = false;
+                        console.log(error.message);
                     });
-
-                axios
-                .post("PHP/functionGetSkillsByRole.php", {
-                    roleId: role_id,
-                })
-                .then(response => {
-                    if (response.status == 200) {
-                        this.skillsByRole = response.data.records
-                    }
-                })
-                .catch(error => {
-                    console.log(error.message);
-                });
+                }
+    
+                catch {
+                    this.role_details_exists = false;
+                }
             }
-
-            catch {
-                this.role_details_exists = false
-            }
+            else {this.role_details_exists = false;}
         },
 
         getSkillById() {
@@ -229,40 +231,42 @@ const app = Vue.createApp({
                 params[key] = val;
             }
 
-            try {
-                let skill_id = params.skill_id;
-
-                axios.post("PHP/functionGetSkillById.php",
-                {
-                    skill_id: skill_id
-                })
-                .then(response => {
-                    if (response.status == 200) {
-                        this.skill_details_exists = true;
-                        this.skill_details = response.data.records;
-                    }
-                })
-                .catch(error => {
-                    console.log(error.message);
-                    console.log(error.response.data.status);
+            let skill_id = params.skill_id;
+            if(skill_id) {
+                try {
+                    axios.post("PHP/functionGetSkillById.php",
+                    {
+                        skill_id: skill_id
+                    })
+                    .then(response => {
+                        if (response.status == 200) {
+                            this.skill_details_exists = true;
+                            this.skill_details = response.data.records;
+                        }
+                    })
+                    .catch(error => {
+                        console.log(error.message);
+                        console.log(error.response.data.status);
+                        this.skill_details_exists = false;
+                    });
+    
+                    axios.post("PHP/functionGetCoursesBySkill.php", {
+                        skill_id: skill_id,
+                    })
+                    .then(response => {
+                        if (response.status == 200) {
+                            this.coursesBySkill = response.data.records
+                        }
+                    })
+                    .catch(error => {
+                        console.log(error.message);
+                    });
+                }
+                catch {
                     this.skill_details_exists = false;
-                });
-
-                axios.post("PHP/functionGetCoursesBySkill.php", {
-                    skill_id: skill_id,
-                })
-                .then(response => {
-                    if (response.status == 200) {
-                        this.coursesBySkill = response.data.records
-                    }
-                })
-                .catch(error => {
-                    console.log(error.message);
-                });
+                }
             }
-            catch {
-                this.skill_details_exists = false
-            }
+            else {this.skill_details_exists = false;}
         },
         
         getCourseById() {
@@ -276,58 +280,60 @@ const app = Vue.createApp({
                 params[key] = val;
             }
 
-            try {
-                let course_id = params.course_id;
-
-                axios.post("PHP/functionGetCourseById.php",
-                {
-                    course_id: course_id
-                })
+            let course_id = params.course_id;
+            if (course_id) {
+                try {
+                    axios.post("PHP/functionGetCourseById.php",
+                    {
+                        course_id: course_id
+                    })
+                        .then(response => {
+                        if (response.status == 200) {
+                            this.course_details_exists = true;
+                            this.course_details = response.data.records;
+                        }
+                        })
+                        .catch(error => {
+                        console.log(error.message);
+                        console.log(error.response.data.status);
+                        this.course_details_exists = false;
+                        });
+    
+                    axios
+                    .post("PHP/functionGetSkillsByCourse.php", {
+                        course_id: course_id,
+                    })
                     .then(response => {
-                    if (response.status == 200) {
-                        this.course_details_exists = true;
-                        this.course_details = response.data.records;
-                    }
+                        if (response.status == 200) {
+                            this.skillsByCourse = response.data.records
+    
+                            for (let skill of this.skillsByCourse) {
+                                axios
+                                .post("PHP/functionGetRolesBySkill.php", {
+                                    skill_id: skill.skill_id,
+                                })
+                                .then(response => {
+                                    if (response.status == 200) {
+                                        this.rolesBySkill.push(...response.data.records);
+                                    }
+                                })
+                                .catch(error => {
+                                    console.log(error.message);
+                                });
+                            }
+                        }
                     })
                     .catch(error => {
-                    console.log(error.message);
-                    console.log(error.response.data.status);
-                    this.course_details_exists = false;
+                        console.log(error.message);
                     });
-
-                axios
-                .post("PHP/functionGetSkillsByCourse.php", {
-                    course_id: course_id,
-                })
-                .then(response => {
-                    if (response.status == 200) {
-                        this.skillsByCourse = response.data.records
-
-                        for (let skill of this.skillsByCourse) {
-                            axios
-                            .post("PHP/functionGetRolesBySkill.php", {
-                                skill_id: skill.skill_id,
-                            })
-                            .then(response => {
-                                if (response.status == 200) {
-                                    this.rolesBySkill.push(...response.data.records);
-                                }
-                            })
-                            .catch(error => {
-                                console.log(error.message);
-                            });
-                        }
-                    }
-                })
-                .catch(error => {
-                    console.log(error.message);
-                });
-
+    
+                }
+    
+                catch {
+                    this.course_details_exists = false;
+                }
             }
-
-            catch {
-                this.course_details_exists = false
-            }
+            else {this.course_details_exists = false;}
         },
 
         roleDelete(role_id) {
