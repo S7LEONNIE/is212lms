@@ -75,6 +75,7 @@
             <div class="tab-selection-wrapper">
                 <button class="tab-selected" name="all">All</button>
                 <button name="role">Role</button>
+                <button name="skill">Skill</button>
                 <button name="staff">Staff</button>
             </div>
 
@@ -102,6 +103,35 @@
                             <td>
                                 <button class="admin-role-btn_update">Update</button>
                                 <button v-on:click="roleDelete()">Delete</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Skill -->
+            <div class="tab-selection-content skill">
+                <div class="header">
+                    <div class="title">Skill Management</div>
+                </div>
+
+                <table id="skill-table" class="display responsive nowrap" width="100%">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Skill Name</th>
+                            <th>Description</th>
+                            <th>Edit</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="x in 20">
+                            <td>{{ x }}</td>
+                            <td>Business</td>
+                            <td>This is business skill name lol</td>
+                            <td>
+                                <button class="admin-skill-btn_update">Update</button>
+                                <button v-on:click="skillDelete()">Delete</button>
                             </td>
                         </tr>
                     </tbody>
@@ -139,6 +169,8 @@
             </div>
         </div>
 
+        
+
         <!-- Role Model -->
         <!-- Covers both Create and Update -->
         <div class="admin-model role">
@@ -156,6 +188,27 @@
                 <div class="action-container">
                     <button class="action_button action_positive">Save</button>
                     <button class="action_button action_back admin-model_close role">Cancel</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Skill Model -->
+        <!-- Covers both Create and Update -->
+        <div class="admin-model skill">
+            <div class="admin-model_content">
+                <div class="admin-model_header">
+                    <div class="title">Add Skill</div>
+                    <i class="fa fa-times admin-model_close skill"></i>
+                </div>
+
+                <label>Skill Name</label>
+                <input class="textbox">
+                <label>Description</label>
+                <input class="textbox">
+                
+                <div class="action-container">
+                    <button class="action_button action_positive">Save</button>
+                    <button class="action_button action_back admin-model_close skill">Cancel</button>
                 </div>
             </div>
         </div>
