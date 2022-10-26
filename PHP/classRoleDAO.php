@@ -29,7 +29,8 @@ class classRoleDAO {
                 new classRole(
                     $row['role_id'],
                     $row['role_name'],
-                    $row['role_desc']);
+                    $row['role_desc'],
+                    $row['is_active']);
                 }
         return $list_role;
     }
@@ -46,7 +47,8 @@ class classRoleDAO {
         $sql = "INSERT INTO role
                         (
                             role_name, 
-                            role_desc
+                            role_desc,
+                            is_active
                         )
                     VALUES
                         (

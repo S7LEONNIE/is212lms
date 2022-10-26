@@ -9,7 +9,7 @@ class classRole {
 
     // Methods
 
-    function __construct($role_id, $role_name, $role_desc) {
+    function __construct($role_id, $role_name, $role_desc, $is_active) {
         $this->role_id = $role_id;
         $this->role_name = $role_name;
         $this->role_desc = $role_desc;
