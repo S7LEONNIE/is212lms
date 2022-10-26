@@ -13,7 +13,7 @@ class classSkillDAO {
             skill_id,
             skill_name,
             skill_desc,
-            is_active,
+            is_active
             FROM skill
             ORDER BY skill_id ASC;"; // ASC or DESC 
         $stmt = $conn->prepare($sql);
