@@ -63,14 +63,15 @@ insert into department_staff (department_id, staff_id, is_manager) values
 create table role (
     role_id integer auto_increment primary key,
     role_name varchar(50),
-    role_desc varchar(255)
+    role_desc varchar(255),
+    is_active varchar(50)
 );
 
-insert into role (role_id, role_name, role_desc) values
-    (1, "Engineer", "This role is good at engineering."),
-    (2, "Manager", "This role is good at managing."),
-    (3, "IT Developer", "This role is good at web development."),
-    (4, "Death, Destroyer of Worlds", "This role is good at petting kittens.");
+insert into role (role_id, role_name, role_desc, is_active) values
+    (1, "Engineer", "This role is good at engineering.","active"),
+    (2, "Manager", "This role is good at managing.", "active"),
+    (3, "IT Developer", "This role is good at web development.", "active"),
+    (4, "Death, Destroyer of Worlds", "This role is good at petting kittens.", "active");
 
 create table learning_journey (
     lj_id integer auto_increment primary key,
@@ -90,20 +91,21 @@ insert into learning_journey (lj_id, lj_name, staff_id, role_id) values
 create table skill (
     skill_id integer auto_increment primary key,
     skill_name varchar(50),
-    skill_desc varchar(255)
+    skill_desc varchar(255),
+    is_active varchar(50)
 );
 
-insert into skill (skill_id, skill_name, skill_desc) values
-    (1, "Engineering", "This skill makes you good at engineering."),
-    (2, "Communications", "This skills makes you good at communication."),
-    (3, "Super Communications", "This skills makes you very good at communication."),
-    (4, "SQL", "This skill makes you good at DBMS."),
-    (5, "Meteor Swarm", "This skill does 40d6 fire and bludgeoning damage to all creatures in the area."),
-    (6, "Lightning Bolt", "This skill does 8d6 lightning damage in a 100ft line"),
-    (7, "Operator", "This skill makes you good at operations."),
-    (8, "Technical Photography", "This skill makes you good at the Hardware equipment aspects of photography."),
-    (9, "Marketing", "This skill makes you good at Digital Marketing."),
-    (10, "Network Security", "This skill makes you good at implementing Network Security.");
+insert into skill (skill_id, skill_name, skill_desc, is_active) values
+    (1, "Engineering", "This skill makes you good at engineering.", "active"),
+    (2, "Communications", "This skills makes you good at communication.", "active"),
+    (3, "Super Communications", "This skills makes you very good at communication.", "active"),
+    (4, "SQL", "This skill makes you good at DBMS.", "active"),
+    (5, "Meteor Swarm", "This skill does 40d6 fire and bludgeoning damage to all creatures in the area.", "active"),
+    (6, "Lightning Bolt", "This skill does 8d6 lightning damage in a 100ft line", "active"),
+    (7, "Operator", "This skill makes you good at operations.", "active"),
+    (8, "Technical Photography", "This skill makes you good at the Hardware equipment aspects of photography.", "active"),
+    (9, "Marketing", "This skill makes you good at Digital Marketing.", "active"),
+    (10, "Network Security", "This skill makes you good at implementing Network Security.", "active");
 
 create table course (
     course_id varchar(10) primary key,
