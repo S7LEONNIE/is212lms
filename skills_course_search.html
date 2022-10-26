@@ -120,13 +120,15 @@
                                 <div class="course-type">{{ course.course_type }}</div>
                                 <div class="course-description">{{ course.course_desc }}</div>
                                 <div class="course-tags-container">
-                                    <div class="course-tags">tag here</div>
-                                    <div class="course-tags">tag here</div>
-                                    <div class="course-tags">tag here</div>
-                                    <div class="course-tags">tag here</div>
-                                    <div class="course-tags">tag here</div>
+                                    <template v-for="skills in skillsAndCourses">
+                                        <template v-if="skills.course_name == course.course_name"> 
+                                            <div class="course-tags">{{ skills.skill_name }} </div>
+                                        </template>
+                                    </template>
                                 </div>
-                                <button class="btn">View</button>
+                                <button class="btn">
+                                    <a :href="'course_detail.html?course_id=' + course.course_id">View</a>
+                                </button>
                             </div>
                         </div>
                     </div>
