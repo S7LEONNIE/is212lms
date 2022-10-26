@@ -13,6 +13,7 @@ class classRole {
         $this->role_id = $role_id;
         $this->role_name = $role_name;
         $this->role_desc = $role_desc;
+        $this->is_active = $is_active;
     }
 
     // Setters
@@ -26,6 +27,9 @@ class classRole {
     function setRole_Desc($role_desc) {
         $this->role_desc = $role_desc;
     }
+    function set_IsActive($isActive) {
+        $this->is_active = $isActive;
+    }
 
     // Getters
 
@@ -37,6 +41,9 @@ class classRole {
     }
     function getRole_Desc() {
         return $this->role_desc;
+    }
+    function get_IsActive() {
+        return $this->is_active;
     }
 }
 

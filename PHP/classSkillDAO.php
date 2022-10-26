@@ -12,7 +12,8 @@ class classSkillDAO {
         $sql = "SELECT
             skill_id,
             skill_name,
-            skill_desc
+            skill_desc,
+            is_active,
             FROM skill
             ORDER BY skill_id ASC;"; // ASC or DESC 
         $stmt = $conn->prepare($sql);
@@ -28,8 +29,10 @@ class classSkillDAO {
                 new classSkill(
                     $row['skill_id'],
                     $row['skill_name'],
-                    $row['skill_desc']);
-                }
+                    $row['skill_desc'],
+                    $row['is_active']
+                );
+        }
         return $list_skill;
     }
 
@@ -44,7 +47,8 @@ class classSkillDAO {
             -- role.role_desc AS role_desc,
             skill.skill_id AS skill_id,
             skill.skill_name AS skill_name,
-            skill.skill_desc AS skill_desc
+            skill.skill_desc AS skill_desc,
+            skill.is_active AS is_active
             FROM skill 
             INNER JOIN role_skill ON skill.skill_id = role_skill.skill_id
             INNER JOIN role ON role.role_id = role_skill.role_id
@@ -60,11 +64,13 @@ class classSkillDAO {
         $list_skill = []; // Indexed Array of Post objects
         while( $row = $stmt->fetch() ) {
             $list_skill[] =
-                new classSkill(
-                    $row['skill_id'],
-                    $row['skill_name'],
-                    $row['skill_desc']);
-                }
+            new classSkill(
+                $row['skill_id'],
+                $row['skill_name'],
+                $row['skill_desc'],
+                $row['is_active']
+            );
+        }
         return $list_skill;
     }
 
@@ -76,7 +82,8 @@ class classSkillDAO {
         $sql = "SELECT
             skill_id,
             skill_name,
-            skill_desc
+            skill_desc,
+            is_active
             FROM skill
             WHERE skill_id = :skill_id;";
         $stmt = $conn->prepare($sql);
@@ -91,7 +98,8 @@ class classSkillDAO {
             $skill = new classSkill(
                 $row['skill_id'],
                 $row['skill_name'],
-                $row['skill_desc']
+                $row['skill_desc'],
+                $row['is_active']
             );
             return $skill;
         }
@@ -108,7 +116,8 @@ class classSkillDAO {
         $sql = "SELECT
             skill.skill_id AS skill_id,
             skill.skill_name AS skill_name,
-            skill.skill_desc AS skill_desc
+            skill.skill_desc AS skill_desc,
+            skill.is_active AS is_active
             FROM skill
             INNER JOIN course_skill ON skill.skill_id = course_skill.skill_id
             WHERE course_skill.course_id = :course_id;";
@@ -126,7 +135,8 @@ class classSkillDAO {
                 new classSkill(
                     $row['skill_id'],
                     $row['skill_name'],
-                    $row['skill_desc']
+                    $row['skill_desc'],
+                    $row['is_active']
                 );
             }
         return $list_skill;
