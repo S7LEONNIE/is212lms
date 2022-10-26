@@ -7,7 +7,7 @@ modules:
   enabled:
     - Asserts
     - Db:
-        dsn: "mysql:host=localhost;dbname=spm_ljms_db"
+        dsn: "mysql:host=3306;dbname=spm_ljms_db"
         user: "root"
         password: ""
         dump: "tests/Data/createLJMS.sql"
