@@ -140,7 +140,7 @@ const app = Vue.createApp({
             }
 
             try {
-                let role_id = params.job_id;
+                let role_id = params.role_id;
 
                 axios.post("PHP/functionGetRoleById.php",
                 {
@@ -290,6 +290,22 @@ const app = Vue.createApp({
         },
 
         roleDelete() {
+            swal({
+                title: "Are you sure?",
+                text: "Once deleted, you will not be able to undo this!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+            .then((willDelete) => {
+                if (willDelete) {
+                    swal("Deleted", {
+                    icon: "success",
+                });
+                }
+            });
+        },
+        skillDelete() {
             swal({
                 title: "Are you sure?",
                 text: "Once deleted, you will not be able to undo this!",

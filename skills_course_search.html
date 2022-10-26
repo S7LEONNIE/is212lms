@@ -51,7 +51,7 @@
                         <a href="index.html">Home</a>
                     </div>
                     <div class="Navbar__Link">
-                    <a href="job.html">Job</a>
+                    <a href="role.html">Role</a>
                     </div>
                     <div class="Navbar__Link">
                     <a href="skills_course_search.html">Skills/Courses</a>
@@ -86,9 +86,9 @@
             <div class="search-page_body">
                 <button id="search-filter" class="action_button action_positive">Filter</button>
                 <div class="search-page_filter_container">
-                    <div class="filter-container job-type_filter">
-                        <div class="header-title">Job Type</div>
-                        <div class="filter-itemlist-job">
+                    <div class="filter-container role-type_filter">
+                        <div class="header-title">Role Type</div>
+                        <div class="filter-itemlist-role">
                             <div v-for="course in courses" class="checkbox-field">
                                 <input type="checkbox" id="" :name="course.course_name" :value="course.course_name">
                                 <label for="checkbox1">{{ course.course_name }}</label>

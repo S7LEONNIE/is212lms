@@ -34,6 +34,20 @@ $(document).ready(function(){
 		$('.admin-model.role').toggle();
 	});
 
+	$("#admin-skill-btn_new" ).on("click", function() { 
+		$('.admin-model_header .title').text('Add Skill');
+		$('.admin-model.skill').toggle();
+	});
+
+	$(".admin-skill-btn_update" ).on("click", function() { 
+		$('.admin-model_header .title').text('Update Skill');
+		$('.admin-model.skill').toggle();
+	});
+
+	$(".admin-model_close.skill" ).on("click", function() { 
+		$('.admin-model.skill').toggle();
+	});
+
 	$(".admin-staff-btn_view" ).on("click", function() { 
 		$('.admin-model_header .title').text('View Role');
 		$('.admin-model.staff .action_button.action_positive').hide();
@@ -71,11 +85,11 @@ $(document).ready(function(){
 		$('.search-page_filter_container').toggleClass("search-filter_show");
 	});
 
-	$('.filter-itemlist-job').on("click", function () {
+	$('.filter-itemlist-role').on("click", function () {
 		console.log('e');
-		if ($('.filter-itemlist-job input:checkbox').is(':checked')) {
+		if ($('.filter-itemlist-role input:checkbox').is(':checked')) {
 			$('.course-card').hide();
-			$('.filter-itemlist-job input:checkbox:checked').each(function() {
+			$('.filter-itemlist-role input:checkbox:checked').each(function() {
 				coursename = $(this).val().replace(/ /g, '.');
 				$('.course-card.' + coursename).show();
 			})
@@ -112,6 +126,13 @@ $(document).ready(function(){
 	})
 
 	$('#role-table').DataTable({
+		scrollY: 500,
+		responsive: true,
+		pageLength: 25,
+        lengthMenu: [25, 50, 75, 100],
+	});
+
+	$('#skill-table').DataTable({
 		scrollY: 500,
 		responsive: true,
 		pageLength: 25,
