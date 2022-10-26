@@ -142,6 +142,40 @@ class classSkillDAO {
         return $list_skill;
     }
 
+    public function addSkill($skill_name, $skill_desc) {
+        
+        // STEP 1: establish a connection
+
+        $connMgr = new classConnectionManager();
+        $conn = $connMgr->connect();
+
+        // STEP 2: SQL commands
+
+        $sql = "INSERT INTO skill
+                        (
+                            skill_name, 
+                            skill_desc,
+                            is_active
+                        )
+                    VALUES
+                        (
+                            :skill_name,
+                            :skill_desc,
+                            'active'
+                        )";
+
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':skill_name', $skill_name, PDO::PARAM_STR);
+        $stmt->bindParam(':skill_desc', $skill_desc, PDO::PARAM_STR);
+
+        // STEP 3: Run SQL
+        $status = $stmt->execute();
+
+        // $stmt = null;
+        // $conn = null;
+        return $status;
+    }
+
     // // The rest of this is code from my old WAD2 project. To be modified as necessary.
 
     // public function addItem($userid, $purchase_time, $item_name, $category, $price, $location, $latitude, $longitude) {

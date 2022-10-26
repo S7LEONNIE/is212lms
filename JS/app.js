@@ -320,7 +320,24 @@ const app = Vue.createApp({
                 });
                 }
             });
-        }
+        },
+        createSkill(){
+            console.log("test");
+            axios.post("PHP/functionAddSkills.php", {
+                skill_name: this.skill_name,
+                skill_desc: this.skill_desc,
+            })
+                .then(response => {
+                if (response.status == 200) {
+                    console.log('successful add skills');
+                }
+                })
+                .catch(error => {
+                console.log(error.message);
+                console.log("fail");
+                });
+
+        },
 
     },
     beforeMount(){

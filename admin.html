@@ -11,6 +11,7 @@
 
         <!-- import vue -->
         <script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.js"></script>
+        <script src="JS/vue.js"></script>
 
         <!-- import axios -->
         <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
@@ -203,12 +204,12 @@
                 </div>
 
                 <label>Skill Name</label>
-                <input class="textbox">
+                <input type="text" class="textbox" v-model="skill_name">
                 <label>Description</label>
-                <input class="textbox">
+                <input type="text" class="textbox" v-model="skill_desc">
                 
                 <div class="action-container">
-                    <button class="action_button action_positive">Save</button>
+                    <button type="button" v-on:click="createSkill" class="action_button action_positive">Save</button>
                     <button class="action_button action_back admin-model_close skill">Cancel</button>
                 </div>
             </div>
