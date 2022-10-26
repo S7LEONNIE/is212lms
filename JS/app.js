@@ -37,6 +37,16 @@ const app = Vue.createApp({
             rolesBySkill: [],
         }
     },
+    computed: {
+        rolesDT: function() {
+            let array_init = [];
+            for (role of this.roles) {
+                let role_array = [role.role_id, role.role_name, role.role_desc, role.is_active];
+                array_init.push(role_array);
+            }
+            return array_init;
+        }
+    },
     methods: {
         isLoggedIn() {
             let staff_id = localStorage.getItem("staff_id");
@@ -83,7 +93,10 @@ const app = Vue.createApp({
             axios.get("PHP/functionGetAllRoles.php")
                 .then(response => {
                 if (response.status == 200) {
-                    this.roles = response.data.records
+                    this.roles = response.data.records;
+                    if (rolesTable) {
+                        rolesTable.rows.add(this.rolesDT).draw();                        
+                    }        
                 }
                 })
                 .catch(error => {

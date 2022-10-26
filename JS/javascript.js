@@ -1,5 +1,20 @@
 var filterSetting = false;
 
+var rolesTable = $('#role-table').DataTable({
+	scrollY: 500,
+	responsive: true,
+	pageLength: 25,
+	lengthMenu: [25, 50, 75, 100],
+
+	data: [],
+	columns: [
+		{ title: 'id' },
+		{ title: 'Name' },
+		{ title: 'Description' },
+		{ title: 'Status' }
+	],
+});
+
 $(document).ready(function(){
 	// Run our swapImages() function every 5secs
 	setInterval('carouselChange()', 8000);
@@ -124,13 +139,6 @@ $(document).ready(function(){
 		}
 
 	})
-
-	$('#role-table').DataTable({
-		scrollY: 500,
-		responsive: true,
-		pageLength: 25,
-        lengthMenu: [25, 50, 75, 100],
-	});
 
 	$('#skill-table').DataTable({
 		scrollY: 500,
