@@ -85,7 +85,7 @@
 
             <div class="cards">
                 <div class="header">
-                    <div class="title">Current Journey</div>
+                    <div class="title">Current Learning Journeys</div>
                     <div class="action-wrapper">
                         <button id="journey-model-filter" class="action_button action_sort">A - Z</button>
                         <button id="journey-model" class="action_button action_positive">New</button>
@@ -93,12 +93,12 @@
                 </div>
 
                 <div class="course-card-container">
-                    <div v-for="course in 10" class="course-card">
+                    <div v-for="lj in learningJourneys" class="course-card">
                         <div class="course-img">
                             <img src="https://cdn.pixabay.com/photo/2016/11/22/21/26/notebook-1850613_960_720.jpg">
                         </div>
     
-                        <div class="course-title">Journey Name</div>
+                        <div class="course-title">{{ lj.lj_name }}</div>
                         <div class="course-type">Total Skills Required: 10</div>
                         <div class="course-type">Not Started: 1</div>
                         <div class="course-type">On-going: 1</div>

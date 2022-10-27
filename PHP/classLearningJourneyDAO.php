@@ -4,7 +4,45 @@ require_once "classCourse.php";
 require_once "classConnectionManager.php";
 class classLearningJourneyDAO {
     
-    public function loadAll() {
+    public function getLJByStaffId($staff_id) {
+        $connMgr = new classConnectionManager();
+        $conn = $connMgr->connect();
+
+        // STEP 2: SQL commands
+        $sql = "SELECT
+                lj_id,
+                lj_name,
+                lj.role_id,
+                role.role_name
+                from learning_journey lj
+                inner join role role on lj.role_id = role.role_id
+                where lj.staff_id = :staff_id;"; 
+
+        $stmt = $conn->prepare($sql);
+        
+        // STEP 3: Run SQL
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        $stmt->bindParam(':staff_id', $staff_id, PDO::PARAM_STR);
+        $stmt->execute();
+
+        // STEP 4: Display result
+        $list_output = []; // Indexed Array of Post objects
+        while( $row = $stmt->fetch() ) {
+            $one_lj = new classLJ(
+                    $row['lj_id'],
+                    $row['lj_name'],
+                    $staff_id,
+                    $row['role_id']
+            );
+            $one_roleName = $row['role_name'];
+            $one_output = ['lj' => $one_lj, 'role' => $one_roleName];
+            $list_output[] = $one_output;
+        };
+
+        return $list_output;
+    }
+
+    public function loadAllOld() {
         $connMgr = new classConnectionManager();
         $conn = $connMgr->connect();
 

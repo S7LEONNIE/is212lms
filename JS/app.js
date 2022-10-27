@@ -6,6 +6,7 @@ const app = Vue.createApp({
             roles: [],
             skills: [],
             courses: [],
+            learningJourneys: [],
             skillsAndCourses: [],
             roleButtonAction: "",
             updateRoleID: "",
@@ -153,6 +154,24 @@ const app = Vue.createApp({
                 console.log(error.message);
                 });
         },
+
+        getLJbyStaffId() {
+            let input_staff_id = localStorage.staff_id;
+            console.log("getLJ " + input_staff_id);
+            axios.post("PHP/functionGetLJByStaffId.php", 
+            {
+                staff_id: input_staff_id
+            })
+                .then(response => {
+                if (response.status == 200) {
+                    console.log(response.data);
+                    this.learningJourneys = response.data.records
+                }
+                })
+                .catch(error => {
+                console.log(error.message);
+                });
+        },        
 
         getSkillsAndCourses() {
             axios.get("PHP/functionGetSkillsAndCourses.php")
@@ -470,6 +489,7 @@ const app = Vue.createApp({
         this.getRoles();
         this.getSkills();
         this.getCourses();
+        this.getLJbyStaffId();
         this.getSkillsAndCourses();
         this.getRoleById();
         this.getCourseById();
