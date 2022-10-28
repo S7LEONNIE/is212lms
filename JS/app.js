@@ -482,7 +482,22 @@ const app = Vue.createApp({
                 });
 
         },
+        removingLearningJourney(){
+            let lj_name = document.getElementById('lj_name').value;
+            axios.post("PHP/functionDeleteLearningJourney.php", {
+                lj_name: lj_name,
+            })
+                .then(response => {
+                if (response.status == 200) {
+                    console.log('successful remove learning journey');
+                }
+                })
+                .catch(error => {
+                console.log(error.message);
+                console.log("fail");
+                });
 
+        },
     },
     beforeMount(){
         this.isLoggedIn();
