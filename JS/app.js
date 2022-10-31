@@ -12,6 +12,7 @@ const app = Vue.createApp({
             updateRoleID: "",
             skillButtonAction: "",
             updateSkillID: "",
+            designation: "",
 
             role_details_exists: true,
             role_details: {
@@ -36,7 +37,8 @@ const app = Vue.createApp({
                 course_desc: "",
                 course_status: "",
                 course_type: "",
-                course_category: ""
+                course_category: "",
+
             },
             skillsByCourse: [],
             rolesBySkill: [],
@@ -46,6 +48,7 @@ const app = Vue.createApp({
     methods: {
         isLoggedIn() {
             let staff_id = localStorage.getItem("staff_id");
+            this.designation = localStorage.getItem("staff_designation");
             console.log("isLoggedIn function")
             if (!staff_id && window.location.pathname != "/is212lms/login.html") {
                 window.location.href = "/is212lms/login.html";
@@ -55,7 +58,7 @@ const app = Vue.createApp({
         ljps_login() {
             let login_staff_id = document.getElementById("login_page_username").value;
             let login_staff_pw = document.getElementById("login_page_password").value;
-
+            
             axios.post("PHP/functionGetStaffByEmail.php",
                 {
                     staff_email: login_staff_id 
@@ -68,7 +71,7 @@ const app = Vue.createApp({
                     localStorage.setItem("staff_fName", response.data.records.staff_fName);
                     localStorage.setItem("staff_lName", response.data.records.staff_lName);
                     localStorage.setItem("staff_designation", response.data.records.staff_designation);
-                    window.location.href = "/is212lms/";
+                    window.location.href = "/is212lms/index.html";
                 }
             })
             .catch(error => {
