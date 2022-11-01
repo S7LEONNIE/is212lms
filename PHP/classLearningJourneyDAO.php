@@ -147,6 +147,64 @@ class classLearningJourneyDAO {
         $conn = null;
         return $status;
     }
+    
+    public function checkIfCourseInLJ($lj_id, $course_id) {
+        $connMgr = new classConnectionManager();
+        $conn = $connMgr->connect();
+
+        // STEP 2: SQL commands
+        $sql = "SELECT
+                learning_journey_id, course_id
+                from lj_course
+                where course_id = :course_id
+                AND learning_journey_id = :lj_id;"; 
+
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':lj_id', $lj_id, PDO::PARAM_STR);
+        $stmt->bindParam(':course_id', $course_id, PDO::PARAM_STR);
+        
+        // STEP 3: Run SQL
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        $stmt->execute();
+
+        // STEP 4: Display result
+        if ($stmt->fetch()) {
+            return TRUE;
+        }
+        else {
+            return FALSE;
+        }
+    }
+
+    public function addCourseToLJ($lj_id, $course_id) {
+        
+        // STEP 1: establish a connection
+        $connMgr = new classConnectionManager();
+        $conn = $connMgr->connect();
+
+        // STEP 2: SQL commands
+        $sql = "INSERT INTO lj_course
+                        (
+                            learning_journey_id, 
+                            course_id
+                        )
+                    VALUES
+                        (
+                            :lj_id,
+                            :course_id
+                        )";
+
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':lj_id', $lj_id, PDO::PARAM_STR);
+        $stmt->bindParam(':course_id', $course_id, PDO::PARAM_STR);
+
+        // STEP 3: Run SQL
+        $status = $stmt->execute();
+
+        $stmt = null;
+        $conn = null;
+        return $status;
+    }
 }
 
 

@@ -47,14 +47,20 @@ const app = Vue.createApp({
             },
             skillsByCourse: [],
             rolesBySkill: [],
+
+            targetLJs: [],
         }
     },
-    // computed: {},
+    computed: {
+        isHR() {
+            return (localStorage.staff_designation == 3)
+        }
+    },
     methods: {
         isLoggedIn() {
             let staff_id = localStorage.getItem("staff_id");
             this.designation = localStorage.getItem("staff_designation");
-            console.log("isLoggedIn function")
+            // console.log("isLoggedIn function")
             if (!staff_id && window.location.pathname != "/is212lms/login.html") {
                 window.location.href = "/is212lms/login.html";
             }
@@ -170,14 +176,17 @@ const app = Vue.createApp({
 
         getLJbyStaffId() {
             let input_staff_id = localStorage.staff_id;
-            console.log("getLJ " + input_staff_id);
+
+            if (!input_staff_id) { return; }
+
+            // console.log("getLJ " + input_staff_id);
             axios.post("PHP/functionGetLJByStaffId.php", 
             {
                 staff_id: input_staff_id
             })
                 .then(response => {
                 if (response.status == 200) {
-                    console.log(response.data);
+                    // console.log(response.data);
                     this.learningJourneys = response.data.records
                 }
                 })
@@ -551,7 +560,26 @@ const app = Vue.createApp({
                 console.log(error.message);
                 console.log("fail");
                 });
-
+        },
+        addCourseToLJs() {
+            console.log(this.course_details);
+            console.log(this.targetLJs);
+            let course_id = this.course_details.course_id;
+            
+            axios.post("PHP/functionAddCourseToLJ.php", {
+                course_id: course_id,
+                lj_list: this.targetLJs
+            })
+                .then(response => {
+                if (response.status == 200) {
+                    console.log(response);
+                    console.log('successful add course to LJ');
+                }
+                })
+                .catch(error => {
+                console.log(error.message);
+                console.log("fail");
+                });
         },
     },
     beforeMount(){
