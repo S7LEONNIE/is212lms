@@ -57,10 +57,11 @@ $(document).ready(function(){
 		$('.admin-model.role').toggle();
 	});
 
-	$(".admin-role-btn_update" ).on("click", function() { 
-		$('.admin-model_header .title').text('Update Role');
-		$('.admin-model.role').toggle();
-	});
+	// This functionality refused to work normally so I built it into vue's roleUpdateBtn function.
+	// $(".admin-role-btn_update" ).on("click", function() { 
+	// 	$('.admin-model_header .title').text('Update Role');
+	// 	$('.admin-model.role').toggle();
+	// });
 
 	$(".admin-model_close.role" ).on("click", function() { 
 		$('.admin-model.role').toggle();

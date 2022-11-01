@@ -117,7 +117,6 @@ class classLearningJourneyDAO {
     }
 
     public function removeLearningJourney($lj_name) {
-        
         // STEP 1: establish a connection
 
         $connMgr = new classConnectionManager();
@@ -149,6 +148,7 @@ class classLearningJourneyDAO {
         return $status;
     }
 }
+
 
 
 ?>

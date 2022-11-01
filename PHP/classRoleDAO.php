@@ -66,7 +66,41 @@ class classRoleDAO {
 
         $stmt = null;
         $conn = null;
-        return $status;
+
+        // if failed insert, return status:
+        if (!$status) {
+            return $status;
+        }
+
+        // if successful insert, query DB to get the id of that role:
+        // STEP 1: establish a connection
+        $connMgr = new classConnectionManager();
+        $conn = $connMgr->connect();
+
+        // STEP 2: SQL commands
+        $sql = "SELECT
+            role_id
+            FROM role
+            WHERE role_name = :role_name
+            AND role_desc = :role_desc
+            ORDER BY role_id DESC
+            LIMIT 1;";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':role_name', $role_name, PDO::PARAM_STR);
+        $stmt->bindParam(':role_desc', $role_desc, PDO::PARAM_STR);
+
+        // STEP 3: Run SQL
+        $stmt->execute();
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+
+        // STEP 4: Display result
+        if ( $row = $stmt->fetch() ) {
+            $role_id = $row['role_id'];
+            return $role_id;
+        }
+        else {
+            return FALSE;
+        }
     }
     
     public function getRoleById($role_id) {
@@ -161,6 +195,59 @@ class classRoleDAO {
         $conn = null;
         return $status;
     }
+    
+    public function clearSkillsFromRole($role_id) {
+        
+        // STEP 1: establish a connection
+
+        $connMgr = new classConnectionManager();
+        $conn = $connMgr->connect();
+
+        // STEP 2: SQL commands
+        $sql = "DELETE FROM role_skill 
+                WHERE role_id = :role_id;";
+
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':role_id', $role_id, PDO::PARAM_INT);
+
+        // STEP 3: Run SQL
+        $status = $stmt->execute();
+
+        $stmt = null;
+        $conn = null;
+        return $status;
+    }
+    
+    public function addSkillToRole($role_id, $skill_id) {
+        
+        // STEP 1: establish a connection
+        $connMgr = new classConnectionManager();
+        $conn = $connMgr->connect();
+
+        // STEP 2: SQL commands
+        $sql = "INSERT INTO role_skill
+                        (
+                            role_id, 
+                            skill_id
+                        )
+                    VALUES
+                        (
+                            :role_id,
+                            :skill_id
+                        )";
+
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':role_id', $role_id, PDO::PARAM_STR);
+        $stmt->bindParam(':skill_id', $skill_id, PDO::PARAM_STR);
+
+        // STEP 3: Run SQL
+        $status = $stmt->execute();
+
+        $stmt = null;
+        $conn = null;
+        return $status;
+    }
+
 
     public function deleteRole($role_id) {
         

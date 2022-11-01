@@ -53,7 +53,7 @@
             <div class="tab-selection-content role">
                 <div class="header">
                     <div class="title">Role Management</div>
-                    <button id="admin-role-btn_new" class="btn action_button" @click="roleButtonAction = 'new'">New</button>
+                    <button id="admin-role-btn_new" class="btn action_button" @click="roleNewBtn">New</button>
                 </div>
 
                 <table id="role-table" class="display responsive nowrap" width="100%">
@@ -116,9 +116,25 @@
                 </div>
 
                 <label>Role Name</label>
-                <input id="new_role_name" class="textbox" v-model="new_role_name">
+                <input class="textbox" v-model="new_role_name">
                 <label>Description</label>
-                <input id="new_role_desc" class="textbox" v-model="new_role_desc">
+                <input class="textbox" v-model="new_role_desc">
+
+                Skills
+                <div>
+                    <div v-for="skill, index in skillsByRole" v-bind:key="index">
+                        {{ skill.skill_id }}
+                        {{ skill.skill_name }}
+                        <button v-on:click="skillsByRole.splice(index, 1)"> Delete </button>
+                    </div>
+                    <select v-model="new_role_skill" v-on:change="skillsByRole.push(new_role_skill); new_role_skill=false;">
+                        <option v-for="skill in skills" v-bind:key="skill.skill_id" v-bind:value="skill">
+                            {{ skill.skill_id}}
+                            {{ skill.skill_name }}
+                        </option>
+                    </select>
+                    <!-- <button>Add Skill</button> -->
+                </div>
                 
                 <div class="action-container">
                     <template v-if="roleButtonAction == 'new'">

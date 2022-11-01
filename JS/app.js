@@ -8,7 +8,12 @@ const app = Vue.createApp({
             courses: [],
             learningJourneys: [],
             skillsAndCourses: [],
+
             roleButtonAction: "",
+            new_role_name: "",
+            new_role_desc: "",
+            new_role_skill: "",
+
             updateRoleID: "",
             skillButtonAction: "",
             updateSkillID: "",
@@ -95,7 +100,7 @@ const app = Vue.createApp({
                     this.roles = response.data.records;
                     if (rolesTable) {
                         let rolesDT = [];
-                        for (role of this.roles) {
+                        for (let role of this.roles) {
                             let role_array = 
                             [
                                 role.role_id, 
@@ -103,8 +108,13 @@ const app = Vue.createApp({
                                 role.role_desc, 
                                 role.is_active,
                                 `
-                                <button onclick="vm.roleButtonAction='update'; vm.updateRoleID=`+role.role_id+`" class="admin-role-btn_update">Update</button>
-                                <button onclick="vm.roleDelete(` + role.role_id + `)" >Delete</button>`
+                                <button onclick="vm.roleUpdateBtn(` 
+                                    + role.role_id + `, '`
+                                    + role.role_name + `', '`
+                                    + role.role_desc
+                                    + `')" class="admin-role-btn_update">Update</button>
+                                <button onclick="vm.roleDeleteBtn(` + role.role_id + `)" >Delete</button>
+                                `
                             ];
                             rolesDT.push(role_array);
                         }
@@ -189,18 +199,20 @@ const app = Vue.createApp({
                 });
         },
 
-        getRoleById() {
-            // url: 'skeleton_view_one_role?role_id=1&foo=1&bar=2');
-            let urlParams = window.location.search.substring(1).split("&");
-            let params = {};
-            for (let param of urlParams) {
-                let temp = param.split("=");
-                let key = temp[0];
-                let val = temp[1];
-                params[key] = val;
+        getRoleById(role_id = null) {
+            if (!role_id) {
+                // url: 'skeleton_view_one_role?role_id=1&foo=1&bar=2');
+                let urlParams = window.location.search.substring(1).split("&");
+                let params = {};
+                for (let param of urlParams) {
+                    let temp = param.split("=");
+                    let key = temp[0];
+                    let val = temp[1];
+                    params[key] = val;
+                }
+                role_id = params.role_id;
             }
 
-            let role_id = params.role_id;
             if (role_id) {
                 try {
                     axios.post("PHP/functionGetRoleById.php",
@@ -356,7 +368,24 @@ const app = Vue.createApp({
             else {this.course_details_exists = false;}
         },
 
-        roleDelete(role_id) {
+        roleNewBtn() {
+            this.roleButtonAction = 'new';
+            this.new_role_name = '';
+            this.new_role_desc = '';
+            this.skillsByRole = [];
+        },
+
+        roleUpdateBtn(role_id, role_name, role_desc) {
+            this.roleButtonAction = 'update';
+            this.updateRoleID = role_id;
+            this.new_role_name = role_name;
+            this.new_role_desc = role_desc;
+            this.getRoleById(role_id);
+            $('.admin-model_header .title').text('Update Role');
+            $('.admin-model.role').toggle();
+        },
+
+        roleDeleteBtn(role_id) {
             swal({
                 title: "Are you sure?",
                 text: "Once deleted, you will not be able to undo this!",
@@ -413,16 +442,27 @@ const app = Vue.createApp({
             });
         },
         createRole(){
-            let role_name = document.getElementById('new_role_name').value;
-            let role_desc = document.getElementById('new_role_desc').value;
+            let role_name = this.new_role_name;
+            let role_desc = this.new_role_desc;
+            let role_skills_w_dup = this.skillsByRole;
+            let role_skills = [];
+            for (let skill of role_skills_w_dup) {
+                let skill_id = skill['skill_id'];
+                if (!role_skills.includes(skill_id) ) {
+                    role_skills.push(skill_id)
+                }
+            }
+
             axios.post("PHP/functionAddRole.php", {
                 role_name: role_name,
                 role_desc: role_desc,
+                role_skills: role_skills
             })
                 .then(response => {
                 if (response.status == 200) {
                     console.log('successful add role');
                     console.log(response)
+                    window.location.reload();
                 }
                 })
                 .catch(error => {
@@ -431,16 +471,28 @@ const app = Vue.createApp({
                 });
         },
         updateRole(var_role_id){
-            let role_name = document.getElementById('new_role_name').value;
-            let role_desc = document.getElementById('new_role_desc').value;
+            let role_name = this.new_role_name;
+            let role_desc = this.new_role_desc;
+            let role_skills_w_dup = this.skillsByRole;
+            let role_skills = [];
+            for (let skill of role_skills_w_dup) {
+                let skill_id = skill['skill_id'];
+                if (!role_skills.includes(skill_id) ) {
+                    role_skills.push(skill_id)
+                }
+            }
+
             axios.post("PHP/functionUpdateRole.php", {
                     role_name: role_name,
                     role_desc: role_desc,
-                    role_id: var_role_id
+                    role_id: var_role_id,
+                    role_skills: role_skills
             })
                 .then(response => {
                 if (response.status == 200) {
+                    console.log(response);
                     console.log("Successfully Updated Role");
+                    window.location.reload();
                 }
                 })
                 .catch(error => {
