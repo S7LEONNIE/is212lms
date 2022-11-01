@@ -36,7 +36,7 @@
     </head>
 
     <body id="app">
-        <navbar-component></navbar-component>
+        <navbar-component v-bind:designation="designation"  @logout="ljps_logout"></navbar-component>
 
         <!-- main content -->
         <div class="Main__Content">
@@ -60,15 +60,6 @@
                     <p>{{ course_details.course_desc }}</p>
                 </div>
             </div>
-
-            <!-- <div class="details_content">
-                <div class="header">
-                    <div class="title">Learning Objectives</div>
-                </div>
-                <div class="description">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation...</p>
-                </div>
-            </div> -->
 
             <div class="details_content">
                 <div class="header">
@@ -102,7 +93,7 @@
             <div class="action-container">
                 <button class="action_button action_back" v-if="designation == 3"> Edit Course </button>
                 <button class="action_button action_back" onclick="history.back()">Back</button>
-                <button id="journey-model" class="action_button action_positive">Add/Remove to Journey</button>
+                <button id="journey-model" class="action_button action_positive">Add to Journey</button>
             </div>
         </div>
 
@@ -134,6 +125,46 @@
                     <button @click="journeyCreate=false" class="action_button action_back">Cancel</button>
                 </div>
 
+            </div>
+        </div>
+
+        <div class="edit-course-model role">
+            <div class="edit-course-model_content">
+                <div class="edit-course-model_header">
+                    <div class="title">Add Role</div>
+                    <i class="fa fa-times edit-course-model role"></i>
+                </div>
+
+                <label>Role Name</label>
+                <input class="textbox" v-model="new_role_name">
+                <label>Description</label>
+                <input class="textbox" v-model="new_role_desc">
+
+                Skills
+                <div>
+                    <div v-for="skill, index in skillsByRole" v-bind:key="index">
+                        {{ skill.skill_id }}
+                        {{ skill.skill_name }}
+                        <button v-on:click="skillsByRole.splice(index, 1)"> Delete </button>
+                    </div>
+                    <select v-model="new_role_skill" v-on:change="skillsByRole.push(new_role_skill); new_role_skill=false;">
+                        <option v-for="skill in skills" v-bind:key="skill.skill_id" v-bind:value="skill">
+                            {{ skill.skill_id}}
+                            {{ skill.skill_name }}
+                        </option>
+                    </select>
+                    <!-- <button>Add Skill</button> -->
+                </div>
+                
+                <div class="action-container">
+                    <template v-if="roleButtonAction == 'new'">
+                        <button class="action_button action_positive" v-on:click="createRole">Save</button>
+                    </template>
+                    <template v-else-if="roleButtonAction == 'update'">
+                        <button class="action_button action_positive" v-on:click="updateRole(updateRoleID)">Save</button>
+                    </template>
+                    <button class="action_button action_back admin-model_close role">Cancel</button>
+                </div>
             </div>
         </div>
 

@@ -35,7 +35,7 @@
     </head>
 
     <body id="app">
-        <navbar-component></navbar-component>
+        <navbar-component v-bind:designation="designation"  @logout="ljps_logout"></navbar-component>
 
         <!-- main content -->
         <div class="Main__Content">

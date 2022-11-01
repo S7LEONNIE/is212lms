@@ -574,6 +574,8 @@ const app = Vue.createApp({
                 if (response.status == 200) {
                     console.log(response);
                     console.log('successful add course to LJ');
+                    alert("Success!");
+                    $('.journey-model').toggle();
                 }
                 })
                 .catch(error => {
@@ -596,6 +598,12 @@ const app = Vue.createApp({
 })
 
 app.component('navbar-component', {
+    props: ['designation'],
+    // data: function() {
+    //   return {
+    //     designation: this.designation
+    //   };
+    // },
     template: `
     <div class="Navbar__Wrapper">
         <div class="Navbar">
@@ -616,7 +624,7 @@ app.component('navbar-component', {
                 <div class="Navbar__Link">
                 <a href="skills_course_search.html">Skills/Courses</a>
                 </div>
-                <div v-if="designation==2 || designation==3"class="Navbar__Link">
+                <div v-if="designation==2 || designation==3" class="Navbar__Link">
                 <a href="admin.html">Edit Roles/Skills</a>
                 </div>
             </nav>
@@ -626,7 +634,7 @@ app.component('navbar-component', {
                     <a href="myjourney.html">My Journeys</a>
                 </div>
                 <div class="Navbar__Link">
-                    <a href="#" v-on:click="ljps_logout">Logout</a>
+                    <a href="#" v-on:click="$emit('logout')">Logout</a>
                 </div>
             </nav>
         </div>

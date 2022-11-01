@@ -40,7 +40,7 @@ $(document).ready(function(){
 		$('.journey-model').toggle();
 	});
 
-	$("#journey-model_close" ).on("click", function() { 
+	$("#journey-model_close" ).on("click", function() {
 		$('.journey-model').toggle();
 	});
 
