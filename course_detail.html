@@ -36,38 +36,7 @@
     </head>
 
     <body id="app">
-        <div class="Navbar__Wrapper">
-            <!-- nav bar -->
-            <div class="Navbar">
-                <div class="Navbar__Link Navbar__Link-brand">
-                    LJMS
-                </div>
-                <div onclick="classToggle()" class="Navbar__Link Navbar__Link-toggle">
-                    <i class="fas fa-bars"></i>
-                </div>
-    
-                <nav class="Navbar__Items">
-                    <div class="Navbar__Link">
-                        <a href="index.html">Home</a>
-                    </div>
-                    <div class="Navbar__Link">
-                    <a href="role.html">Role</a>
-                    </div>
-                    <div class="Navbar__Link">
-                    <a href="skills_course_search.html">Skills/Courses</a>
-                    </div>
-                </nav>
-    
-                <nav class="Navbar__Items Navbar__Items--right">
-                    <div class="Navbar__Link">
-                        <a href="myjourney.php">My Journey</a>
-                    </div>
-                    <div class="Navbar__Link">
-                        <a href="#">Logout</a>
-                    </div>
-                </nav>
-            </div>
-        </div>
+        <navbar-component></navbar-component>
 
         <!-- main content -->
         <div class="Main__Content">
@@ -131,7 +100,7 @@
             </div>
 
             <div class="action-container">
-                <button class="action_button action_back" v-if="isHR"> Edit Course </button>
+                <button class="action_button action_back" v-if="designation == 3"> Edit Course </button>
                 <button class="action_button action_back" onclick="history.back()">Back</button>
                 <button id="journey-model" class="action_button action_positive">Add/Remove to Journey</button>
             </div>

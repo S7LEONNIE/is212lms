@@ -51,11 +51,11 @@ const app = Vue.createApp({
             targetLJs: [],
         }
     },
-    computed: {
-        isHR() {
-            return (localStorage.staff_designation == 3)
-        }
-    },
+    // computed: {
+    //     isHR() {
+    //         return (localStorage.staff_designation == 3)
+    //     }
+    // },
     methods: {
         isLoggedIn() {
             let staff_id = localStorage.getItem("staff_id");
@@ -616,14 +616,17 @@ app.component('navbar-component', {
                 <div class="Navbar__Link">
                 <a href="skills_course_search.html">Skills/Courses</a>
                 </div>
+                <div v-if="designation==2 || designation==3"class="Navbar__Link">
+                <a href="admin.html">Edit Roles/Skills</a>
+                </div>
             </nav>
 
             <nav class="Navbar__Items Navbar__Items--right">
                 <div class="Navbar__Link">
-                    <a href="myjourney.php">My Journey</a>
+                    <a href="myjourney.html">My Journeys</a>
                 </div>
                 <div class="Navbar__Link">
-                    <a href="#">Logout</a>
+                    <a href="#" v-on:click="ljps_logout">Logout</a>
                 </div>
             </nav>
         </div>
