@@ -72,7 +72,7 @@
                         <div class="course-type">Not Started: 1</div>
                         <div class="course-type">On-going: 1</div>
                         <div class="course-type">Completed: 1</div>
-                        <button id="myjourney-edit-btn" class="btn">Edit</button>
+                        <button class="btn myjourney-edit-btn" v-on:click="editLJ(lj)">Edit</button>
                     </div>
                 </div>
             </div>
@@ -113,7 +113,7 @@
 
                 <div class="action-container">
                     <button class="action_button action_positive">Save</button>
-                    <button class="action_button action_back">Cancel</button>
+                    <button class="action_button action_back" v-on:click="closeJourneyWindow">Cancel</button>
                 </div>
             </div>
         </div>

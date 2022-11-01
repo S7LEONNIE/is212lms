@@ -361,6 +361,8 @@ const app = Vue.createApp({
                                     console.log(error.message);
                                 });
                             }
+
+
                         }
                     })
                     .catch(error => {
@@ -409,6 +411,7 @@ const app = Vue.createApp({
                         .then(response => {
                         if (response.status == 200) {
                             console.log('successful deleted role');
+                            window.location.reload();
                         }
                         })
                         .catch(error => {
@@ -437,6 +440,7 @@ const app = Vue.createApp({
                         .then(response => {
                         if (response.status == 200) {
                             console.log('successful deleted skill');
+                            window.location.reload();
                         }
                         })
                         .catch(error => {
@@ -519,6 +523,7 @@ const app = Vue.createApp({
                 .then(response => {
                 if (response.status == 200) {
                     console.log("Successfully Updated Skill");
+                    window.location.reload();
                 }
                 })
                 .catch(error => {
@@ -537,6 +542,7 @@ const app = Vue.createApp({
                 if (response.status == 200) {
                     console.log('successful add skills');
                     console.log(response)
+                    window.location.reload();
                 }
                 })
                 .catch(error => {
@@ -614,6 +620,15 @@ const app = Vue.createApp({
                 console.log("Update role fail");
                 });
         },
+
+        editLJ(lj) {
+            $('.journey-model-edit').toggle();
+            console.log(lj);
+        },
+
+        closeJourneyWindow() {
+            $('.journey-model-edit').toggle();
+        }
     },
     beforeMount(){
         this.isLoggedIn();
