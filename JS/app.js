@@ -2,6 +2,7 @@ const app = Vue.createApp({
     data() {
         let journeyCreate = false;
         return {
+            designation: "",
             journeyCreate,
             roles: [],
             skills: [],
@@ -17,7 +18,6 @@ const app = Vue.createApp({
             updateRoleID: "",
             skillButtonAction: "",
             updateSkillID: "",
-            designation: "",
 
             role_details_exists: true,
             role_details: {
@@ -49,13 +49,10 @@ const app = Vue.createApp({
             rolesBySkill: [],
 
             targetLJs: [],
+            new_course_skill: '',
         }
     },
-    // computed: {
-    //     isHR() {
-    //         return (localStorage.staff_designation == 3)
-    //     }
-    // },
+    // computed: {},
     methods: {
         isLoggedIn() {
             let staff_id = localStorage.getItem("staff_id");
@@ -310,18 +307,20 @@ const app = Vue.createApp({
             else {this.skill_details_exists = false;}
         },
         
-        getCourseById() {
-            // url: 'skeleton_view_one_course?course_id=1&foo=1&bar=2');
-            let urlParams = window.location.search.substring(1).split("&");
-            let params = {};
-            for (let param of urlParams) {
-                let temp = param.split("=");
-                let key = temp[0];
-                let val = temp[1];
-                params[key] = val;
+        getCourseById(course_id = false) {
+            if (!course_id) {
+                // url: 'skeleton_view_one_course?course_id=1&foo=1&bar=2');
+                let urlParams = window.location.search.substring(1).split("&");
+                let params = {};
+                for (let param of urlParams) {
+                    let temp = param.split("=");
+                    let key = temp[0];
+                    let val = temp[1];
+                    params[key] = val;
+                }
+                course_id = params.course_id;
             }
 
-            let course_id = params.course_id;
             if (course_id) {
                 try {
                     axios.post("PHP/functionGetCourseById.php",
@@ -581,6 +580,38 @@ const app = Vue.createApp({
                 .catch(error => {
                 console.log(error.message);
                 console.log("fail");
+                });
+        },
+        
+        updateCourse(){
+            let course_id = this.course_details.course_id;
+            let course_name = this.course_details.course_name;
+            let course_desc = this.course_details.course_desc;
+            let course_skills_w_dup = this.skillsByCourse;
+            let course_skills = [];
+            for (let skill of course_skills_w_dup) {
+                let skill_id = skill['skill_id'];
+                if (!course_skills.includes(skill_id) ) {
+                    course_skills.push(skill_id)
+                }
+            }
+
+            axios.post("PHP/functionUpdateCourse.php", {
+                course_id: course_id,
+                    course_name: course_name,
+                    course_desc: course_desc,
+                    course_skills: course_skills
+            })
+                .then(response => {
+                if (response.status == 200) {
+                    console.log(response);
+                    console.log("Successfully Updated course");
+                    window.location.reload();
+                }
+                })
+                .catch(error => {
+                console.log(error.message);
+                console.log("Update role fail");
                 });
         },
     },

@@ -147,6 +147,83 @@ class classCourseDAO {
 
         return $coursesUnderManager;
     }
+    
+    public function updateCourse($course_id, $course_name, $course_desc) {
+        
+        // STEP 1: establish a connection
+
+        $connMgr = new classConnectionManager();
+        $conn = $connMgr->connect();
+
+        // STEP 2: SQL commands
+        $sql = "UPDATE course 
+                SET course_name = :course_name, course_desc = :course_desc
+                WHERE course_id = :course_id;";
+
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':course_name', $course_name, PDO::PARAM_STR);
+        $stmt->bindParam(':course_desc', $course_desc, PDO::PARAM_STR);
+        $stmt->bindParam(':course_id', $course_id, PDO::PARAM_STR);
+
+        // STEP 3: Run SQL
+        $status = $stmt->execute();
+
+        $stmt = null;
+        $conn = null;
+        return $status;
+    }
+    public function clearSkillsFromCourse($course_id) {
+        
+        // STEP 1: establish a connection
+
+        $connMgr = new classConnectionManager();
+        $conn = $connMgr->connect();
+
+        // STEP 2: SQL commands
+        $sql = "DELETE FROM course_skill 
+                WHERE course_id = :course_id;";
+
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':course_id', $course_id, PDO::PARAM_STR);
+
+        // STEP 3: Run SQL
+        $status = $stmt->execute();
+
+        $stmt = null;
+        $conn = null;
+        return $status;
+    }
+
+    public function addSkillToCourse($course_id, $skill_id) {
+        
+        // STEP 1: establish a connection
+        $connMgr = new classConnectionManager();
+        $conn = $connMgr->connect();
+
+        // STEP 2: SQL commands
+        $sql = "INSERT INTO course_skill
+                        (
+                            course_id, 
+                            skill_id
+                        )
+                    VALUES
+                        (
+                            :course_id,
+                            :skill_id
+                        )";
+
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':course_id', $course_id, PDO::PARAM_STR);
+        $stmt->bindParam(':skill_id', $skill_id, PDO::PARAM_STR);
+
+        // STEP 3: Run SQL
+        $status = $stmt->execute();
+
+        $stmt = null;
+        $conn = null;
+        return $status;
+    }
+    
 }
 
 

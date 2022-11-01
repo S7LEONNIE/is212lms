@@ -128,46 +128,6 @@
             </div>
         </div>
 
-        <div class="edit-course-model role">
-            <div class="edit-course-model_content">
-                <div class="edit-course-model_header">
-                    <div class="title">Add Role</div>
-                    <i class="fa fa-times edit-course-model role"></i>
-                </div>
-
-                <label>Role Name</label>
-                <input class="textbox" v-model="new_role_name">
-                <label>Description</label>
-                <input class="textbox" v-model="new_role_desc">
-
-                Skills
-                <div>
-                    <div v-for="skill, index in skillsByRole" v-bind:key="index">
-                        {{ skill.skill_id }}
-                        {{ skill.skill_name }}
-                        <button v-on:click="skillsByRole.splice(index, 1)"> Delete </button>
-                    </div>
-                    <select v-model="new_role_skill" v-on:change="skillsByRole.push(new_role_skill); new_role_skill=false;">
-                        <option v-for="skill in skills" v-bind:key="skill.skill_id" v-bind:value="skill">
-                            {{ skill.skill_id}}
-                            {{ skill.skill_name }}
-                        </option>
-                    </select>
-                    <!-- <button>Add Skill</button> -->
-                </div>
-                
-                <div class="action-container">
-                    <template v-if="roleButtonAction == 'new'">
-                        <button class="action_button action_positive" v-on:click="createRole">Save</button>
-                    </template>
-                    <template v-else-if="roleButtonAction == 'update'">
-                        <button class="action_button action_positive" v-on:click="updateRole(updateRoleID)">Save</button>
-                    </template>
-                    <button class="action_button action_back admin-model_close role">Cancel</button>
-                </div>
-            </div>
-        </div>
-
         <footer>
             Created By: SPM Group 3
         </footer>
