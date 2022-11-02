@@ -85,10 +85,14 @@
                     <i id="journey-model_close" class="fa fa-times"></i>
                 </div>
                 <div class="action-container">
+                    <label for="learning_journey_name">Learning Journey Name</label>
+                    <input id="learning_journey_name" type="text" class="textbox">
+
+                    <label for="action_select">Role</label>
                     <select class="action_select">
-                        <option value="journeyname">journeyname</option>
-                        <option value="journeyname">journeyname</option>
-                        <option value="journeyname">journeyname</option>
+                        <template v-for="role in roles">
+                            <option :value="role.role_name">{{ role.role_name }}</option>
+                        </template>
                     </select>
                     <button class="action_button action_positive">Create</button>
                     <button class="action_button action_back">Cancel</button>
