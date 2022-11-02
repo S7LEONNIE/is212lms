@@ -73,6 +73,7 @@
             <div class="action-container">
                 <button class="action_button action_back" v-if="designation == 3"> Edit Course </button>
                 <button class="action_button action_back" onclick="history.back()">Back</button>
+                <button @click="" class="action_button action_negative">Delete Journey</button>
                 <button id="journey-model" class="action_button action_positive">Add/Remove Courses</button>
             </div>
         </div>
@@ -93,7 +94,7 @@
 
                 <div class="action-container" v-if="!journeyCreate">
                     <button v-on:click="addCourseToLJs" class="action_button action_positive">Save</button>
-                    <button @click="journeyCreate=true" class="action_button action_negative">Delete Journey</button>
+                    <button class="action_button action_back" v-on:click="closeJourneyWindow">Cancel</button>
                 </div>
             </div>
         </div>

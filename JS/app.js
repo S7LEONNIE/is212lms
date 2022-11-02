@@ -627,7 +627,7 @@ const app = Vue.createApp({
         },
 
         closeJourneyWindow() {
-            $('.journey-model-edit').toggle();
+            $('.journey-model-edit, .journey-model').toggle();
         }
     },
     beforeMount(){
