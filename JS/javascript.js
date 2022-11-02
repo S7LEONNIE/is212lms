@@ -1,5 +1,41 @@
 var filterSetting = false;
 
+var rolesTable = $('#role-table').DataTable({
+	scrollX: true,
+    scroller: true,
+	scrollY: 500,
+	responsive: true,
+	pageLength: 25,
+	lengthMenu: [25, 50, 75, 100],
+
+	data: [],
+	columns: [
+		{ title: 'id' },
+		{ title: 'Name' },
+		{ title: 'Description' },
+		{ title: 'Status' },
+		{ title: '' } // this row is for update/delete buttons
+	]
+});
+
+var skillsTable = $('#skill-table').DataTable({
+	scrollX: true,
+    scroller: true,
+	scrollY: 500,
+	responsive: true,
+	pageLength: 25,
+	lengthMenu: [25, 50, 75, 100],
+	
+	data: [],
+	columns: [
+		{ title: 'id' },
+		{ title: 'Name' },
+		{ title: 'Description' },
+		{ title: 'Status' },
+		{ title: '' } // this row is for update/delete buttons
+	]
+});
+
 $(document).ready(function(){
 	// Run our swapImages() function every 5secs
 	setInterval('carouselChange()', 8000);
@@ -8,13 +44,14 @@ $(document).ready(function(){
 		$('.journey-model').toggle();
 	});
 
-	$("#journey-model_close" ).on("click", function() { 
+	$("#journey-model_close" ).on("click", function() {
 		$('.journey-model').toggle();
 	});
 
-	$("#myjourney-edit-btn" ).on("click", function() { 
-		$('.journey-model-edit').toggle();
-	});
+	// refuses to work
+	// $(".myjourney-edit-btn" ).on("click", function() { 
+	// 	$('.journey-model-edit').toggle();
+	// });
 
 	$("#journey-model-edit_close" ).on("click", function() { 
 		$('.journey-model-edit').toggle();
@@ -25,13 +62,28 @@ $(document).ready(function(){
 		$('.admin-model.role').toggle();
 	});
 
-	$(".admin-role-btn_update" ).on("click", function() { 
-		$('.admin-model_header .title').text('Update Role');
-		$('.admin-model.role').toggle();
-	});
+	// This functionality refused to work normally so I built it into vue's roleUpdateBtn function.
+	// $(".admin-role-btn_update" ).on("click", function() { 
+	// 	$('.admin-model_header .title').text('Update Role');
+	// 	$('.admin-model.role').toggle();
+	// });
 
 	$(".admin-model_close.role" ).on("click", function() { 
 		$('.admin-model.role').toggle();
+	});
+
+	$("#admin-skill-btn_new" ).on("click", function() { 
+		$('.admin-model_header .title').text('Add Skill');
+		$('.admin-model.skill').toggle();
+	});
+	
+	$(".admin-skill-btn_update" ).on("click", function() { 
+		$('.admin-model_header .title').text('Update Skill');
+		$('.admin-model.skill').toggle();
+	});
+
+	$(".admin-model_close.skill" ).on("click", function() { 
+		$('.admin-model.skill').toggle();
 	});
 
 	$(".admin-staff-btn_view" ).on("click", function() { 
@@ -57,7 +109,7 @@ $(document).ready(function(){
 		$("select").prop('disabled', false);
 	});
 
-	$('.admin-model-select.staff').select2();
+	$('.admin-model-select.staff, .admin-model-course-select').select2();
 
 	$('.admin-model-select.learning-journey').select2();
 
@@ -69,21 +121,22 @@ $(document).ready(function(){
 
 	$('#search-filter').on("click", function() {
 		$('.search-page_filter_container').toggleClass("search-filter_show");
-	})
+	});
 
-	$('.filter-itemlist-job :checkbox').click(function () {
-		if ($('.filter-itemlist-job :checkbox').is(':checked')) {
+	$('.filter-itemlist-role').on("click", function () {
+		console.log('e');
+		if ($('.filter-itemlist-role input:checkbox').is(':checked')) {
 			$('.course-card').hide();
-			$('.filter-itemlist-job :checkbox:checked').each(function() {
+			$('.filter-itemlist-role input:checkbox:checked').each(function() {
 				coursename = $(this).val().replace(/ /g, '.');
 				$('.course-card.' + coursename).show();
 			})
 		} else {
 			$('.course-card').show();
 		}
-	})
+	});
 
-	$('#journey-model-filter').click(function () {
+	$('#journey-model-filter').on("change", function () {
 		if (filterSetting == false) {
 			$(".course-card-container .course-card").sort(sortFilterAsc).appendTo('.course-card-container');
 			filterSetting = true;
@@ -110,14 +163,9 @@ $(document).ready(function(){
 
 	})
 
-	$('#role-table').DataTable({
-		scrollY: 500,
-		responsive: true,
-		pageLength: 25,
-        lengthMenu: [25, 50, 75, 100],
-	});
-
 	$('#staff-table').DataTable({
+		scrollX: true,
+        scroller: true,
 		scrollY: 500,
 		responsive: true,
 		pageLength: 25,
@@ -175,4 +223,9 @@ function sortFilterAsc(a, b) {
 // Filter Desc function
 function sortFilterDesc(a, b) {
 	return ($(b).text().toUpperCase()) > ($(a).text().toUpperCase()) ? 1 : -1; 
+}
+
+function toggleSkillsModal () {
+	$('.admin-model_header .title').text('Update Skill');
+	$('.admin-model.skill').toggle();
 }

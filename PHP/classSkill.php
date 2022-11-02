@@ -6,13 +6,15 @@ class classSkill {
     private $skill_id;
     private $skill_name;
     private $skill_desc;
+    private $is_active;
 
     // Methods
 
-    function __construct($skill_id, $skill_name, $skill_desc) {
+    function __construct($skill_id, $skill_name, $skill_desc, $is_active) {
         $this->skill_id = $skill_id;
         $this->skill_name = $skill_name;
         $this->skill_desc = $skill_desc;
+        $this->is_active = $is_active;
     }
 
     // Setters
@@ -26,6 +28,9 @@ class classSkill {
     function setSkill_Desc($skill_desc) {
         $this->skill_desc = $skill_desc;
     }
+    function set_IsActive($isActive) {
+        $this->is_active = $isActive;
+    }
 
     // Getters
 
@@ -37,6 +42,9 @@ class classSkill {
     }
     function getSkill_Desc() {
         return $this->skill_desc;
+    }
+    function get_IsActive() {
+        return $this->is_active;
     }
 }
 

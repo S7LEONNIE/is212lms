@@ -11,6 +11,7 @@
 
         <!-- import vue -->
         <script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.js"></script>
+        <script src="JS/vue.js"></script>
 
         <!-- import axios -->
         <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
@@ -29,6 +30,7 @@
         <!-- sweetalert -->
         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
+        <!-- select2 -->
         <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
         <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
@@ -36,44 +38,14 @@
     </head>
 
     <body id="app">
-        <div class="Navbar__Wrapper">
-            <!-- nav bar -->
-            <div class="Navbar">
-                <div class="Navbar__Link Navbar__Link-brand">
-                    LJMS
-                </div>
-                <div onclick="classToggle()" class="Navbar__Link Navbar__Link-toggle">
-                    <i class="fas fa-bars"></i>
-                </div>
-    
-                <nav class="Navbar__Items">
-                    <div class="Navbar__Link">
-                        <a href="index.html">Home</a>
-                    </div>
-                    <div class="Navbar__Link">
-                    <a href="job.html">Job</a>
-                    </div>
-                    <div class="Navbar__Link">
-                    <a href="skills_course_search.html">Skills/Courses</a>
-                    </div>
-                </nav>
-    
-                <nav class="Navbar__Items Navbar__Items--right">
-                    <div class="Navbar__Link">
-                        <a href="myjourney.php">My Journey</a>
-                    </div>
-                    <div class="Navbar__Link">
-                        <a href="#">Logout</a>
-                    </div>
-                </nav>
-            </div>
-        </div>
+        <navbar-component v-bind:designation="designation"  @logout="ljps_logout"></navbar-component>
 
         <!-- main content -->
         <div class="Main__Content">
             <div class="tab-selection-wrapper">
                 <button class="tab-selected" name="all">All</button>
                 <button name="role">Role</button>
+                <button name="skill">Skill</button>
                 <button name="staff">Staff</button>
             </div>
 
@@ -81,29 +53,23 @@
             <div class="tab-selection-content role">
                 <div class="header">
                     <div class="title">Role Management</div>
-                    <button id="admin-role-btn_new" class="btn action_button">New</button>
+                    <button id="admin-role-btn_new" class="btn action_button" @click="roleNewBtn">New</button>
                 </div>
 
                 <table id="role-table" class="display responsive nowrap" width="100%">
-                    <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>Role Name</th>
-                            <th>Role Description</th>
-                            <th>Edit</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr v-for="x in 20">
-                            <td>{{ x }}</td>
-                            <td>Engineer</td>
-                            <td>This role is good at engineering.</td>
-                            <td>
-                                <button class="admin-role-btn_update">Update</button>
-                                <button v-on:click="roleDelete()">Delete</button>
-                            </td>
-                        </tr>
-                    </tbody>
+                    <!-- This is a Data Table -->
+                </table>
+            </div>
+
+            <!-- Skill -->
+            <div class="tab-selection-content skill">
+                <div class="header">
+                    <div class="title">Skill/Course Management</div>
+                    <button id="admin-skill-btn_new" class="btn action_button" @click="skillButtonAction = 'new'">New</button>
+                </div>
+
+                <table id="skill-table" class="display responsive nowrap" width="100%">
+                    <!-- This is a Data Table -->
                 </table>
             </div>
 
@@ -138,6 +104,8 @@
             </div>
         </div>
 
+        
+
         <!-- Role Model -->
         <!-- Covers both Create and Update -->
         <div class="admin-model role">
@@ -148,13 +116,67 @@
                 </div>
 
                 <label>Role Name</label>
-                <input class="textbox">
+                <input class="textbox" v-model="new_role_name">
                 <label>Description</label>
-                <input class="textbox">
+                <input class="textbox" v-model="new_role_desc">
+
+                Skills
+                <div>
+                    <div v-for="skill, index in skillsByRole" v-bind:key="index">
+                        {{ skill.skill_id }}
+                        {{ skill.skill_name }}
+                        <button v-on:click="skillsByRole.splice(index, 1)"> Delete </button>
+                    </div>
+                    <select v-model="new_role_skill" v-on:change="if(new_role_skill) { skillsByRole.push(new_role_skill) }; new_role_skill='';">
+                        <option value="">Select skill to add:</option>
+                        <option v-for="skill in skills" v-bind:key="skill.skill_id" v-bind:value="skill">
+                            {{ skill.skill_id}}
+                            {{ skill.skill_name }}
+                        </option>
+                    </select>
+                </div>
                 
                 <div class="action-container">
-                    <button class="action_button action_positive">Save</button>
+                    <template v-if="roleButtonAction == 'new'">
+                        <button class="action_button action_positive" v-on:click="createRole">Save</button>
+                    </template>
+                    <template v-else-if="roleButtonAction == 'update'">
+                        <button class="action_button action_positive" v-on:click="updateRole(updateRoleID)">Save</button>
+                    </template>
                     <button class="action_button action_back admin-model_close role">Cancel</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Skill Model -->
+        <!-- Covers both Create and Update -->
+        <div class="admin-model skill">
+            <div class="admin-model_content">
+                <div class="admin-model_header">
+                    <div class="title">Add Skill</div>
+                    <i class="fa fa-times admin-model_close skill"></i>
+                </div>
+
+                <label>Skill Name</label>
+                <input id="new_skill_name" class="textbox" v-model="new_skill_name">
+                <label>Description</label>
+                <input id="new_skill_desc" class="textbox" v-model="new_skill_desc">
+                <label>Course</label>
+                <select class="admin-model-course-select staff" name="states[]" multiple="multiple">
+                    <option selected value="skill1">Skill1</option>
+                    <option value="skill2">Skill2</option>
+                    <option selected value="skill3">Skill3</option>
+                    <option value="skill4">Skill4</option>
+                </select>
+                
+                <div class="action-container">
+                    <template v-if="skillButtonAction == 'new'">
+                        <button class="action_button action_positive" v-on:click="createSkill">Save</button>
+                    </template>
+                    <template v-else-if="skillButtonAction == 'update'">
+                        <button class="action_button action_positive" v-on:click="updateSkill(updateSkillID)">Save</button>
+                    </template>
+                    <button class="action_button action_back admin-model_close skill">Cancel</button>
                 </div>
             </div>
         </div>

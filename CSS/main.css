@@ -84,6 +84,8 @@ select {
     --primary-word-color: #519ACF;
     --primary-color: #519ACF;
 
+    --negative-color: red;
+
     --box-shadow: 2px 2px 8px grey;
     --box-shadow-hover: 4px 4px 16px grey;
 
@@ -139,7 +141,13 @@ body {
 
 .header {
     display: flex;
-    justify-content: space-between
+    justify-content: space-between;
+}
+
+@media only screen and (max-width: 768px) {
+    .header {
+        flex-direction: column;
+    }
 }
 
 .main-header,
@@ -704,6 +712,11 @@ body {
     color: white;
 }
 
+.action_negative {
+    background-color: var(--negative-color);
+    color: white;
+}
+
 
 @media only screen and (max-width: 425px) {
     .action-container {
@@ -832,7 +845,7 @@ body {
     line-height: 30px;
 }
 
-.filter-itemlist-job,
+.filter-itemlist-role,
 .filter-itemlist-skill {
     padding: 10px;
     overflow: auto;

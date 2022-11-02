@@ -12,9 +12,10 @@ class classRoleDAO {
         $sql = "SELECT
             role_id,
             role_name,
-            role_desc
+            role_desc,
+            is_active
             FROM role
-            ORDER BY role_id ASC;"; // ASC or DESC 
+            WHERE is_active = 'active' ORDER BY role_id ASC;"; // ASC or DESC 
         $stmt = $conn->prepare($sql);
 
         // STEP 3: Run SQL
@@ -28,7 +29,8 @@ class classRoleDAO {
                 new classRole(
                     $row['role_id'],
                     $row['role_name'],
-                    $row['role_desc']);
+                    $row['role_desc'],
+                    $row['is_active']);
                 }
         return $list_role;
     }
@@ -45,12 +47,14 @@ class classRoleDAO {
         $sql = "INSERT INTO role
                         (
                             role_name, 
-                            role_desc
+                            role_desc,
+                            is_active
                         )
                     VALUES
                         (
                             :role_name,
-                            :role_desc
+                            :role_desc,
+                            'active'
                         )";
 
         $stmt = $conn->prepare($sql);
@@ -62,7 +66,41 @@ class classRoleDAO {
 
         $stmt = null;
         $conn = null;
-        return $status;
+
+        // if failed insert, return status:
+        if (!$status) {
+            return $status;
+        }
+
+        // if successful insert, query DB to get the id of that role:
+        // STEP 1: establish a connection
+        $connMgr = new classConnectionManager();
+        $conn = $connMgr->connect();
+
+        // STEP 2: SQL commands
+        $sql = "SELECT
+            role_id
+            FROM role
+            WHERE role_name = :role_name
+            AND role_desc = :role_desc
+            ORDER BY role_id DESC
+            LIMIT 1;";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':role_name', $role_name, PDO::PARAM_STR);
+        $stmt->bindParam(':role_desc', $role_desc, PDO::PARAM_STR);
+
+        // STEP 3: Run SQL
+        $stmt->execute();
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+
+        // STEP 4: Display result
+        if ( $row = $stmt->fetch() ) {
+            $role_id = $row['role_id'];
+            return $role_id;
+        }
+        else {
+            return FALSE;
+        }
     }
     
     public function getRoleById($role_id) {
@@ -73,7 +111,8 @@ class classRoleDAO {
         $sql = "SELECT
             role_id,
             role_name,
-            role_desc
+            role_desc,
+            is_active
             FROM role
             WHERE role_id = :role_id;";
         $stmt = $conn->prepare($sql);
@@ -88,7 +127,8 @@ class classRoleDAO {
             $role = new classRole(
                 $row['role_id'],
                 $row['role_name'],
-                $row['role_desc']
+                $row['role_desc'],
+                $row['is_active']
             );
             return $role;
         }
@@ -105,7 +145,8 @@ class classRoleDAO {
         $sql = "SELECT
             role.role_id AS role_id,
             role.role_name AS role_name,
-            role.role_desc AS role_desc
+            role.role_desc AS role_desc,
+            role.is_active AS is_active
             FROM role
             INNER JOIN role_skill ON role.role_id = role_skill.role_id
             WHERE role_skill.skill_id = :skill_id;";
@@ -123,340 +164,114 @@ class classRoleDAO {
                 new classRole(
                     $row['role_id'],
                     $row['role_name'],
-                    $row['role_desc']
+                    $row['role_desc'],
+                    $row['is_active']
                 );
             }
         return $list_role;
     }
 
-    // // The rest of this is code from my old WAD2 project. To be modified as necessary.
-    
-    // public function deleteItem($purchaseid) {
-    //     $connMgr = new classConnectionManager();
-    //     $conn = $connMgr->connect();
-
-    //     // STEP 2
-    //     $sql = "DELETE FROM
-    //                 item
-    //             WHERE 
-    //                 purchaseid = :purchaseid";
-    //     $stmt = $conn->prepare($sql);
-    //     $stmt->bindParam(':purchaseid', $purchaseid, PDO::PARAM_INT);
-
-    //     // STEP 3
-    //     $status = $stmt->execute();
-
-    //     $stmt = null;
-    //     $conn = null;
-    //     return $status;
-
-    // }
-
-    // public function updateItem($purchaseid, $purchase_time, $item_name, $category, $price, $location, $latitude, $longitude)  {
-    
-    //     // STEP 1: establish a connection
-
-    //     $connMgr = new classConnectionManager();
-    //     $conn = $connMgr->connect();
-
-    //     // STEP 2: SQL commands
-
-    //     $sql = "";
-
-    //     $sql = "UPDATE
-    //             item
-    //         SET
-    //             purchase_time = :purchase_time,
-    //             item_name = :item_name,
-    //             category = :category,
-    //             price = :price,
-    //             location = :location,
-    //             latitude = :latitude,
-    //             longitude = :longitude
-    //         WHERE 
-    //             purchaseid = :purchaseid";
-
-    //     $stmt = $conn->prepare($sql);
+    public function updateRole($role_id,$role_name, $role_desc) {
         
-    //     $stmt->bindParam(':purchaseid', $purchaseid, PDO::PARAM_INT);
-    //     $stmt->bindParam(':purchase_time', $purchase_time, PDO::PARAM_STR);
-    //     $stmt->bindParam(':item_name', $item_name, PDO::PARAM_STR);
-    //     $stmt->bindParam(':category', $category, PDO::PARAM_STR);
-    //     $stmt->bindParam(':price', $price, PDO::PARAM_STR);
-    //     $stmt->bindParam(':location', $location, PDO::PARAM_STR);
-    //     $stmt->bindParam(':latitude', $latitude, PDO::PARAM_STR);
-    //     $stmt->bindParam(':longitude', $longitude, PDO::PARAM_STR);
+        // STEP 1: establish a connection
 
-    //     // STEP 3: Run SQL
-    //     $status = $stmt->execute();
+        $connMgr = new classConnectionManager();
+        $conn = $connMgr->connect();
 
-    //     $stmt = null;
-    //     $conn = null;
-    //     return $status;
-    // }
+        // STEP 2: SQL commands
+        $sql = "UPDATE role 
+                SET role_name = :role_name, role_desc = :role_desc
+                WHERE role_id = :role_id;";
 
-    // public function updateItemNoLoc($purchaseid, $userid, $purchase_time, $item_name, $category, $price)  {
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':role_name', $role_name, PDO::PARAM_STR);
+        $stmt->bindParam(':role_desc', $role_desc, PDO::PARAM_STR);
+        $stmt->bindParam(':role_id', $role_id, PDO::PARAM_INT);
+
+        // STEP 3: Run SQL
+        $status = $stmt->execute();
+
+        $stmt = null;
+        $conn = null;
+        return $status;
+    }
     
-    //     // STEP 1: establish a connection
-
-    //     $connMgr = new classConnectionManager();
-    //     $conn = $connMgr->connect();
-
-    //     // STEP 2: SQL commands
-
-    //     $sql = "";
-
-    //     $sql = "UPDATE
-    //             item
-    //         SET
-    //             purchase_time = :purchase_time,
-    //             item_name = :item_name,
-    //             category = :category,
-    //             price = :price
-    //         WHERE 
-    //             purchaseid = :purchaseid
-    //         AND 
-    //             userid = :userid";
-
-    //     $stmt = $conn->prepare($sql);
+    public function clearSkillsFromRole($role_id) {
         
-    //     $stmt->bindParam(':purchaseid', $purchaseid, PDO::PARAM_INT);
-    //     $stmt->bindParam(':userid', $userid, PDO::PARAM_STR);
-    //     $stmt->bindParam(':purchase_time', $purchase_time, PDO::PARAM_STR);
-    //     $stmt->bindParam(':item_name', $item_name, PDO::PARAM_STR);
-    //     $stmt->bindParam(':category', $category, PDO::PARAM_STR);
-    //     $stmt->bindParam(':price', $price, PDO::PARAM_STR);
+        // STEP 1: establish a connection
 
-    //     // STEP 3: Run SQL
-    //     $status = $stmt->execute();
+        $connMgr = new classConnectionManager();
+        $conn = $connMgr->connect();
 
-    //     $stmt = null;
-    //     $conn = null;
-    //     return $status;
-    // }
+        // STEP 2: SQL commands
+        $sql = "DELETE FROM role_skill 
+                WHERE role_id = :role_id;";
 
-    // public function loadByTime($userid, $month, $year) {
-    //     if ($month != 0) {
-    //         return $this->loadByMonth($userid, $month, $year);
-    //     }
-    //     else if ($year != 0) {
-    //         return $this->loadByYear($userid, $year);
-    //     }
-    //     else { return $this->loadById($userid); }
-    // }
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':role_id', $role_id, PDO::PARAM_INT);
 
-    // public function loadByMonth($userid, $month, $year) {
-    //     $connMgr = new classConnectionManager();
-    //     $conn = $connMgr->connect();
+        // STEP 3: Run SQL
+        $status = $stmt->execute();
 
-    //     // STEP 2: SQL commands
-    //     $sql = "SELECT
-    //         purchaseid,
-    //         userid,
-    //         purchase_time,
-    //         item_name,
-    //         category,
-    //         price,
-    //         location,
-    //         latitude,
-    //         longitude
-    //         FROM item
-    //         WHERE userid = :userid 
-    //         AND MONTH(purchase_time) = :month
-    //         AND YEAR(purchase_time) = :year
-    //         ORDER BY purchase_time ASC;"; // ASC or DESC 
-
-    //     $stmt = $conn->prepare($sql);
-    //     $stmt->bindParam(':userid', $userid, PDO::PARAM_STR);
-    //     $stmt->bindParam(':month', $month, PDO::PARAM_INT);
-    //     $stmt->bindParam(':year', $year, PDO::PARAM_INT);
-
-    //     // STEP 3: Run SQL
-    //     $stmt->execute();
-    //     $stmt->setFetchMode(PDO::FETCH_ASSOC);
-
-    //     // STEP 4: Display result
-    //     $list_item = []; // Indexed Array of Post objects
-    //     while( $row = $stmt->fetch() ) {
-    //         $list_item[] =
-    //             new classItem(
-    //                 $row['purchaseid'],
-    //                 $row['userid'],
-    //                 $row['purchase_time'],
-    //                 $row['item_name'],
-    //                 $row['category'],
-    //                 $row['price'],
-    //                 $row['location'],
-    //                 $row['latitude'],
-    //                 $row['longitude']);
-    //             }
-    //     return $list_item;
-    // }
-
-    // public function loadByYear($userid, $year) {
-    //     $connMgr = new classConnectionManager();
-    //     $conn = $connMgr->connect();
-
-    //     // STEP 2: SQL commands
-    //     $sql = "SELECT
-    //         purchaseid,
-    //         userid,
-    //         purchase_time,
-    //         item_name,
-    //         category,
-    //         price,
-    //         location,
-    //         latitude,
-    //         longitude
-    //         FROM item
-    //         WHERE userid = :userid 
-    //         AND YEAR(purchase_time) = :year
-    //         ORDER BY purchase_time ASC;"; // ASC or DESC 
-
-    //     $stmt = $conn->prepare($sql);
-    //     $stmt->bindParam(':userid', $userid, PDO::PARAM_STR);
-    //     $stmt->bindParam(':year', $year, PDO::PARAM_INT);
-
-    //     // STEP 3: Run SQL
-    //     $stmt->execute();
-    //     $stmt->setFetchMode(PDO::FETCH_ASSOC);
-
-    //     // STEP 4: Display result
-    //     $list_item = []; // Indexed Array of Post objects
-    //     while( $row = $stmt->fetch() ) {
-    //         $list_item[] =
-    //             new classItem(
-    //                 $row['purchaseid'],
-    //                 $row['userid'],
-    //                 $row['purchase_time'],
-    //                 $row['item_name'],
-    //                 $row['category'],
-    //                 $row['price'],
-    //                 $row['location'],
-    //                 $row['latitude'],
-    //                 $row['longitude']);
-    //             }
-    //     return $list_item;
-    // }
+        $stmt = null;
+        $conn = null;
+        return $status;
+    }
     
-    // public function loadById($userid) {
-    //     $connMgr = new classConnectionManager();
-    //     $conn = $connMgr->connect();
+    public function addSkillToRole($role_id, $skill_id) {
+        
+        // STEP 1: establish a connection
+        $connMgr = new classConnectionManager();
+        $conn = $connMgr->connect();
 
-    //     // STEP 2: SQL commands
-    //     $sql = "SELECT
-    //         purchaseid,
-    //         userid,
-    //         purchase_time,
-    //         item_name,
-    //         category,
-    //         price,
-    //         location,
-    //         latitude,
-    //         longitude
-    //         FROM item
-    //         WHERE userid = :userid
-    //         ORDER BY purchase_time ASC;"; // ASC or DESC 
+        // STEP 2: SQL commands
+        $sql = "INSERT INTO role_skill
+                        (
+                            role_id, 
+                            skill_id
+                        )
+                    VALUES
+                        (
+                            :role_id,
+                            :skill_id
+                        )";
 
-    //     $stmt = $conn->prepare($sql);
-    //     $stmt->bindParam(':userid', $userid, PDO::PARAM_STR);
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':role_id', $role_id, PDO::PARAM_STR);
+        $stmt->bindParam(':skill_id', $skill_id, PDO::PARAM_STR);
 
-    //     // STEP 3: Run SQL
-    //     $stmt->execute();
-    //     $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        // STEP 3: Run SQL
+        $status = $stmt->execute();
 
-    //     // STEP 4: Display result
-    //     $list_item = []; // Indexed Array of Post objects
-    //     while( $row = $stmt->fetch() ) {
-    //         $list_item[] =
-    //             new classItem(
-    //                 $row['purchaseid'],
-    //                 $row['userid'],
-    //                 $row['purchase_time'],
-    //                 $row['item_name'],
-    //                 $row['category'],
-    //                 $row['price'],
-    //                 $row['location'],
-    //                 $row['latitude'],
-    //                 $row['longitude']);
-    //             }
-    //     return $list_item;
-    // }
+        $stmt = null;
+        $conn = null;
+        return $status;
+    }
 
+
+    public function deleteRole($role_id) {
+        
+        // STEP 1: establish a connection
+
+        $connMgr = new classConnectionManager();
+        $conn = $connMgr->connect();
+
+        // STEP 2: SQL commands
+        $sql = "UPDATE role
+        SET is_active = 'inactive' 
+        WHERE role_id = :role_id;";
+
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':role_id', $role_id, PDO::PARAM_INT);
+
+        // STEP 3: Run SQL
+        $status = $stmt->execute();
+
+        $stmt = null;
+        $conn = null;
+        return $status;
+    }
     
-    // public function spentByMonth($userid, $month, $year) {
-    //     $connMgr = new classConnectionManager();
-    //     $conn = $connMgr->connect();
-
-    //     // STEP 2: SQL commands
-    //     $sql = "SELECT IFNULL(SUM(price), 0) as spent
-    //         FROM item
-    //         WHERE userid = :userid 
-    //         AND MONTH(purchase_time) = :month
-    //         AND YEAR(purchase_time) = :year;";
-
-    //     $stmt = $conn->prepare($sql);
-    //     $stmt->bindParam(':userid', $userid, PDO::PARAM_STR);
-    //     $stmt->bindParam(':month', $month, PDO::PARAM_INT);
-    //     $stmt->bindParam(':year', $year, PDO::PARAM_INT);
-
-    //     // STEP 3: Run SQL
-    //     $stmt->execute();
-    //     $stmt->setFetchMode(PDO::FETCH_ASSOC);
-
-    //     // STEP 4: Display result
-    //     if($stmt->execute()){
-    //         if($row=$stmt->fetch()){
-    //             $spent = $row['spent'];
-    //         }
-    //     }
-    //     return $spent;
-    // }
-
-
-    // public function loadByPurchaseId($purchaseid) {
-    //     $connMgr = new classConnectionManager();
-    //     $conn = $connMgr->connect();
-
-    //     // STEP 2: SQL commands
-    //     $sql = "SELECT
-    //         purchaseid,
-    //         userid,
-    //         purchase_time,
-    //         item_name,
-    //         category,
-    //         price,
-    //         location,
-    //         latitude,
-    //         longitude
-    //         FROM item
-    //         WHERE purchaseid = :purchaseid"; // ASC or DESC 
-
-    //     $stmt = $conn->prepare($sql);
-    //     $stmt->bindParam(':purchaseid', $purchaseid, PDO::PARAM_STR);
-
-    //     // STEP 3: Run SQL
-    //     $stmt->execute();
-    //     $stmt->setFetchMode(PDO::FETCH_ASSOC);
-
-    //     // STEP 4: Display result
-    //     $list_item = []; // Indexed Array of Post objects
-    //     while( $row = $stmt->fetch() ) {
-    //         $list_item[] =
-    //             new classItem(
-    //                 $row['purchaseid'],
-    //                 $row['userid'],
-    //                 $row['purchase_time'],
-    //                 $row['item_name'],
-    //                 $row['category'],
-    //                 $row['price'],
-    //                 $row['location'],
-    //                 $row['latitude'],
-    //                 $row['longitude']);
-    //             }
-    //     return $list_item;
-    // }
-
 }
 
 
