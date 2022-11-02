@@ -1,6 +1,8 @@
 var filterSetting = false;
 
 var rolesTable = $('#role-table').DataTable({
+	scrollX: true,
+    scroller: true,
 	scrollY: 500,
 	responsive: true,
 	pageLength: 25,
@@ -17,6 +19,8 @@ var rolesTable = $('#role-table').DataTable({
 });
 
 var skillsTable = $('#skill-table').DataTable({
+	scrollX: true,
+    scroller: true,
 	scrollY: 500,
 	responsive: true,
 	pageLength: 25,
@@ -160,6 +164,8 @@ $(document).ready(function(){
 	})
 
 	$('#staff-table').DataTable({
+		scrollX: true,
+        scroller: true,
 		scrollY: 500,
 		responsive: true,
 		pageLength: 25,
