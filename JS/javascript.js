@@ -107,7 +107,7 @@ $(document).ready(function(){
 		$('.admin-model.staff').toggle();
 		$("input").prop('disabled', false);
 		$("select").prop('disabled', false);
-	});
+	}); 
 
 	$('.admin-model-select.staff, .admin-model-course-select').select2();
 
