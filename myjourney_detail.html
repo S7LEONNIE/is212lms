@@ -54,6 +54,20 @@
 
             <div class="details_content">
                 <div class="header">
+                    <div class="title">Courses Current Taken</div>
+                </div>
+                <div class="overall-cards_wrapper">
+                    <div v-for="course in courses" class="overall-cards">
+                        <a :href="'course_detail.html?course_id=' + course.course_id">
+                            <img src="https://cdn.pixabay.com/photo/2016/11/22/21/26/notebook-1850613_960_720.jpg">
+                            <div class="banner-text">{{ course.course_name }}</div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="details_content">
+                <div class="header">
                     <div class="title">Skills Current Taken</div>
                 </div>
                 <div class="course-tags-container">
@@ -63,7 +77,21 @@
 
             <div class="details_content">
                 <div class="header">
-                    <div class="title">Skills that may require this course:</div>
+                    <div class="title">Courses that may be required</div>
+                </div>
+                <div class="overall-cards_wrapper">
+                    <div v-for="course in courses" class="overall-cards">
+                        <a :href="'course_detail.html?course_id=' + course.course_id">
+                            <img src="https://cdn.pixabay.com/photo/2016/11/22/21/26/notebook-1850613_960_720.jpg">
+                            <div class="banner-text">{{ course.course_name }}</div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="details_content">
+                <div class="header">
+                    <div class="title">Skills that may be required</div>
                 </div>
                 <div class="course-tags-container">
                     <div class="course-tags" v-for="role in rolesBySkill">{{ role.role_name }}</div>
@@ -73,19 +101,21 @@
             <div class="action-container">
                 <button class="action_button action_back" v-if="designation == 3"> Edit Course </button>
                 <button class="action_button action_back" onclick="history.back()">Back</button>
-                <button @click="" class="action_button action_negative">Delete Journey</button>
-                <button id="journey-model" class="action_button action_positive">Add/Remove Courses</button>
+                <button @click="" class="action_button action_negative">Delete</button>
+                <button id="journey-model" class="action_button action_positive">Edit</button>
             </div>
         </div>
 
         <div class="journey-model">
             <div class="journey-model_content">
                 <div class="journey-model_header">
-                    <div class="title">Add to</div>
+                    <div class="title">Edit</div>
                     <i id="journey-model_close" class="fa fa-times"></i>
                 </div>
-
+                <label for="learning_journey_name">Learning Journey Name</label>
+                <input id="learning_journey_name" class="textbox" type="text">
                 <div class="journey-model_list">
+
                     <div v-for="lj in learningJourneys">
                         <input type="checkbox" v-bind:id="lj.role_id" v-bind:name="lj.role_id" v-bind:value="lj.role_id" v-model="targetLJs">
                         <label v-bind:for="lj.role_id"> {{ lj.role_name }} </label>
