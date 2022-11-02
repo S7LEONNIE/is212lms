@@ -84,6 +84,8 @@ select {
     --primary-word-color: #519ACF;
     --primary-color: #519ACF;
 
+    --negative-color: red;
+
     --box-shadow: 2px 2px 8px grey;
     --box-shadow-hover: 4px 4px 16px grey;
 
@@ -707,6 +709,11 @@ body {
 
 .action_positive {
     background-color: var(--primary-color);
+    color: white;
+}
+
+.action_negative {
+    background-color: var(--negative-color);
     color: white;
 }
 
