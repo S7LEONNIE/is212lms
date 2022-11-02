@@ -109,7 +109,7 @@ $(document).ready(function(){
 		$("select").prop('disabled', false);
 	});
 
-	$('.admin-model-select.staff').select2();
+	$('.admin-model-select.staff, .admin-model-course-select').select2();
 
 	$('.admin-model-select.learning-journey').select2();
 
