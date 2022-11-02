@@ -670,12 +670,12 @@ app.component('navbar-component', {
                 <div class="Navbar__Link">
                 <a href="skills_course_search.html">Skills/Courses</a>
                 </div>
-                <div v-if="designation==2 || designation==3" class="Navbar__Link">
-                <a href="admin.html">Edit Roles/Skills</a>
-                </div>
             </nav>
 
             <nav class="Navbar__Items Navbar__Items--right">
+                <div v-if="designation==2 || designation==3" class="Navbar__Link">
+                    <a href="admin.html">Admin</a>
+                </div>
                 <div class="Navbar__Link">
                     <a href="myjourney.html">My Journeys</a>
                 </div>
