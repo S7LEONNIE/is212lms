@@ -1,6 +1,7 @@
 <?php
 
 require_once "classCourse.php";
+require_once "classLJ.php";
 require_once "classConnectionManager.php";
 class classLearningJourneyDAO {
     
@@ -40,6 +41,38 @@ class classLearningJourneyDAO {
         };
 
         return $list_output;
+    }
+
+    public function getLJById($lj_id) {
+        $connMgr = new classConnectionManager();
+        $conn = $connMgr->connect();
+
+        // STEP 2: SQL commands
+        $sql = "SELECT
+                lj_id,
+                lj_name,
+                staff_id,
+                lj.role_id,
+                role.role_name
+                from learning_journey lj
+                inner join role on lj.role_id = role.role_id
+                where lj.lj_id = :lj_id;"; 
+
+        $stmt = $conn->prepare($sql);
+        
+        // STEP 3: Run SQL
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        $stmt->bindParam(':lj_id', $lj_id, PDO::PARAM_INT);
+        $stmt->execute();
+
+        // STEP 4: Display result
+        if ( $row = $stmt->fetch() ) {
+            // $one_lj = $row;
+            // $one_roleName = $row['role_name'];
+            // $output = ['lj' => $one_lj, 'role' => $one_roleName];
+            return $row;
+        }
+        else { return FALSE; }
     }
 
     public function loadAllOld() {

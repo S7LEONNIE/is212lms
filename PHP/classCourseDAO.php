@@ -76,6 +76,43 @@ class classCourseDAO {
         return $list_course;
     }
 
+    public function loadCoursesByLJ($lj_id) {
+        $connMgr = new classConnectionManager();
+        $conn = $connMgr->connect();
+
+        // STEP 2: SQL commands
+        $sql = "SELECT
+            course.course_id AS course_id,
+            course.course_name AS course_name,
+            course.course_desc AS course_desc,
+            course.course_status AS course_status,
+            course.course_type AS course_type,
+            course.course_category AS course_category
+            FROM course 
+            INNER JOIN lj_course ON course.course_id = lj_course.course_id
+            WHERE lj_course.learning_journey_id = :lj_id;";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':lj_id', $lj_id, PDO::PARAM_INT);
+
+        // STEP 3: Run SQL
+        $stmt->execute();
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+
+        // STEP 4: Display result
+        $list_course = []; // Indexed Array of Post objects
+        while( $row = $stmt->fetch() ) {
+            $list_course[] =
+                new classCourse(
+                    $row['course_id'],
+                    $row['course_name'],
+                    $row['course_desc'],
+                    $row['course_status'],
+                    $row['course_type'],
+                    $row['course_category']);
+                }
+        return $list_course;
+    }
+
     public function getCourseById($course_id) {
         $connMgr = new classConnectionManager();
         $conn = $connMgr->connect();

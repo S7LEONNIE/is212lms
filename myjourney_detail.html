@@ -36,14 +36,14 @@
     </head>
 
     <body id="app">
-        <navbar-component v-bind:designation="designation"  @logout="ljps_logout"></navbar-component>
+        <navbar-component v-bind:designation="designation" @logout="ljps_logout"></navbar-component>
 
         <!-- main content -->
         <div class="Main__Content">
 
             <div class="details_content">
                 <div class="main-header">
-                    <div class="title">Journey Name</div>
+                    <div class="title"> {{ lj_details.lj_name }} </div>
                     <div class="main-header-label status-label_complete">Completed</div>
                 </div>
             </div>
@@ -52,26 +52,30 @@
                 <img src="https://cdn.pixabay.com/photo/2016/11/22/21/26/notebook-1850613_960_720.jpg">
             </div>
 
+            <div class="header">
+                <div class="title">Role: {{ lj_details.role_name }} </div>
+            </div>
+
             <div class="details_content">
                 <div class="header">
-                    <div class="title">Courses Current Taken</div>
+                    <div class="title">Skills Required</div>
                 </div>
-                <div class="overall-cards_wrapper">
-                    <div v-for="course in courses" class="overall-cards">
-                        <a :href="'course_detail.html?course_id=' + course.course_id">
-                            <img src="https://cdn.pixabay.com/photo/2016/11/22/21/26/notebook-1850613_960_720.jpg">
-                            <div class="banner-text">{{ course.course_name }}</div>
-                        </a>
-                    </div>
+                <div class="course-tags-container">
+                    <div class="course-tags" v-for="skill in skillsByRole">{{ skill.skill_name }}</div>
                 </div>
             </div>
 
             <div class="details_content">
                 <div class="header">
-                    <div class="title">Skills Current Taken</div>
+                    <div class="title">Courses in Learning Journey</div>
                 </div>
-                <div class="course-tags-container">
-                    <div class="course-tags" v-for="skill in skillsByCourse">{{ skill.skill_name }}</div>
+                <div class="overall-cards_wrapper">
+                    <div v-for="course in coursesByLJ" class="overall-cards">
+                        <a :href="'course_detail.html?course_id=' + course.course_id">
+                            <img src="https://cdn.pixabay.com/photo/2016/11/22/21/26/notebook-1850613_960_720.jpg">
+                            <div class="banner-text">{{ course.course_name }}</div>
+                        </a>
+                    </div>
                 </div>
             </div>
 
@@ -99,7 +103,6 @@
             </div>
 
             <div class="action-container">
-                <button class="action_button action_back" v-if="designation == 3"> Edit Course </button>
                 <button class="action_button action_back" onclick="history.back()">Back</button>
                 <button @click="" class="action_button action_negative">Delete</button>
                 <button id="journey-model" class="action_button action_positive">Edit</button>

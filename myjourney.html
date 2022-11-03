@@ -68,11 +68,13 @@
                         </div>
     
                         <div class="course-title">{{ lj.lj_name }}</div>
-                        <div class="course-type">Total Skills Required: 10</div>
+                        <!-- <div class="course-type">Total Skills Required: 10</div>
                         <div class="course-type">Not Started: 1</div>
                         <div class="course-type">On-going: 1</div>
-                        <div class="course-type">Completed: 1</div>
-                        <button class="btn myjourney-edit-btn" v-on:click="editLJ(lj)">Edit</button>
+                        <div class="course-type">Completed: 1</div> -->
+                        <button class="btn myjourney-edit-btn">
+                            <a v-bind:href="'myjourney_detail.html?lj_id=' + lj.lj_id"> Edit </a>
+                        </button>
                     </div>
                 </div>
             </div>

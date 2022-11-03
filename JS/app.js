@@ -15,6 +15,9 @@ const app = Vue.createApp({
             new_role_desc: "",
             new_role_skill: "",
 
+            new_skill_name: "",
+            new_skill_desc: "",
+
             updateRoleID: "",
             skillButtonAction: "",
             updateSkillID: "",
@@ -43,13 +46,25 @@ const app = Vue.createApp({
                 course_status: "",
                 course_type: "",
                 course_category: "",
-
             },
             skillsByCourse: [],
             rolesBySkill: [],
+            
+            lj_details_exists: true,
+            lj_details: {
+                lj_id: "",
+                lj_name: "",
+                staff_id: "",
+                role_id: "",
+                role_name: ""
+            },
+            coursesByLJ: [],
 
             targetLJs: [],
             new_course_skill: '',
+            coursesToAdd: [],
+            newLJName: '',
+            newLJRole: '',
         }
     },
     // computed: {},
@@ -145,7 +160,11 @@ const app = Vue.createApp({
                                 skill.skill_desc, 
                                 skill.is_active,
                                 `
-                                <button onclick="toggleSkillsModal(); vm.skillButtonAction='update'; vm.updateSkillID=`+skill.skill_id+`"class="admin-skill-btn_update">Update</button>
+                                <button onclick="vm.skillUpdateBtn(` 
+                                + skill.skill_id + `, '`
+                                + skill.skill_name + `', '`
+                                + skill.skill_desc
+                                + `')" class="admin-skill-btn_update">Update</button>
                                 <button onclick="vm.skillDelete(` + skill.skill_id + `)">Delete</button>`
                             ];
                             skillsDT.push(skill_array);
@@ -378,6 +397,64 @@ const app = Vue.createApp({
             else {this.course_details_exists = false;}
         },
 
+        getLJById(lj_id = null) {
+            if (!lj_id) {
+                // url: 'skeleton_view_one_role?role_id=1&foo=1&bar=2');
+                let urlParams = window.location.search.substring(1).split("&");
+                let params = {};
+                for (let param of urlParams) {
+                    let temp = param.split("=");
+                    let key = temp[0];
+                    let val = temp[1];
+                    params[key] = val;
+                }
+                lj_id = params.lj_id;
+            }
+
+            if (lj_id) {
+                try {
+                    axios.post("PHP/functionGetLJById.php",
+                    {
+                        lj_id: lj_id
+                    })
+                    .then(response => {
+                        if (response.status == 200) {
+                            this.lj_details_exists = true;
+                            if (response.data.records.staff_id != localStorage.staff_id) {
+                                window.location.href = "/is212lms/myjourney.html";
+                            }
+
+                            this.lj_details = response.data.records;
+                            this.getRoleById(this.lj_details.role_id);
+                        }
+                    })
+                    .catch(error => {
+                        console.log(error.message);
+                        console.log(error.response.data.status);
+                        this.lj_details_exists = false;
+                    });
+
+                    axios.post("PHP/functionGetCoursesByLJ.php",
+                    {
+                        lj_id: lj_id
+                    })
+                    .then(response => {
+                        if (response.status == 200) {
+                            this.coursesByLJ = response.data.records;
+                        }
+                    })
+                    .catch(error => {
+                        console.log(error.message);
+                        console.log(error.response.data.status);
+                    });
+                }
+                catch {
+                    this.lj_details_exists = false;
+                }
+            }
+            else {this.lj_details_exists = false;}
+        },
+        
         roleNewBtn() {
             this.roleButtonAction = 'new';
             this.new_role_name = '';
@@ -393,6 +470,14 @@ const app = Vue.createApp({
             this.getRoleById(role_id);
             $('.admin-model_header .title').text('Update Role');
             $('.admin-model.role').toggle();
+        },
+
+        skillUpdateBtn(skill_id, skill_name, skill_desc) {
+            toggleSkillsModal();
+            this.new_skill_name = skill_name;
+            this.new_skill_desc = skill_desc;
+            this.skillButtonAction = 'update';
+            this.updateSkillID = skill_id;
         },
 
         roleDeleteBtn(role_id) {
@@ -411,7 +496,7 @@ const app = Vue.createApp({
                         .then(response => {
                         if (response.status == 200) {
                             console.log('successful deleted role');
-                            window.location.reload();
+                            window.location.reload()
                         }
                         })
                         .catch(error => {
@@ -566,27 +651,46 @@ const app = Vue.createApp({
                 console.log("fail");
                 });
         },
-        addCourseToLJs() {
+        addCourseToLJs(course_id = null, isArray = false) {
             console.log(this.course_details);
             console.log(this.targetLJs);
-            let course_id = this.course_details.course_id;
-            
-            axios.post("PHP/functionAddCourseToLJ.php", {
-                course_id: course_id,
-                lj_list: this.targetLJs
-            })
-                .then(response => {
-                if (response.status == 200) {
-                    console.log(response);
-                    console.log('successful add course to LJ');
-                    alert("Success!");
-                    $('.journey-model').toggle();
-                }
+
+            let temp = false;
+            if (!course_id) { 
+                // pass in true on skills multi-course; default null on courses page
+                temp = true;
+                course_id = this.course_details.course_id;
+            }
+
+            if (!isArray) {
+                axios.post("PHP/functionAddCourseToLJ.php", {
+                    course_id: course_id,
+                    lj_list: this.targetLJs
                 })
-                .catch(error => {
-                console.log(error.message);
-                console.log("fail");
-                });
+                    .then(response => {
+                    if (response.status == 200) {
+                        console.log(response);
+                        if(temp) {
+                            console.log('successful add course to LJ');
+                            alert("Success!");
+                            $('.journey-model').toggle();
+                        }
+                    }
+                    })
+                    .catch(error => {
+                    console.log(error.message);
+                    console.log("fail");
+                    });
+            }
+            else {
+                console.log("multicourse")
+                for (course of this.coursesToAdd) {
+                    this.addCourseToLJs(parseInt(course), isArray = false);
+                }
+                console.log('successful add course to LJ');
+                alert("Success!");
+                $('.journey-model').toggle();
+            }
         },
         
         updateCourse(){
@@ -608,27 +712,53 @@ const app = Vue.createApp({
                     course_desc: course_desc,
                     course_skills: course_skills
             })
-                .then(response => {
+            .then(response => {
                 if (response.status == 200) {
                     console.log(response);
                     console.log("Successfully Updated course");
                     window.location.reload();
                 }
-                })
-                .catch(error => {
+            })
+            .catch(error => {
                 console.log(error.message);
                 console.log("Update role fail");
-                });
-        },
-
-        editLJ(lj) {
-            $('.journey-model-edit').toggle();
-            console.log(lj);
+            });
         },
 
         closeJourneyWindow() {
             $('.journey-model-edit, .journey-model').toggle();
+        },
+
+        createLJ() {
+            console.log(this.newLJName);
+            console.log(this.newLJRole);
+            staff_id = localStorage.staff_id;
+
+            axios.post("PHP/functionAddLearningJourney.php", {
+                learningjourney_name: this.newLJName,
+                staff_id: staff_id,
+                role_id: this.newLJRole
+            })
+            .then(response => {
+                if (response.status == 200) {
+                    console.log(response);
+                    this.getLJbyStaffId();
+                }
+            })
+            .catch(error => {
+                console.log(error.message);
+                console.log("Add LJ fail");
+            });
+
+            this.newLJName = '';
+            this.newLJRole = '';
+
+            // axios create LJ
+            // axios retrieve LJ id
+            // push to learningJourneys or smth
+
         }
+
     },
     beforeMount(){
         this.isLoggedIn();
@@ -640,6 +770,7 @@ const app = Vue.createApp({
         this.getRoleById();
         this.getCourseById();
         this.getSkillById();
+        this.getLJById();
     },
 })
 
