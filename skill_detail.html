@@ -103,7 +103,7 @@
 
                 <div class="journey-model_list">
                     <div v-for="lj in learningJourneys">
-                        <input type="checkbox" v-bind:id="lj.role_id" v-bind:name="lj.role_name" v-bind:value="lj.role_id" v-model="targetLJs">
+                        <input type="checkbox" v-bind:id="lj.lj_id" v-bind:name="lj.lj_name" v-bind:value="lj.lj_id" v-model="targetLJs">
                         <label for="checkbox1"> {{ lj.lj_name }} </label>
                     </div>
                 </div>

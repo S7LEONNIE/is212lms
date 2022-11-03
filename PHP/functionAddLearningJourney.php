@@ -3,15 +3,18 @@ require_once "common.php";
 
 $_POST = json_decode(file_get_contents("php://input"), true);
 $learningjourney_name = $_POST["learningjourney_name"] ?? null;
+$staff_id = $_POST["staff_id"] ?? null;
+$role_id = $_POST["role_id"] ?? null;
+
 // can do $_POST here too
-if ($_GET["staff_id"] == null) 
-{
-    $staff_id = null;
-}
-if ($_GET["role_id"] == null)
-{
-    $role_id = null;
-}
+// if ($_GET["staff_id"] == null) 
+// {
+//     $staff_id = null;
+// }
+// if ($_GET["role_id"] == null)
+// {
+//     $role_id = null;
+// }
 
 
 $ljDAO = new classLearningJourneyDAO();

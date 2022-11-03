@@ -659,13 +659,10 @@ const app = Vue.createApp({
             if (!course_id) { 
                 // pass in true on skills multi-course; default null on courses page
                 temp = true;
+                course_id = this.course_details.course_id;
             }
 
             if (!isArray) {
-                if (!course_id) {
-                    course_id = this.course_details.course_id;
-                }
-
                 axios.post("PHP/functionAddCourseToLJ.php", {
                     course_id: course_id,
                     lj_list: this.targetLJs
@@ -715,17 +712,17 @@ const app = Vue.createApp({
                     course_desc: course_desc,
                     course_skills: course_skills
             })
-                .then(response => {
+            .then(response => {
                 if (response.status == 200) {
                     console.log(response);
                     console.log("Successfully Updated course");
                     window.location.reload();
                 }
-                })
-                .catch(error => {
+            })
+            .catch(error => {
                 console.log(error.message);
                 console.log("Update role fail");
-                });
+            });
         },
 
         closeJourneyWindow() {
@@ -735,9 +732,26 @@ const app = Vue.createApp({
         createLJ() {
             console.log(this.newLJName);
             console.log(this.newLJRole);
+            staff_id = localStorage.staff_id;
+
+            axios.post("PHP/functionAddLearningJourney.php", {
+                learningjourney_name: this.newLJName,
+                staff_id: staff_id,
+                role_id: this.newLJRole
+            })
+            .then(response => {
+                if (response.status == 200) {
+                    console.log(response);
+                    this.getLJbyStaffId();
+                }
+            })
+            .catch(error => {
+                console.log(error.message);
+                console.log("Add LJ fail");
+            });
+
             this.newLJName = '';
             this.newLJRole = '';
-            staff_id = localStorage.staff_id;
 
             // axios create LJ
             // axios retrieve LJ id
