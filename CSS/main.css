@@ -84,7 +84,7 @@ select {
     --primary-word-color: #519ACF;
     --primary-color: #519ACF;
 
-    --negative-color: red;
+    --negative-color: #ff6666;
 
     --box-shadow: 2px 2px 8px grey;
     --box-shadow-hover: 4px 4px 16px grey;
@@ -112,9 +112,15 @@ body {
 }
 
 .btn,
-.textbox {
+.textbox,
+select {
     border-radius: 6px;
     height: 40px;
+}
+
+select {
+    width: 100%;
+    cursor: pointer;
 }
 
 .btn { 
