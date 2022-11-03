@@ -59,6 +59,7 @@ const app = Vue.createApp({
 
             targetLJs: [],
             new_course_skill: '',
+            coursesToAdd: [],
         }
     },
     // computed: {},
@@ -633,27 +634,49 @@ const app = Vue.createApp({
                 console.log("fail");
                 });
         },
-        addCourseToLJs() {
+        addCourseToLJs(course_id = null, isArray = false) {
             console.log(this.course_details);
             console.log(this.targetLJs);
-            let course_id = this.course_details.course_id;
-            
-            axios.post("PHP/functionAddCourseToLJ.php", {
-                course_id: course_id,
-                lj_list: this.targetLJs
-            })
-                .then(response => {
-                if (response.status == 200) {
-                    console.log(response);
-                    console.log('successful add course to LJ');
-                    alert("Success!");
-                    $('.journey-model').toggle();
+
+            let temp = false;
+            if (!course_id) { 
+                // pass in true on skills multi-course; default null on courses page
+                temp = true;
+            }
+
+            if (!isArray) {
+                if (!course_id) {
+                    course_id = this.course_details.course_id;
                 }
+
+                axios.post("PHP/functionAddCourseToLJ.php", {
+                    course_id: course_id,
+                    lj_list: this.targetLJs
                 })
-                .catch(error => {
-                console.log(error.message);
-                console.log("fail");
-                });
+                    .then(response => {
+                    if (response.status == 200) {
+                        console.log(response);
+                        if(temp) {
+                            console.log('successful add course to LJ');
+                            alert("Success!");
+                            $('.journey-model').toggle();
+                        }
+                    }
+                    })
+                    .catch(error => {
+                    console.log(error.message);
+                    console.log("fail");
+                    });
+            }
+            else {
+                console.log("multicourse")
+                for (course of this.coursesToAdd) {
+                    this.addCourseToLJs(parseInt(course), isArray = false);
+                }
+                console.log('successful add course to LJ');
+                alert("Success!");
+                $('.journey-model').toggle();
+            }
         },
         
         updateCourse(){

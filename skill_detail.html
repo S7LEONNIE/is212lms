@@ -71,7 +71,7 @@
                         <div class="course-img">
                             <img src="https://cdn.pixabay.com/photo/2016/11/22/21/26/notebook-1850613_960_720.jpg">
                             <div class="status-label status-label_complete">Completed</div>
-                            <input type="checkbox" value="coursename" />
+                            <input type="checkbox" v-bind:value="course.course_id" v-model="coursesToAdd" />
                             <span class="checkbox_mark"></span>
                         </div>
     
@@ -102,15 +102,15 @@
                 </div>
 
                 <div class="journey-model_list">
-                    <div v-for="x in 20">
-                        <input type="checkbox" id="checkbox1" name="checkbox1" value="checkbox1">
-                        <label for="checkbox1">Checkbox1</label>
+                    <div v-for="lj in learningJourneys">
+                        <input type="checkbox" v-bind:id="lj.role_id" v-bind:name="lj.role_name" v-bind:value="lj.role_id" v-model="targetLJs">
+                        <label for="checkbox1"> {{ lj.lj_name }} </label>
                     </div>
                 </div>
 
                 <div class="action-container" v-if="!journeyCreate">
                     <button @click="journeyCreate=true" class="action_button action_positive">New Journey</button>
-                    <button class="action_button action_positive">Save</button>
+                    <button v-on:click="addCourseToLJs(true, isArray = true)" class="action_button action_positive">Save</button>
                 </div>
                 <div class="action-container" v-else>
                     <select class="action_select">
