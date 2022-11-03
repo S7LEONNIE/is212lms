@@ -116,12 +116,12 @@
                     <button v-on:click="addCourseToLJs(pass = false)" class="action_button action_positive">Save</button>
                 </div>
                 <div class="action-container" v-else>
-                    <select class="action_select">
-                        <option value="journeyname">journeyname</option>
-                        <option value="journeyname">journeyname</option>
-                        <option value="journeyname">journeyname</option>
+                    <input type="text" v-model="newLJName" placeholder="Learning Journey Name" />
+                    <select class="action_select" v-model="newLJRole">
+                        <option value="">Choose a role:</option>
+                        <option v-for="role in roles" v-bind:value="role.role_id"> {{role.role_name}} </option>
                     </select>
-                    <button @click="journeyCreate=false" class="action_button action_positive">Create</button>
+                    <button @click="createLJ(); journeyCreate=false" class="action_button action_positive">Create</button>
                     <button @click="journeyCreate=false" class="action_button action_back">Cancel</button>
                 </div>
 

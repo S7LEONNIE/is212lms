@@ -15,6 +15,9 @@ const app = Vue.createApp({
             new_role_desc: "",
             new_role_skill: "",
 
+            new_skill_name: "",
+            new_skill_desc: "",
+
             updateRoleID: "",
             skillButtonAction: "",
             updateSkillID: "",
@@ -60,6 +63,8 @@ const app = Vue.createApp({
             targetLJs: [],
             new_course_skill: '',
             coursesToAdd: [],
+            newLJName: '',
+            newLJRole: '',
         }
     },
     // computed: {},
@@ -155,7 +160,11 @@ const app = Vue.createApp({
                                 skill.skill_desc, 
                                 skill.is_active,
                                 `
-                                <button onclick="toggleSkillsModal(); vm.skillButtonAction='update'; vm.updateSkillID=`+skill.skill_id+`"class="admin-skill-btn_update">Update</button>
+                                <button onclick="vm.skillUpdateBtn(` 
+                                + skill.skill_id + `, '`
+                                + skill.skill_name + `', '`
+                                + skill.skill_desc
+                                + `')" class="admin-skill-btn_update">Update</button>
                                 <button onclick="vm.skillDelete(` + skill.skill_id + `)">Delete</button>`
                             ];
                             skillsDT.push(skill_array);
@@ -463,6 +472,14 @@ const app = Vue.createApp({
             $('.admin-model.role').toggle();
         },
 
+        skillUpdateBtn(skill_id, skill_name, skill_desc) {
+            toggleSkillsModal();
+            this.new_skill_name = skill_name;
+            this.new_skill_desc = skill_desc;
+            this.skillButtonAction = 'update';
+            this.updateSkillID = skill_id;
+        },
+
         roleDeleteBtn(role_id) {
             swal({
                 title: "Are you sure?",
@@ -479,7 +496,7 @@ const app = Vue.createApp({
                         .then(response => {
                         if (response.status == 200) {
                             console.log('successful deleted role');
-                            window.location.reload();
+                            window.location.reload()
                         }
                         })
                         .catch(error => {
@@ -713,7 +730,21 @@ const app = Vue.createApp({
 
         closeJourneyWindow() {
             $('.journey-model-edit, .journey-model').toggle();
+        },
+
+        createLJ() {
+            console.log(this.newLJName);
+            console.log(this.newLJRole);
+            this.newLJName = '';
+            this.newLJRole = '';
+            staff_id = localStorage.staff_id;
+
+            // axios create LJ
+            // axios retrieve LJ id
+            // push to learningJourneys or smth
+
         }
+
     },
     beforeMount(){
         this.isLoggedIn();
