@@ -730,9 +730,12 @@ const app = Vue.createApp({
         },
 
         createLJ() {
+            if (!this.newLJName || !this.newLJRole) {
+                return;
+            }
             console.log(this.newLJName);
             console.log(this.newLJRole);
-            staff_id = localStorage.staff_id;
+            let staff_id = localStorage.staff_id;
 
             axios.post("PHP/functionAddLearningJourney.php", {
                 learningjourney_name: this.newLJName,
@@ -743,6 +746,7 @@ const app = Vue.createApp({
                 if (response.status == 200) {
                     console.log(response);
                     this.getLJbyStaffId();
+                    alert("Success!");
                 }
             })
             .catch(error => {
@@ -752,12 +756,35 @@ const app = Vue.createApp({
 
             this.newLJName = '';
             this.newLJRole = '';
+        },
+    
+        deleteLJ() {
+            let cfm = confirm("Delete this learning journey?");
+            if (!cfm) {
+                return;
+            }
 
-            // axios create LJ
-            // axios retrieve LJ id
-            // push to learningJourneys or smth
+            console.log(this.lj_details.lj_id);
+            let staff_id = localStorage.staff_id;
 
+            axios.post("PHP/functionDeleteLearningJourney.php", {
+                lj_id: this.lj_details.lj_id,
+                staff_id: staff_id,
+            })
+            .then(response => {
+                if (response.status == 200) {
+                    console.log(response);
+                    this.getLJbyStaffId();
+                    alert("Success!");
+                    window.location.href = "/is212lms/myjourney.html";
+                }
+            })
+            .catch(error => {
+                console.log(error.message);
+                console.log("Remove LJ fail");
+            });
         }
+
 
     },
     beforeMount(){

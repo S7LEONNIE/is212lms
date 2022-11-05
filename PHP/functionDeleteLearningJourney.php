@@ -2,13 +2,14 @@
 require_once "common.php";
 
 $_POST = json_decode(file_get_contents("php://input"), true);
-$lj_name = $_POST["lj_name"] ?? null;
+$lj_id = $_POST["lj_id"] ?? null;
+$staff_id = $_POST["staff_id"] ?? null;
 
 $ljDAO = new classLearningJourneyDAO();
 $status = FALSE;
 
 // $database = $itemDAO->loadByMonth($userId, $date[1], $date[0]);
-$status = $ljDAO->removeLearningJourney($lj_name);
+$status = $ljDAO->removeLearningJourney($lj_id, $staff_id);
 
 $result = [];
 
