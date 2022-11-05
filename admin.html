@@ -46,7 +46,7 @@
                 <button class="tab-selected" name="all">All</button>
                 <button name="role">Role</button>
                 <button name="skill">Skill</button>
-                <button name="skill">Course</button>
+                <button name="course">Course</button>
                 <button name="staff">Staff</button>
             </div>
 
@@ -188,6 +188,39 @@
                         <button class="action_button action_positive" v-on:click="updateSkill(updateSkillID)">Save</button>
                     </template>
                     <button class="action_button action_back admin-model_close skill">Cancel</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Course Model -->
+        <!-- Covers both Create and Update -->
+        <div class="admin-model course">
+            <div class="admin-model_content">
+                <div class="admin-model_header">
+                    <div class="title">Add Course</div>
+                    <i class="fa fa-times admin-model_close skill"></i>
+                </div>
+
+                <label>Course Name</label>
+                <input id="new_course_name" class="textbox" v-model="new_course_name">
+                <label>Description</label>
+                <input id="new_course_desc" class="textbox" v-model="new_course_desc">
+                <label>Course</label>
+                <select class="admin-model-course-select course" name="states[]" multiple="multiple">
+                    <option selected value="skill1">Skill1</option>
+                    <option value="skill2">Skill2</option>
+                    <option selected value="skill3">Skill3</option>
+                    <option value="skill4">Skill4</option>
+                </select>
+                
+                <div class="action-container">
+                    <template v-if="courseButtonAction == 'new'">
+                        <button class="action_button action_positive" v-on:click="createCourse">Save</button>
+                    </template>
+                    <template v-else-if="courseButtonAction == 'update'">
+                        <button class="action_button action_positive" v-on:click="updateCourse(updateCourseID)">Save</button>
+                    </template>
+                    <button class="action_button action_back admin-model_close course">Cancel</button>
                 </div>
             </div>
         </div>

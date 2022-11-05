@@ -86,6 +86,20 @@ $(document).ready(function(){
 		$('.admin-model.skill').toggle();
 	});
 
+	$("#admin-course-btn_new" ).on("click", function() { 
+		$('.admin-model_header .title').text('Add Course');
+		$('.admin-model.course').toggle();
+	});
+	
+	$(".admin-course-btn_update" ).on("click", function() { 
+		$('.admin-model_header .title').text('Update Course');
+		$('.admin-model.course').toggle();
+	});
+
+	$(".admin-model_close.course" ).on("click", function() { 
+		$('.admin-model.course').toggle();
+	});
+
 	$(".admin-staff-btn_view" ).on("click", function() { 
 		$('.admin-model_header .title').text('View Role');
 		$('.admin-model.staff .action_button.action_positive').hide();
