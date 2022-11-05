@@ -203,11 +203,9 @@ function generalSearch() {
 		} else {
 			$(".search-found-msg").hide();
 		}
-
 		$('.course-card').filter(function() {
 			$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
 		})
-
 		if ($('.course-card-container .course-card:visible').length == 0) {
 			$(".search-found-msg").show();
 		} else {
