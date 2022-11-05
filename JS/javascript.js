@@ -136,13 +136,14 @@ $(document).ready(function(){
 		}
 	});
 
-	$('#journey-model-filter').on("change", function () {
+	$('#journey-model-filter').on("click", function () {
+		console.log("k");
 		if (filterSetting == false) {
-			$(".course-card-container .course-card").sort(sortFilterAsc).appendTo('.course-card-container');
+			$(".overall-cards_wrapper .overall-cards").sort(sortFilterAsc).appendTo('.overall-cards_wrapper');
 			filterSetting = true;
 			$('#journey-model-filter').text("Z - A");
 		} else {
-			$(".course-card-container .course-card").sort(sortFilterDesc).appendTo('.course-card-container');
+			$(".overall-cards_wrapper .overall-cards").sort(sortFilterDesc).appendTo('.overall-cards_wrapper');
 			filterSetting = false;
 			$('#journey-model-filter').text("A - Z");
 		}

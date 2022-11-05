@@ -60,23 +60,17 @@
                         <button id="journey-model" class="action_button action_positive">New</button>
                     </div>
                 </div>
-
-                <div class="course-card-container">
-                    <div v-for="lj in learningJourneys" class="course-card">
-                        <div class="course-img">
+                <div class="overall-cards_wrapper">
+                    <div v-for="lj in learningJourneys" class="overall-cards">
+                        <a v-bind:href="'myjourney_detail.html?lj_id=' + lj.lj_id">
                             <img src="https://cdn.pixabay.com/photo/2016/11/22/21/26/notebook-1850613_960_720.jpg">
-                        </div>
-    
-                        <div class="course-title">{{ lj.lj_name }}</div>
-                        <!-- <div class="course-type">Total Skills Required: 10</div>
-                        <div class="course-type">Not Started: 1</div>
-                        <div class="course-type">On-going: 1</div>
-                        <div class="course-type">Completed: 1</div> -->
-                        <button class="btn myjourney-edit-btn">
-                            <a v-bind:href="'myjourney_detail.html?lj_id=' + lj.lj_id"> Edit </a>
-                        </button>
+                            <div class="banner-text">{{ lj.lj_name }}</div>
+                        </a>
                     </div>
                 </div>
+                    
+                <div class="search-found-msg">No results found</div>
+                
             </div>
         </div>
 
