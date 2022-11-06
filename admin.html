@@ -81,7 +81,7 @@
                     <button id="admin-course-btn_new" class="btn action_button" @click="courseButtonAction = 'new'">New</button>
                 </div>
 
-                <table id="skill-table" class="display responsive nowrap" width="100%">
+                <table id="course-table" class="display responsive nowrap" width="100%">
                     <!-- This is a Data Table -->
                 </table>
             </div>
@@ -198,27 +198,49 @@
             <div class="admin-model_content">
                 <div class="admin-model_header">
                     <div class="title">Add Course</div>
-                    <i class="fa fa-times admin-model_close skill"></i>
+                    <i class="fa fa-times admin-model_close course"></i>
                 </div>
 
                 <label>Course Name</label>
                 <input id="new_course_name" class="textbox" v-model="new_course_name">
                 <label>Description</label>
                 <input id="new_course_desc" class="textbox" v-model="new_course_desc">
-                <label>Course</label>
+                <label>Type</label>
+                <select id="new_course_type" v-model="new_course_type">
+                    <option value="Internal"> Internal </option>
+                    <option value="External"> External </option>
+                </select>
+                <label>Category</label>
+                <input id="new_course_category" class="textbox" v-model="new_course_category" maxlength="50">
+
+                <!-- <label>Skills</label>
                 <select class="admin-model-course-select course" name="states[]" multiple="multiple">
                     <option selected value="skill1">Skill1</option>
                     <option value="skill2">Skill2</option>
                     <option selected value="skill3">Skill3</option>
                     <option value="skill4">Skill4</option>
-                </select>
+                </select> -->
+                
+                <label>Skills</label>
+                <div>
+                    <div v-for="skill, index in skillsByCourse" v-bind:key="index">
+                        {{ skill.skill_name }}
+                        <button class="btn action_negative" v-on:click="skillsByCourse.splice(index, 1)"> Delete </button>
+                    </div>
+                    <select v-model="new_course_skill" v-on:change="if(new_course_skill) { skillsByCourse.push(new_course_skill) }; new_course_skill='';">
+                        <option value="">Select skill to add:</option>
+                        <option v-for="skill in skills" v-bind:key="skill.skill_id" v-bind:value="skill">
+                            {{ skill.skill_name }}
+                        </option>
+                    </select>
+                </div>
                 
                 <div class="action-container">
                     <template v-if="courseButtonAction == 'new'">
                         <button class="action_button action_positive" v-on:click="createCourse">Save</button>
                     </template>
                     <template v-else-if="courseButtonAction == 'update'">
-                        <button class="action_button action_positive" v-on:click="updateCourse(updateCourseID)">Save</button>
+                        <button class="action_button action_positive" v-on:click="updateCourse()">Save</button>
                     </template>
                     <button class="action_button action_back admin-model_close course">Cancel</button>
                 </div>

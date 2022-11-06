@@ -185,7 +185,7 @@ class classCourseDAO {
         return $coursesUnderManager;
     }
     
-    public function updateCourse($course_id, $course_name, $course_desc) {
+    public function updateCourse($course_id, $course_name, $course_desc, $course_type, $course_category) {
         
         // STEP 1: establish a connection
 
@@ -194,12 +194,17 @@ class classCourseDAO {
 
         // STEP 2: SQL commands
         $sql = "UPDATE course 
-                SET course_name = :course_name, course_desc = :course_desc
+                SET course_name = :course_name,
+                course_desc = :course_desc,
+                course_type = :course_type,
+                course_category = :course_category
                 WHERE course_id = :course_id;";
 
         $stmt = $conn->prepare($sql);
         $stmt->bindParam(':course_name', $course_name, PDO::PARAM_STR);
         $stmt->bindParam(':course_desc', $course_desc, PDO::PARAM_STR);
+        $stmt->bindParam(':course_type', $course_type, PDO::PARAM_STR);
+        $stmt->bindParam(':course_category', $course_category, PDO::PARAM_STR);
         $stmt->bindParam(':course_id', $course_id, PDO::PARAM_STR);
 
         // STEP 3: Run SQL
