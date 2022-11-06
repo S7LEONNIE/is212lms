@@ -783,8 +783,49 @@ const app = Vue.createApp({
                 console.log(error.message);
                 console.log("Remove LJ fail");
             });
-        }
+        },
 
+        editLJ() {
+            this.newLJName = this.lj_details.lj_name; 
+            this.coursesToAdd.push(...this.coursesByLJ);
+        },
+
+        updateLJ() {
+            axios.post("PHP/functionUpdateLJName.php", {
+                lj_id: this.lj_details.lj_id,
+                lj_name: this.newLJName
+            })
+            .then(response => {
+                if (response.status == 200) {
+                    console.log(response);
+                    this.lj_details.lj_name = this.newLJName;
+                }
+            })
+            .catch(error => {
+                console.log(error.message);
+                console.log("Update LJ fail");
+            });
+
+
+            axios.post("PHP/functionDropAllCoursesFromLJ.php", {
+                lj_id: this.lj_details.lj_id
+            })
+            .then(response => {
+                if (response.status == 200) {
+                    console.log(response);
+                    this.targetLJs.push(this.lj_details.lj_id);
+                    let courseIdList = this.coursesToAdd.map(course => course.course_id);
+                    this.coursesByLJ = this.coursesToAdd;
+                    this.coursesToAdd = courseIdList;
+                    this.addCourseToLJs(course_id = true, isArray = true);
+                }
+            })
+            .catch(error => {
+                console.log(error.message);
+                console.log("Update LJ fail");
+            });
+
+        }
 
     },
     beforeMount(){

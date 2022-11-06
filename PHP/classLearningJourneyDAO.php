@@ -240,6 +240,53 @@ class classLearningJourneyDAO {
         $conn = null;
         return $status;
     }
+    
+    public function dropAllCoursesFromLJ($lj_id) {
+        // STEP 1: establish a connection
+
+        $connMgr = new classConnectionManager();
+        $conn = $connMgr->connect();
+
+        // STEP 2: SQL commands: remove attached courses
+        $sql = "delete from lj_course where learning_journey_id = :lj_id";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':lj_id', $lj_id, PDO::PARAM_STR);
+
+        // STEP 3: Run SQL
+        $status = $stmt->execute();
+        $stmt->closeCursor();
+        
+        $pdo = null;
+        $stmt = null;
+        $conn = null;
+        return $status;
+    }
+    
+    public function updateLJName($lj_id, $lj_name) {
+        
+        // STEP 1: establish a connection
+
+        $connMgr = new classConnectionManager();
+        $conn = $connMgr->connect();
+
+        // STEP 2: SQL commands
+        $sql = "UPDATE learning_journey
+        SET lj_name = :lj_name 
+        WHERE lj_id = :lj_id;";
+
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':lj_id', $lj_id, PDO::PARAM_INT);
+        $stmt->bindParam(':lj_name', $lj_name, PDO::PARAM_STR);
+
+        // STEP 3: Run SQL
+        $status = $stmt->execute();
+
+        $stmt = null;
+        $conn = null;
+        return $status;
+    }
+
+
 }
 
 

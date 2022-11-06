@@ -105,7 +105,7 @@
             <div class="action-container">
                 <button class="action_button action_back" onclick="history.back()">Back</button>
                 <button @click="" class="action_button action_negative" v-on:click="deleteLJ">Delete</button>
-                <button id="journey-model" class="action_button action_positive">Edit</button>
+                <button id="journey-model" class="action_button action_positive" v-on:click="editLJ">Edit</button>
             </div>
         </div>
 
@@ -116,17 +116,19 @@
                     <i id="journey-model_close" class="fa fa-times"></i>
                 </div>
                 <label for="learning_journey_name">Learning Journey Name</label>
-                <input id="learning_journey_name" class="textbox" type="text">
+                <input id="learning_journey_name" class="textbox" type="text" v-model="newLJName">
                 <div class="journey-model_list">
-
-                    <div v-for="lj in learningJourneys">
-                        <input type="checkbox" v-bind:id="lj.role_id" v-bind:name="lj.role_id" v-bind:value="lj.role_id" v-model="targetLJs">
-                        <label v-bind:for="lj.role_id"> {{ lj.role_name }} </label>
-                    </div>
+                    <ul>
+                        <li v-for="(course, index) in coursesToAdd">
+                            {{ course.course_name }} <br/>
+                            <button class="action_button action_negative" v-on:click="coursesToAdd.splice(index,1)"> Remove </button> <br/>
+                        </li> <!-- <input type="checkbox" v-bind:id="course.course_id" v-bind:name="course.course_id" v-bind:value="course.course_id" v-model="coursesToAdd">
+                        <label v-bind:for="course.course_id"> {{ course.course_name }} </label> -->
+                    </ul>
                 </div>
 
                 <div class="action-container" v-if="!journeyCreate">
-                    <button v-on:click="addCourseToLJs" class="action_button action_positive">Save</button>
+                    <button v-on:click="updateLJ" class="action_button action_positive">Save</button>
                     <button class="action_button action_back" v-on:click="closeJourneyWindow">Cancel</button>
                 </div>
             </div>
