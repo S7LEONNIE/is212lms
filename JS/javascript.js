@@ -36,6 +36,25 @@ var skillsTable = $('#skill-table').DataTable({
 	]
 });
 
+var coursesTable = $('#course-table').DataTable({
+	scrollX: true,
+    scroller: true,
+	scrollY: 500,
+	responsive: true,
+	pageLength: 25,
+	lengthMenu: [25, 50, 75, 100],
+
+	data: [],
+	columns: [
+		{ title: 'id' },
+		{ title: 'Name' },
+		{ title: 'Status' },
+		{ title: 'Type' },
+		{ title: 'Category' },
+		{ title: '' } // this row is for update/delete buttons
+	]
+});
+
 $(document).ready(function(){
 	// Run our swapImages() function every 5secs
 	setInterval('carouselChange()', 8000);
@@ -84,6 +103,21 @@ $(document).ready(function(){
 
 	$(".admin-model_close.skill" ).on("click", function() { 
 		$('.admin-model.skill').toggle();
+	});
+
+	$("#admin-course-btn_new" ).on("click", function() { 
+		$('.admin-model_header .title').text('Add Course');
+		$('.admin-model.course').toggle();
+	});
+	
+	// moved to vue
+	// $(".admin-course-btn_update" ).on("click", function() {
+	// 	$('.admin-model_header .title').text('Update Course');
+	// 	$('.admin-model.course').toggle();
+	// });
+
+	$(".admin-model_close.course" ).on("click", function() { 
+		$('.admin-model.course').toggle();
 	});
 
 	$(".admin-staff-btn_view" ).on("click", function() { 
@@ -203,11 +237,9 @@ function generalSearch() {
 		} else {
 			$(".search-found-msg").hide();
 		}
-
 		$('.course-card').filter(function() {
 			$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
 		})
-
 		if ($('.course-card-container .course-card:visible').length == 0) {
 			$(".search-found-msg").show();
 		} else {

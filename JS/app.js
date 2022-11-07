@@ -11,16 +11,23 @@ const app = Vue.createApp({
             skillsAndCourses: [],
 
             roleButtonAction: "",
+            updateRoleID: "",
             new_role_name: "",
             new_role_desc: "",
             new_role_skill: "",
 
+            skillButtonAction: "",
+            updateSkillID: "",
             new_skill_name: "",
             new_skill_desc: "",
 
-            updateRoleID: "",
-            skillButtonAction: "",
-            updateSkillID: "",
+            courseButtonAction: "",
+            updateCourseID: "",
+            new_course_name: "",
+            new_course_desc: "",
+            new_course_type: "",
+            new_course_category: "",
+            new_course_skill: "",
 
             role_details_exists: true,
             role_details: {
@@ -170,7 +177,7 @@ const app = Vue.createApp({
                             skillsDT.push(skill_array);
                         }
                         skillsTable.rows.add(skillsDT).draw();                        
-                    }        
+                    }
                 }
                 })
                 .catch(error => {
@@ -183,6 +190,30 @@ const app = Vue.createApp({
                 .then(response => {
                 if (response.status == 200) {
                     this.courses = response.data.records
+
+
+                    if (coursesTable) {
+                        let coursesDT = [];
+                        for (course of this.courses) {
+                            let course_array = 
+                            [
+                                course.course_id, 
+                                course.course_name, 
+                                course.course_status,
+                                course.course_type,
+                                course.course_category,
+                                `
+                                <button onclick="vm.courseUpdateBtn(` 
+                                + course.course_id + `, '`
+                                + course.course_name
+                                + `')" class="admin-course-btn_update">Update</button>`
+                                // <button onclick="vm.courseDelete(` + course.course_id + `)">Delete</button>`
+                            ];
+                            coursesDT.push(course_array);
+                        }
+                        coursesTable.rows.add(coursesDT).draw();
+                    }
+
                 }
                 })
                 .catch(error => {
@@ -255,7 +286,7 @@ const app = Vue.createApp({
                         console.log(error.response.data.status);
                         this.role_details_exists = false;
                         });
-    
+
                     axios
                     .post("PHP/functionGetSkillsByRole.php", {
                         roleId: role_id,
@@ -269,7 +300,7 @@ const app = Vue.createApp({
                         console.log(error.message);
                     });
                 }
-    
+
                 catch {
                     this.role_details_exists = false;
                 }
@@ -306,7 +337,7 @@ const app = Vue.createApp({
                         console.log(error.response.data.status);
                         this.skill_details_exists = false;
                     });
-    
+
                     axios.post("PHP/functionGetCoursesBySkill.php", {
                         skill_id: skill_id,
                     })
@@ -325,7 +356,7 @@ const app = Vue.createApp({
             }
             else {this.skill_details_exists = false;}
         },
-        
+
         getCourseById(course_id = false) {
             if (!course_id) {
                 // url: 'skeleton_view_one_course?course_id=1&foo=1&bar=2');
@@ -350,6 +381,9 @@ const app = Vue.createApp({
                         if (response.status == 200) {
                             this.course_details_exists = true;
                             this.course_details = response.data.records;
+                            this.new_course_desc = this.course_details.course_desc;
+                            this.new_course_type = this.course_details.course_type;
+                            this.new_course_category = this.course_details.course_category;
                         }
                         })
                         .catch(error => {
@@ -478,6 +512,15 @@ const app = Vue.createApp({
             this.new_skill_desc = skill_desc;
             this.skillButtonAction = 'update';
             this.updateSkillID = skill_id;
+        },
+
+        courseUpdateBtn(course_id, course_name) {
+            this.courseButtonAction = 'update';
+            this.updateCourseID = course_id;
+            this.new_course_name = course_name;
+            this.getCourseById(course_id);
+            $('.admin-model_header .title').text('Update Course');
+            $('.admin-model.course').toggle();
         },
 
         roleDeleteBtn(role_id) {
@@ -634,8 +677,44 @@ const app = Vue.createApp({
                 console.log(error.message);
                 console.log("fail");
                 });
-
         },
+
+        updateCourse(){
+            let course_id = this.updateCourseID;
+            let course_name = this.new_course_name;
+            let course_desc = this.new_course_desc;
+            let course_type = this.new_course_type;
+            let course_category = this.new_course_category;
+            let course_skills_w_dup = this.skillsByCourse;
+            let course_skills = [];
+            for (let skill of course_skills_w_dup) {
+                let skill_id = skill['skill_id'];
+                if (!course_skills.includes(skill_id) ) {
+                    course_skills.push(skill_id)
+                }
+            }
+
+            axios.post("PHP/functionUpdateCourse.php", {
+                course_id: course_id,
+                course_name: course_name,
+                course_desc: course_desc,
+                course_type: course_type,
+                course_category: course_category,
+                course_skills: course_skills
+            })
+            .then(response => {
+                if (response.status == 200) {
+                    console.log(response);
+                    console.log("Successfully Updated course");
+                    window.location.reload();
+                }
+            })
+            .catch(error => {
+                console.log(error.message);
+                console.log("Update role fail");
+            });
+        },
+
         removingLearningJourney(){
             let lj_name = document.getElementById('lj_name').value;
             axios.post("PHP/functionDeleteLearningJourney.php", {
@@ -651,6 +730,7 @@ const app = Vue.createApp({
                 console.log("fail");
                 });
         },
+
         addCourseToLJs(course_id = null, isArray = false) {
             console.log(this.course_details);
             console.log(this.targetLJs);
@@ -693,38 +773,6 @@ const app = Vue.createApp({
             }
         },
         
-        updateCourse(){
-            let course_id = this.course_details.course_id;
-            let course_name = this.course_details.course_name;
-            let course_desc = this.course_details.course_desc;
-            let course_skills_w_dup = this.skillsByCourse;
-            let course_skills = [];
-            for (let skill of course_skills_w_dup) {
-                let skill_id = skill['skill_id'];
-                if (!course_skills.includes(skill_id) ) {
-                    course_skills.push(skill_id)
-                }
-            }
-
-            axios.post("PHP/functionUpdateCourse.php", {
-                course_id: course_id,
-                    course_name: course_name,
-                    course_desc: course_desc,
-                    course_skills: course_skills
-            })
-            .then(response => {
-                if (response.status == 200) {
-                    console.log(response);
-                    console.log("Successfully Updated course");
-                    window.location.reload();
-                }
-            })
-            .catch(error => {
-                console.log(error.message);
-                console.log("Update role fail");
-            });
-        },
-
         closeJourneyWindow() {
             $('.journey-model-edit, .journey-model').toggle();
         },
