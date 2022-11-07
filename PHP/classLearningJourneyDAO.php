@@ -113,7 +113,11 @@ class classLearningJourneyDAO {
     }
 
     public function addLearningJourney($lj_name, $staff_id, $role_id) {
-        
+
+        if(strlen($lj_name) > 50 || strlen($lj_name) == 0) {
+            return FALSE;
+        }
+
         // STEP 1: establish a connection
 
         $connMgr = new classConnectionManager();
@@ -182,7 +186,7 @@ class classLearningJourneyDAO {
         $conn = null;
         return $status;
     }
-    
+
     public function checkIfCourseInLJ($lj_id, $course_id) {
         $connMgr = new classConnectionManager();
         $conn = $connMgr->connect();
@@ -263,7 +267,11 @@ class classLearningJourneyDAO {
     }
     
     public function updateLJName($lj_id, $lj_name) {
-        
+
+        if(strlen($lj_name) > 50 || strlen($lj_name) == 0) {
+            return FALSE;
+        }
+                
         // STEP 1: establish a connection
 
         $connMgr = new classConnectionManager();
@@ -285,8 +293,6 @@ class classLearningJourneyDAO {
         $conn = null;
         return $status;
     }
-
-
 }
 
 
