@@ -1,7 +1,7 @@
 <?php
 
 // namespace Tests\Unit;
-require_once '.\PHP\classRoleDAO.php';
+require_once 'classRoleDAO.php';
 
 use Tests\Support\UnitTester;
 
