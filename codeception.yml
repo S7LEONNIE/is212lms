@@ -22,7 +22,7 @@ settings:
     shuffle: true
     lint: true
 paths:
-    tests: tests
+    tests: PHP
     output: tests/_output
     support: tests/Support
     data: tests/Support/Data
