@@ -1,9 +1,6 @@
 <?php
 
 // namespace Tests\Unit;
-
-// namespace PHP;
-
 require_once '.\PHP\classRole.php';
 
 use Tests\Support\UnitTester;
