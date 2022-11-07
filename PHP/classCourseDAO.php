@@ -187,6 +187,10 @@ class classCourseDAO {
     
     public function updateCourse($course_id, $course_name, $course_desc, $course_type, $course_category) {
         
+        if (!$course_id || !$course_name) {
+            return FALSE;
+        }
+
         // STEP 1: establish a connection
 
         $connMgr = new classConnectionManager();
@@ -214,6 +218,7 @@ class classCourseDAO {
         $conn = null;
         return $status;
     }
+
     public function clearSkillsFromCourse($course_id) {
         
         // STEP 1: establish a connection
