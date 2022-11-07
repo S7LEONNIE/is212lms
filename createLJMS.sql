@@ -11,18 +11,6 @@ create table staff (
 );
 
 insert into staff (staff_id, staff_fname, staff_lname, email, designation) values 
-    (1, 'John', 'Doe', 'john.doe@gmail.com', 1),
-    (2, 'Edel',  'Weiss', 'edel.weiss@gmail.com', 3),
-    (3, 'Simron', 'Ferzair', 'simron.ferzair@gmail.com', 1),
-    (4, 'Elro', 'Robins', 'elro.robins@gmail.com', 3),
-    (5, 'Annaliese', 'Fair', 'annaliese.fair@gmail.com', 2),
-    (6, 'Therrus', 'Lyrandar', 'therrus.lyrandar@gmail.com', 3),
-    (7, 'Lorentz', 'Kramer', 'lorentz.kramer@gmail.com', 2),
-    (8, 'Linnaeus', 'de Cona', 'linnaeus.decona@gmail.com', 3),
-    (9, 'Ceiren', 'Reyn', 'ceiren.reyn@gmail.com', 2),
-    (10, 'Ochrus', 'Athodo', 'ochrus.athodo@gmail.com', 3),
-    (11, 'Oscar', 'Bonnheim', 'oscar.bonnheim@gmail.com', 1),
-    (12, 'Violyn', 'von Volkslied', 'violyn.vonvolkslied@gmail.com', 3),
     (130001,'John' ,'Sim','jack.sim@allinone.com.sg', 1),
 	(130002,'Jack' ,'Sim','jack.sim@allinone.com.sg', 1),
 	(140001,'Derek' ,'Tan','Derek.Tan@allinone.com.sg', 3),
@@ -227,10 +215,10 @@ create table learning_journey (
 );
 
 insert into learning_journey (lj_id, lj_name, staff_id, role_id) values
-    (1, "John's Learning Journey", 1, 1),
-    (2, "Edel's Learning Journey", 2, 2),
-    (3, "Simron's Learning Journey", 3, 3),
-    (4, "Elro's Learning Journey", 4, 4);
+    (1, "One Learning Journey", 1, 1),
+    (2, "Two Learning Journey", 2, 2),
+    (3, "Three Learning Journey", 3, 3),
+    (4, "Four Learning Journey", 4, 4);
 
 create table skill (
     skill_id integer auto_increment primary key,
@@ -244,8 +232,6 @@ insert into skill (skill_id, skill_name, skill_desc, is_active) values
     (2, "Communications", "This skills makes you good at communication.", "active"),
     (3, "Super Communications", "This skills makes you very good at communication.", "active"),
     (4, "SQL", "This skill makes you good at DBMS.", "active"),
-    (5, "Meteor Swarm", "This skill does 40d6 fire and bludgeoning damage to all creatures in the area.", "active"),
-    (6, "Lightning Bolt", "This skill does 8d6 lightning damage in a 100ft line", "active"),
     (7, "Operator", "This skill makes you good at operations.", "active"),
     (8, "Technical Photography", "This skill makes you good at the Hardware equipment aspects of photography.", "active"),
     (9, "Marketing", "This skill makes you good at Digital Marketing.", "active"),
@@ -262,22 +248,6 @@ create table course (
 
 insert into course (course_id, course_name, course_desc,
                     course_status, course_type, course_category) values
-	(1, "Engineering Course", "This is about engineering",
-    "Active", "Internal", "Engineering"),
-    (2, "Super Engineering Course", "This is about rocket science",
-    "Active", "Internal", "Engineering"),
-    (3, "Communications Course", "This is about communication",
-    "Active", "External", "Communications"),
-    (4, "Management Communications Course", "This is an SMU course",
-    "Active", "External", "Super Communications"),
-    (5, "SQL Course", "This is a course about SQL",
-    "Active", "Internal", "Database"),
-    (6, "Retired SQL Course", "This is half a course about SQL",
-    "Retired", "Internal", "Database"),
-    (7, "Defense against the Dark Arts", "This is a course about magic",
-    "Active", "External", "Magic"),
-    (8, "Operations Course", "This is a course about Operations",
-    "Active", "Internal", "Operations"),
     ("COR001", "Systems Thinking and Design", "This foundation module aims to introduce students to the fundamental concepts and underlying principles of systems thinking",
     "Active", "Internal", "Core"),
     ("COR002", "Lean Six Sigma Green Belt Certification", "Apply Lean Six Sigma methodology and statistical tools such as Minitab to be used in process analytics",
