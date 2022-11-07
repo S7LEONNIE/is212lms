@@ -5,7 +5,7 @@ require_once '.\PHP\classRole.php';
 
 use Tests\Support\UnitTester;
 
-class MyTest extends \Codeception\Test\Unit
+class testRoleTest extends \Codeception\Test\Unit
 {
     protected UnitTester $tester;
 
