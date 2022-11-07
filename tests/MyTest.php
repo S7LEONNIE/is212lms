@@ -29,3 +29,7 @@ class MyTest extends \Codeception\Test\Unit
         // $this->assertTrue($user->validate(['username']));
     }
 }
+
+// vendor/bin/codecept run unit
+
+?>
