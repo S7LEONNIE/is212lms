@@ -39,6 +39,11 @@ class classRoleDAO {
         
         // STEP 1: establish a connection
 
+        if(strlen($role_name) > 50 || strlen($role_desc) > 255 || 
+           strlen($role_name) == 0) {
+            return FALSE;
+        }
+
         $connMgr = new classConnectionManager();
         $conn = $connMgr->connect();
 
@@ -171,7 +176,11 @@ class classRoleDAO {
         return $list_role;
     }
 
-    public function updateRole($role_id,$role_name, $role_desc) {
+    public function updateRole($role_id, $role_name, $role_desc) {
+
+        if(!$role_name) {
+            return FALSE;
+        }
         
         // STEP 1: establish a connection
 

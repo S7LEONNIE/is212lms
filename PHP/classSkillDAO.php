@@ -144,6 +144,10 @@ class classSkillDAO {
     }
 
     public function addSkill($skill_name, $skill_desc) {
+
+        if (!$skill_name) {
+            return FALSE;
+        }
         
         // STEP 1: establish a connection
 

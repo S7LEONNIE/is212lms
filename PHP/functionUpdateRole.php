@@ -23,7 +23,7 @@ if ($status){
 }
 else {
     http_response_code(404);
-    $status_msg += "Failed to update Role;";
+    $status_msg = $status_msg . "Failed to Update Role; ";
 }
 
 // add skills back to the role
