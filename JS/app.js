@@ -167,8 +167,8 @@ const app = Vue.createApp({
                                 skill.skill_desc, 
                                 skill.is_active,
                                 `
-                                <button onclick="vm.skillUpdateBtn(` 
-                                + skill.skill_id + `, '`
+                                <button onclick="vm.skillUpdateBtn('` 
+                                + skill.skill_id + `', '`
                                 + skill.skill_name + `', '`
                                 + skill.skill_desc
                                 + `')" class="admin-skill-btn_update">Update</button>
@@ -203,8 +203,8 @@ const app = Vue.createApp({
                                 course.course_type,
                                 course.course_category,
                                 `
-                                <button onclick="vm.courseUpdateBtn(` 
-                                + course.course_id + `, '`
+                                <button onclick="vm.courseUpdateBtn('` 
+                                + course.course_id + `', '`
                                 + course.course_name
                                 + `')" class="admin-course-btn_update">Update</button>`
                                 // <button onclick="vm.courseDelete(` + course.course_id + `)">Delete</button>`
@@ -742,6 +742,8 @@ const app = Vue.createApp({
                 course_id = this.course_details.course_id;
             }
 
+            console.log(course_id)
+
             if (!isArray) {
                 axios.post("PHP/functionAddCourseToLJ.php", {
                     course_id: course_id,
@@ -765,7 +767,7 @@ const app = Vue.createApp({
             else {
                 console.log("multicourse")
                 for (course of this.coursesToAdd) {
-                    this.addCourseToLJs(parseInt(course), isArray = false);
+                    this.addCourseToLJs(course, isArray = false);
                 }
                 console.log('successful add course to LJ');
                 alert("Success!");

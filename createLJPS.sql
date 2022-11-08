@@ -11,7 +11,7 @@ create table staff (
 );
 
 insert into staff (staff_id, staff_fname, staff_lname, email, designation) values 
-    (130001,'John' ,'Sim','jack.sim@allinone.com.sg', 1),
+    (130001,'John' ,'Sim','john.sim@allinone.com.sg', 1),
 	(130002,'Jack' ,'Sim','jack.sim@allinone.com.sg', 1),
 	(140001,'Derek' ,'Tan','Derek.Tan@allinone.com.sg', 3),
 	(140002,'Susan' ,'Goh','Susan.Goh@allinone.com.sg', 2),
@@ -178,19 +178,19 @@ create table department_staff (
     constraint department_staff_fk2 foreign key(department_id) references department(dept_id)
 );
 
-insert into department_staff (department_id, staff_id, is_manager) values
-    (1, 1, 0),
-    (1, 2, 1),
-    (2, 3, 0),
-    (2, 4, 1),
-    (3, 5, 0),
-    (3, 6, 1),
-    (4, 7, 0),
-    (4, 8, 1),
-    (5, 9, 0),
-    (5, 10, 1),
-    (6, 11, 0),
-    (6, 12, 1);
+-- insert into department_staff (department_id, staff_id, is_manager) values
+--     (1, 1, 0),
+--     (1, 2, 1),
+--     (2, 3, 0),
+--     (2, 4, 1),
+--     (3, 5, 0),
+--     (3, 6, 1),
+--     (4, 7, 0),
+--     (4, 8, 1),
+--     (5, 9, 0),
+--     (5, 10, 1),
+--     (6, 11, 0),
+--     (6, 12, 1);
 
 create table role (
     role_id integer auto_increment primary key,
@@ -215,10 +215,10 @@ create table learning_journey (
 );
 
 insert into learning_journey (lj_id, lj_name, staff_id, role_id) values
-    (1, "John's Learning Journey", 1, 1),
-    (2, "Edel's Learning Journey", 2, 2),
-    (3, "Simron's Learning Journey", 3, 3),
-    (4, "Elro's Learning Journey", 4, 4);
+    (1, "John's Learning Journey", 130001, 1),
+    (2, "Edel's Learning Journey", 130002, 2),
+    (3, "Simron's Learning Journey", 140001, 3),
+    (4, "Elro's Learning Journey", 140002, 4);
 
 create table skill (
     skill_id integer auto_increment primary key,
@@ -322,20 +322,20 @@ create table course_skill (
 );
 
 insert into course_skill (course_id, skill_id) values
-    (1, 1),
-    (2, 1),
-    (3, 2),
-    (4, 2),
-    (4, 3),
-    (5, 4),
-    (6, 4),
-    (7, 5),
-    (7, 6),
-    (8, 7),
-    (8,2),
-    (8,8),
-    (8,9),
-    (8,10);
+    ("COR001", 1),
+    ("COR002", 1),
+    ("COR004", 2),
+    ("COR006", 2),
+    ("MGT001", 3),
+    ("MGT002", 4),
+    ("MGT003", 4),
+    ("MGT004", 5),
+    ("MGT007", 6),
+    ("SAL001", 7),
+    ("SAL002",2),
+    ("SAL003",8),
+    ("tch001",9),
+    ("tch002",10);
 
 create table role_skill (
     role_id integer,
@@ -364,18 +364,18 @@ create table lj_course (
 );
 
 insert into lj_course (learning_journey_id, course_id) values
-    (1, 1),
-    (1, 2),
-    (1, 3),
-    (2, 2),
-    (2, 4),
-    (2, 7),
-    (3, 3),
-    (3, 6),
-    (3, 8),
-    (4, 2),
-    (4, 7),
-    (4, 8);
+    (1, "COR001"),
+    (1, "MGT001"),
+    (1, "SAL001"),
+    (2, "COR001"),
+    (2, "tch001"),
+    (2, "tch003"),
+    (3, "COR001"),
+    (3, "SAL001"),
+    (3, "MGT002"),
+    (4, "FIN001"),
+    (4, "COR002"),
+    (4, "tch003");
 
 create table registration (
     reg_id integer auto_increment PRIMARY KEY,
@@ -390,18 +390,6 @@ create table registration (
 
 insert into registration (staff_id, course_id, 
                         reg_status, completion_status) values
-    (1, 1, "Registered", "Completed"),
-    (2, 3, "Registered", "Completed"),
-    (3, 4, "Waitlist", "Not Completed"),
-    (4, 1, "Rejected", "Not Completed"),
-    (5, 8, "Waitlist", "Not Completed"),
-    (6, 2, "Registered", "Not Completed"),
-    (7, 5, "Registered", "Completed"),
-    (8, 6, "Rejected", "Not Completed"),
-    (9, 7, "Registered", "Completed"),
-    (10, 7, "Waitlist", "Not Completed"),
-    (11, 8, "Registered", "Completed"),
-    (12, 4, "Waitlist", "Completed"),
     (130001, 'COR001', 'Registered', 'Completed'),
 	(130001, 'COR002', 'Registered', 'Completed'),
 	(130002, 'COR002', 'Registered', 'Completed'),
@@ -791,16 +779,16 @@ create table staff_skill (
     constraint staff_skill_fk2 foreign key(skill_id) references skill(skill_id)
 );
 
-insert into staff_skill (staff_id, skill_id) values
-    (1, 1),
-    (2, 2),
-    (3, 3),
-    (4, 2),
-    (5, 4),
-    (6, 7),
-    (7, 3),
-    (8, 6),
-    (9, 3),
-    (10, 2),
-    (11, 7),
-    (12, 1);
+-- insert into staff_skill (staff_id, skill_id) values
+--     (1, 1),
+--     (2, 2),
+--     (3, 3),
+--     (4, 2),
+--     (5, 4),
+--     (6, 7),
+--     (7, 3),
+--     (8, 6),
+--     (9, 3),
+--     (10, 2),
+--     (11, 7),
+--     (12, 1);
