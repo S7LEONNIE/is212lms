@@ -9,7 +9,7 @@ suites:
                 # add more modules here
                 - Asserts
                 - Db:
-                    dsn: 'mysql:host=localhost;dbname=spm_ljms_db'
+                    dsn: 'mysql:host=localhost;dbname=spm_ljps_db'
                     user: 'root'
                     password: ''
                     cleanup: true # run populator before each test
