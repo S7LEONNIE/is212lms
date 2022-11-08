@@ -15,7 +15,7 @@ suites:
                     cleanup: true # run populator before each test
                     populate: true # run populator before all test
                     # populator: 'mysql -u $user $dbname < tests/Support/Data/dump.sql'
-                    dump: 'createLJMSdummy.sql'
+                    dump: 'createLJPSdummy.sql'
         step_decorators: ~
 
 settings:
