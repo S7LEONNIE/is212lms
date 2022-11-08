@@ -6,7 +6,7 @@ class classConnectionManager {
         $servername = 'localhost';
         $username = 'root';
         $password = '';
-        $dbname = 'SPM_LJMS_DB';
+        $dbname = 'SPM_LJPS_DB';
         
         // Create connection
         $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);     
