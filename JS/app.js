@@ -901,7 +901,7 @@ app.component('navbar-component', {
     <div class="Navbar__Wrapper">
         <div class="Navbar">
             <div class="Navbar__Link Navbar__Link-brand">
-                LJMS
+                LJPS
             </div>
             <div onclick="classToggle()" class="Navbar__Link Navbar__Link-toggle">
                 <i class="fas fa-bars"></i>
