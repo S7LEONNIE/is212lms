@@ -6,7 +6,7 @@
 - Ensure classConnectManager.php server connection settings are accurate, depending on platform
 - Ensure server is running (WAMP/MAMP/XAMMP)
 - Run code from the following file in phpmyadmin or sqlworkbench for database creation
-'''createLJMS.sql
+'''createLJPS.sql
 '''
 - Visit site
 
