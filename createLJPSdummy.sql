@@ -1,6 +1,6 @@
-drop database if exists SPM_LJMS_DB;
-create database SPM_LJMS_DB;
-use SPM_LJMS_DB;
+drop database if exists SPM_LJPS_DB;
+create database SPM_LJPS_DB;
+use SPM_LJPS_DB;
 
 create table staff (
     staff_id integer primary key,
