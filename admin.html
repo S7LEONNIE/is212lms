@@ -173,12 +173,6 @@
                 <label>Description</label>
                 <input id="new_skill_desc" class="textbox" v-model="new_skill_desc">
                 <label>Course</label>
-                <select class="admin-model-course-select staff" name="states[]" multiple="multiple">
-                    <option selected value="skill1">Skill1</option>
-                    <option value="skill2">Skill2</option>
-                    <option selected value="skill3">Skill3</option>
-                    <option value="skill4">Skill4</option>
-                </select>
                 
                 <div class="action-container">
                     <template v-if="skillButtonAction == 'new'">
@@ -267,14 +261,6 @@
 
                 <label>Department</label>
                 <input class="textbox">
-
-                <label>Skills</label>
-                <select class="admin-model-select staff" name="states[]" multiple="multiple">
-                    <option selected value="skill1">Skill1</option>
-                    <option value="skill2">Skill2</option>
-                    <option selected value="skill3">Skill3</option>
-                    <option value="skill4">Skill4</option>
-                </select>
 
                 <label>Learning Journey</label>
                 <select class="admin-model-select learning-journey" name="state">
