@@ -9,6 +9,12 @@
 > createLJPS.sql
 - Visit site
 
+### Note
+Please use the following test emails to test the different roles
+Staff: Susan.Goh@allinone.com.sg
+Manager: Derek.Tan@allinone.com.sg
+HR/ADMIN: 'john.sim@allinone.com.sg
+
 ## Stack
 - Vue3
 - PHP 8
@@ -31,6 +37,9 @@
 5. Open Terminal or CMD and navigate to project root folder
 6. Run command to start testing
 > vendor/bin/codecept run unit
+
+## Figma Design
+> https://www.figma.com/file/FGADwf4Naj4dYSpPi83lE2/LMS-Mockup?node-id=0%3A1 
 
 ## Team Members
 - daniel.chng.2020@scis.smu.edu.sg
