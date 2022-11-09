@@ -3,9 +3,9 @@
 class classConnectionManager {
 
     public function connect() {
-        $servername = '127.0.0.1';
+        $servername = 'localhost';
         $username = 'root';
-        $password = 'root';
+        $password = '';
         $dbname = 'SPM_LJPS_DB';
         
         // Create connection
