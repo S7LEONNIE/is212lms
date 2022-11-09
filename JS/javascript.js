@@ -158,7 +158,6 @@ $(document).ready(function(){
 	});
 
 	$('.filter-itemlist-role').on("click", function () {
-		console.log('e');
 		if ($('.filter-itemlist-role input:checkbox').is(':checked')) {
 			$('.course-card').hide();
 			$('.filter-itemlist-role input:checkbox:checked').each(function() {
@@ -171,7 +170,6 @@ $(document).ready(function(){
 	});
 
 	$('#journey-model-filter').on("click", function () {
-		console.log("k");
 		if (filterSetting == false) {
 			$(".overall-cards_wrapper .overall-cards").sort(sortFilterAsc).appendTo('.overall-cards_wrapper');
 			filterSetting = true;
