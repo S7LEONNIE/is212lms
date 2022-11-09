@@ -1,6 +1,0 @@
-composer require "codeception/codeception" --dev
-php vendor/bin/codecept init Unit
-tests
-y
-y
-composer require codeception/module-db --dev
