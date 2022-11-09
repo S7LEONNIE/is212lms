@@ -96,7 +96,6 @@ const app = Vue.createApp({
             )
             .then(response => {
                 if (response.status == 200) {
-                    console.log(response);
                     localStorage.setItem("staff_id", response.data.records.staff_id);
                     localStorage.setItem("staff_fName", response.data.records.staff_fName);
                     localStorage.setItem("staff_lName", response.data.records.staff_lName);
@@ -601,7 +600,6 @@ const app = Vue.createApp({
                 .then(response => {
                 if (response.status == 200) {
                     console.log('successful add role');
-                    console.log(response)
                     window.location.reload();
                 }
                 })
@@ -630,7 +628,6 @@ const app = Vue.createApp({
             })
                 .then(response => {
                 if (response.status == 200) {
-                    console.log(response);
                     console.log("Successfully Updated Role");
                     window.location.reload();
                 }
@@ -669,7 +666,6 @@ const app = Vue.createApp({
                 .then(response => {
                 if (response.status == 200) {
                     console.log('successful add skills');
-                    console.log(response)
                     window.location.reload();
                 }
                 })
@@ -704,7 +700,6 @@ const app = Vue.createApp({
             })
             .then(response => {
                 if (response.status == 200) {
-                    console.log(response);
                     console.log("Successfully Updated course");
                     window.location.reload();
                 }
@@ -722,7 +717,7 @@ const app = Vue.createApp({
             })
                 .then(response => {
                 if (response.status == 200) {
-                    console.log('successful remove learning journey');
+                    // console.log('successful remove learning journey');
                 }
                 })
                 .catch(error => {
@@ -732,8 +727,6 @@ const app = Vue.createApp({
         },
 
         addCourseToLJs(course_id = null, isArray = false) {
-            console.log(this.course_details);
-            console.log(this.targetLJs);
 
             let temp = false;
             if (!course_id) { 
@@ -742,8 +735,6 @@ const app = Vue.createApp({
                 course_id = this.course_details.course_id;
             }
 
-            console.log(course_id)
-
             if (!isArray) {
                 axios.post("PHP/functionAddCourseToLJ.php", {
                     course_id: course_id,
@@ -751,9 +742,7 @@ const app = Vue.createApp({
                 })
                     .then(response => {
                     if (response.status == 200) {
-                        console.log(response);
                         if(temp) {
-                            console.log('successful add course to LJ');
                             alert("Success!");
                             $('.journey-model').toggle();
                         }
@@ -769,7 +758,6 @@ const app = Vue.createApp({
                 for (course of this.coursesToAdd) {
                     this.addCourseToLJs(course, isArray = false);
                 }
-                console.log('successful add course to LJ');
                 alert("Success!");
                 $('.journey-model').toggle();
             }
@@ -783,8 +771,6 @@ const app = Vue.createApp({
             if (!this.newLJName || !this.newLJRole) {
                 return;
             }
-            console.log(this.newLJName);
-            console.log(this.newLJRole);
             let staff_id = localStorage.staff_id;
 
             axios.post("PHP/functionAddLearningJourney.php", {
@@ -794,7 +780,6 @@ const app = Vue.createApp({
             })
             .then(response => {
                 if (response.status == 200) {
-                    console.log(response);
                     this.getLJbyStaffId();
                     alert("Success!");
                 }
@@ -814,7 +799,6 @@ const app = Vue.createApp({
                 return;
             }
 
-            console.log(this.lj_details.lj_id);
             let staff_id = localStorage.staff_id;
 
             axios.post("PHP/functionDeleteLearningJourney.php", {
@@ -823,7 +807,6 @@ const app = Vue.createApp({
             })
             .then(response => {
                 if (response.status == 200) {
-                    console.log(response);
                     this.getLJbyStaffId();
                     alert("Success!");
                     window.location.href = "/is212lms/myjourney.html";
@@ -847,7 +830,6 @@ const app = Vue.createApp({
             })
             .then(response => {
                 if (response.status == 200) {
-                    console.log(response);
                     this.lj_details.lj_name = this.newLJName;
                 }
             })
@@ -862,7 +844,6 @@ const app = Vue.createApp({
             })
             .then(response => {
                 if (response.status == 200) {
-                    console.log(response);
                     this.targetLJs.push(this.lj_details.lj_id);
                     let courseIdList = this.coursesToAdd.map(course => course.course_id);
                     this.coursesByLJ = this.coursesToAdd;
